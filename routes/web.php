@@ -40,4 +40,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::resource('fairs', 'FairController');
+Route::resource('fair', 'FairController');
