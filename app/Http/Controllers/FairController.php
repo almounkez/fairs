@@ -39,9 +39,9 @@ class FairController extends Controller
     {
         //
         $request->validate([
-            'logo_ar' => 'sometime|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'logo_en' => 'sometime|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'name_ar'=>'required|unique:fairs,name_ar'
+            'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'name_ar'=>'required|unique:fairs,name_ar',
             'name_en'=>'required|unique:fairs,name_en'
             ]);
 
