@@ -15,6 +15,9 @@ class MarqueeController extends Controller
     public function index()
     {
         //
+        $products = Products::all()->latest();
+return view('product.index', compact('products'));
+
     }
 
     /**

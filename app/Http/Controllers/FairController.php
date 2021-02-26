@@ -14,7 +14,7 @@ class FairController extends Controller
      */
     public function index()
     {
-        $fairs=Fair::all()->latest();
+        $fairs=Fair::all()->latest()->get();
         return view('fair.index',compact('fairs'));
     }
 
@@ -37,6 +37,7 @@ class FairController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
