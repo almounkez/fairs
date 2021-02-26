@@ -59,6 +59,8 @@ class FairController extends Controller
     public function edit(Fair $fair)
     {
         //
+        return view('fair.crupd',compact('fair'));
+
     }
 
     /**
