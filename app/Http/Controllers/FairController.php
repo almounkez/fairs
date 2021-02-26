@@ -14,7 +14,7 @@ class FairController extends Controller
      */
     public function index()
     {
-        $fairs=Fair::all()->latest()->get();
+        $fairs=Fair::latest();
         return view('fair.index',compact('fairs'));
     }
 
@@ -85,5 +85,8 @@ class FairController extends Controller
     public function destroy(Fair $fair)
     {
         //
+        $fair->delete();
+        return redirect(route('fair.index'));
+
     }
 }
