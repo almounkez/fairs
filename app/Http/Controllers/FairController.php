@@ -25,7 +25,7 @@ class FairController extends Controller
      */
     public function create()
     {
-       return view('category.crupd');
+       return view('fair.crupd');
     }
 
     /**

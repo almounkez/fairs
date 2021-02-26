@@ -20,6 +20,7 @@ Route::get('locale/{locale}', function ($locale) {
     App::setLocale($locale);
     return redirect()->back();
 });
+
 Route::get('/clear', function() {
 
    Artisan::call('cache:clear');
@@ -37,3 +38,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::resource('fairs', 'FairController');
