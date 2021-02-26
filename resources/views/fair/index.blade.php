@@ -5,9 +5,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Fairs') }}
-                    <a href="{{ route('fair.create') }}">
+                    {{-- <a href="{{ route('fair.index') }}">
                         <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36"
-                            width="36"></span></a>
+                            width="36"></span></a> --}}
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -26,7 +26,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($fairs as $fair)
+                            if (is_array($fairs) || is_object($fairs)){
+
+
+                            @foreach($fairs as $fair)
                                 <tr>
                                     <th scope="row">
                                         <a href="{{ route('fair.edit', $fair->id) }}"><span class="iconify"
@@ -72,6 +75,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            }
                         </tbody>
                     </table>
                 </div>
