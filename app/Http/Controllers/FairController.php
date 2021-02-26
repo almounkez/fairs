@@ -51,13 +51,13 @@ class FairController extends Controller
             $logo_arfile=request()->file('logo_ar');
             $logo_arname=time().".".$request->logo_ar->extension();
             $logo_arfilepath = public_path('/storage/fairs/');
-            $logo_arfile->move($imagefilepath, $logo_arname);
+            $logo_arfile->move($logo_arfilepath, $logo_arname);
        }
         if (request()->hasfile('logo_en')) {
             $logo_enfile = request()->file('logo_en');
             $logo_enname = time() . "." . $request->logo_en->extension();
             $logo_enfilepath = public_path('/storage/fairs/');
-            $logo_enfile->move($imagefilepath, $logo_enname);
+            $logo_enfile->move($logo_enfilepath, $logo_enname);
         }
 
         $fair=fair::create($request->all());
