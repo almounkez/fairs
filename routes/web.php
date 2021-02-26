@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('locale/{locale}', function ($locale) {
+    if (!in_array($locale, ['en', 'ar'])) {
+        abort(400);
+    }
+    Session::put('locale', $locale);
+    App::setLocale($locale);
+    return redirect()->back();
+});
 
 Route::get('/', function () {
     return view('welcome');
