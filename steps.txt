@@ -24,7 +24,8 @@ next
 git add .
 git commit -m 'update steps'
 git push
+----------------
+git Pull
 
-Pull
 
 
