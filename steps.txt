@@ -1,0 +1,4 @@
+php artisan make:model Fair -m -c -r
+php artisan make:model Suite -m -c -r
+make it for all tables
+git init
