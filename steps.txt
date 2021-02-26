@@ -3,3 +3,28 @@ php artisan make:model Suite -m -c -r
 make it for all tables
 git init
 STEP 1: Create a laravel project.
+STEP 1: Create a laravel project.
+STEP 2: Install Git
+STEP 3: Create an account on Github.
+STEP 4: Make a repository on Github.
+STEP 5: Pushing over GitHub
+1. Open git bash in laravel project directory
+2. In git bash enter the following command.
+> git init
+Next Add the file to git.
+> git add .
+Next Commit the changes by suitable commit message.
+git commit -m 'Step 01'
+> git remote add origin https://github.com/almounkez/fairs.git
+Last but not the least, push it to github.
+> git push -u -f origin master
+to
+
+next
+git add .
+git commit -m 'update steps'
+git push
+
+Pull
+
+
