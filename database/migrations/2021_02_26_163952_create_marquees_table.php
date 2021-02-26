@@ -15,10 +15,10 @@ class CreateMarqueesTable extends Migration
     {
         Schema::create('marquees', function (Blueprint $table) {
             $table->id();
-                        $table->unsignedBigInteger('fair_id')->nullable();
+            $table->unsignedBigInteger('fair_id')->nullable();
             $table->unsignedBigInteger('suite_id')->nullable();
-                                                $table->string('newstext_ar');
-$table->string('newstext_en');
+            $table->string('newstext_ar');
+            $table->string('newstext_en');
 
             $table->timestamps();
         });

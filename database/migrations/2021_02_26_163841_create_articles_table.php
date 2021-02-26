@@ -15,15 +15,15 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-                        $table->unsignedBigInteger('suite_id');
+            $table->unsignedBigInteger('suite_id');
 
-                                    $table->string('title_ar');
-$table->string('title_en');
+            $table->string('title_ar');
+            $table->string('title_en');
 
             $table->longtext('descp_ar');
-$table->longtext('descp_en');
-     $table->string('imgfile')->nullable();
-     
+            $table->longtext('descp_en');
+            $table->string('imgfile')->nullable();
+
             $table->unsignedBigInteger('hits')->default(0);
             $table->timestamps();
         });

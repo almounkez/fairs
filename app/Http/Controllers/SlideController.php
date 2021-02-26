@@ -15,6 +15,9 @@ class SlideController extends Controller
     public function index()
     {
         //
+        $slides = Slide::latest();
+        return view('slide.index', compact('slides'));
+
     }
 
     /**
