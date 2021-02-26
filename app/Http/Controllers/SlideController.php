@@ -15,8 +15,8 @@ class SlideController extends Controller
     public function index()
     {
         //
-        $products = Products::all()->latest();
-return view('product.index', compact('products'));
+        $slides = Slide::latest();
+        return view('slide.index', compact('slides'));
 
     }
 

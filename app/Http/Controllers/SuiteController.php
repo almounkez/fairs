@@ -15,8 +15,8 @@ class SuiteController extends Controller
     public function index()
     {
         //
-        $products = Products::all()->latest();
-return view('product.index', compact('products'));
+        $suites = Suite::all()->latest();
+        return view('suite.index', compact('suites'));
 
     }
 
