@@ -16,19 +16,16 @@
                                 <th scope="col">#</th>
                                 <th scope="col">{{ __('Arabic Name') }}</th>
                                 <th scope="col">{{ __('English Name') }}</th>
-                                <th scope="col">{{ __('Arabic Logo') }}</th>
-                                <th scope="col">{{ __('English Logo') }}</th>
                                 <th scope="col">{{ __('Start Date') }}</th>
                                 <th scope="col">{{ __('End Date') }}</th>
                                 <th scope="col">{{ __('active') }}</th>
+                                <th scope="col">{{ __('Arabic Logo') }}</th>
+                                <th scope="col">{{ __('English Logo') }}</th>
                                 <th scope="col">{{ __('hits') }}</th>
                                 <th scope="col" width="150">{{ __('Control') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
-
                             @foreach($fairs as $fair)
                                 <tr>
                                     <th scope="row">
@@ -54,6 +51,8 @@
                                         @if (!empty($fair->end_date))
                                             {!! $fair->end_date !!} @endif
                                     </td>
+<td>{{ $fair->active }} </td>
+
 
                                     <td><img src="{{ asset('storage/fairs/' . $fair->logo_en) }}" width="25%"
                                             class="img-fluid img-thumbnail">
@@ -62,6 +61,7 @@
                                     <td><img src="{{ asset('storage/fairs/' . $fair->logo_ar) }}" width="25%"
                                             class="img-fluid img-thumbnail">
                                     </td>
+                                    <td>{{ $fair->hits }}</td>
                                     <td>
 
                                         <form action="{{ route('fair.destroy', $fair->id) }}" method="POST">

@@ -15,8 +15,7 @@ class FairController extends Controller
      */
     public function index()
     {
-        $fairs=Fair::latest();
-        dd($fairs);
+        $fairs=Fair::all();
         return view('fair.index',compact('fairs'));
 
     }
@@ -48,6 +47,7 @@ class FairController extends Controller
             ]);
 
         $logo_arname="";
+         $logo_enname="";
         if(request()->hasfile('logo_ar'))
         {
             $logo_arfile=request()->file('logo_ar');
@@ -105,6 +105,32 @@ class FairController extends Controller
     public function update(Request $request, Fair $fair)
     {
         //
+$fair->update($request->all());
+         if(request()->hasfile('logo_ar'))
+        {
+            $logo_arfile=request()->file('logo_ar');
+            $logo_arname=time().".".$request->logo_ar->extension();
+            $logo_arfilepath = public_path('/storage/fairs/');
+            $logo_arfile->move($logo_arfilepath, $logo_arname);
+              if( $fair->logo_ar != null) {
+                File::delete($logo_arfilepath. $fair->logo_ar);
+            }
+            $fair->logo_ar=$logo_arname;
+       }
+        if (request()->hasfile('logo_en')) {
+            $logo_enfile = request()->file('logo_en');
+            $logo_enname = time() . "." . $request->logo_en->extension();
+            $logo_enfilepath = public_path('/storage/fairs/');
+            $logo_enfile->move($logo_enfilepath, $logo_enname);
+        if( $fair->logo_en != null) {
+                File::delete($logo_enfilepath. $fair->logo_en);
+            }
+             $fair->logo_en=$logo_enname;
+        }
+ if (!$request->has('active')){        $fair->active=0;        $oksave =1;        }
+        $fair->save();
+        return redirect(route('fair.index'));
+
     }
 
     /**
