@@ -16,7 +16,9 @@ class FairController extends Controller
     public function index()
     {
         $fairs=Fair::latest();
+        dd($fairs);
         return view('fair.index',compact('fairs'));
+
     }
 
     /**
@@ -63,7 +65,7 @@ class FairController extends Controller
         $fair=fair::create($request->all());
         $fair->logo_ar=$logo_arname;
         $fair->logo_en=$logo_enname;
-         $fair->save();
+        $fair->save();
         return redirect(route('fair.index'));
     }
 
