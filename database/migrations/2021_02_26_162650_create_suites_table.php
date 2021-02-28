@@ -16,6 +16,7 @@ class CreateSuitesTable extends Migration
         Schema::create('suites', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fair_id');
+            
             $table->unsignedBigInteger('user_id');
             $table->string('logo_en')->nullable();
             $table->string('logo_ar')->nullable();

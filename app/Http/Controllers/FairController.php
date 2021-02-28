@@ -40,12 +40,15 @@ class FairController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
+        $validator = $request->validate([
             'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'name_ar' => 'required|unique:fairs,name_ar',
             'name_en' => 'required|unique:fairs,name_en',
         ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput();
+        }
 
         $logo_arname = "";
         $logo_enname = "";
@@ -103,6 +106,15 @@ class FairController extends Controller
     public function update(Request $request, Fair $fair)
     {
         //
+         $validator =$request->validate([
+            'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'name_ar' => 'required|unique:fairs,name_ar',
+            'name_en' => 'required|unique:fairs,name_en',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput();
+        }
         $logo_arname = $fair->logo_ar;
         $logo_enname = $fair->logo_en;
 
@@ -117,7 +129,6 @@ class FairController extends Controller
             $logo_arfile->move($logo_arfilepath, $logo_arname);
         }
 
-        // dd($logo_enname);
         if (request()->hasfile('logo_en')) {
             $logo_enfilepath = public_path('/storage/fairs/');
             if ($fair->logo_en != null) {

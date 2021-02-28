@@ -27,6 +27,7 @@
 
     <body>
         <div id="app">
+            {{-- top navbar --}}
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -80,6 +81,9 @@
                     </div>
                 </div>
             </nav>
+            {{-- end top navebar --}}
+            
+            {{-- validation error message --}}
             @if ($errors->any())
             <div class="alert alert-danger" role="alert">
                 @foreach ($errors->all() as $error)
@@ -87,9 +91,13 @@
                 @endforeach
             </div>
             @endif
+            {{-- end validation meesage --}}
+
+            {{-- main content --}}
             <main class="py-4">
                 @yield('content')
             </main>
+            {{-- end main content --}}
         </div>
     </body>
 

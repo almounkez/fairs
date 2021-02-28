@@ -16,9 +16,11 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('suite_id');
+            $table->unsignedBigInteger('cat_id');
+
             $table->string('name_ar');
             $table->string('name_en');
-            $table->unsignedBigInteger('cat_id');
+
             $table->string('sub_id')->nullable();
             $table->string('imgfile')->nullable();
             $table->boolean('active')->nullable()->default(true);
