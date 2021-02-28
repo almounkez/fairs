@@ -122,11 +122,18 @@ class SuiteController extends Controller
     {
         //
 
+        $user= $suite->user;
+        $user->name=$request->userName;
+        $user->passowrd= Hash::make($request['password']);
+
+        $user->save();
+        
         $logo_arname = $suite->logo_ar;
         $logo_enname = $suite->logo_en;
 
 $input = $request->except(['userName', 'email','password','password_confirmation','logo_ar','logo_en']);
 // dd($input);
+
         $suite->update($input);
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/suites/');
