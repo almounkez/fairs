@@ -5,9 +5,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Fairs') }}
-                <a href="{{ route('fair.create') }}">
-                    <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36"
-                        width="36"></span></a>
+
+                <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('fair.create')}}">
+                    <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+                </a>
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -30,9 +32,7 @@
                             @foreach($fairs as $fair)
                             <tr>
                                 <th scope="row">
-                                    <a href="{{ route('fair.edit', $fair->id) }}"><span class="iconify"
-                                            data-icon="feather:edit" data-inline="false" height="36" width="36">
-                                            {{ $fair->id }}</span></a>
+                                    {{$fair->id}}
                                 </th>
                                 <td>
                                     @if (!empty($fair->name_ar))
@@ -74,11 +74,18 @@
                                     </form> --}}
                                     <div class="btn-group-justified">
                                         <div class="btn-group">
-                                            <a class="btn btn-outline-warning rounded-circle" href="{{route('fair.manage',$fair->id)}}">
+                                            <a class="btn btn-outline-warning rounded-circle"
+                                                href="{{route('fair.manage',$fair->id)}}">
                                                 <i class="zmdi zmdi-settings"></i>
                                             </a>
-                                            </div>
-                                            <div class="btn-group">
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-secondary rounded-circle"
+                                                href="{{ route('fair.edit', $fair->id) }}">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
                                             <form action="{{ route('fair.destroy', $fair->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')

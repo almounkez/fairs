@@ -73,7 +73,7 @@
                                         <div class="btn-group">
                                             <a class="btn btn-outline-warning rounded-circle"
                                                 href="{{route('suite.edit',$suite->id)}}">
-                                                <i class="zmdi zmdi-settings"></i>
+                                                <i class="zmdi zmdi-edit"></i>
                                             </a>
                                         </div>
                                         <div class="btn-group">
