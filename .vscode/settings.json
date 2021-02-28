@@ -1,0 +1,6 @@
+{
+    "editor.acceptSuggestionOnEnter": "smart",
+    "mssql.copyRemoveNewLine": false,
+    "files.insertFinalNewline": true,
+    "html.format.endWithNewline": true
+}

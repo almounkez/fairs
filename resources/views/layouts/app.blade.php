@@ -20,6 +20,7 @@
 
         </ <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/zmdi.css') }}">
         <link rel="stylesheet" href="{{ asset('css/material-design-iconic-font.min.css') }}">
         <script src="{{ asset('js/iconify.min.js') }}"></script>
 
@@ -82,7 +83,7 @@
                 </div>
             </nav>
             {{-- end top navebar --}}
-            
+
             {{-- validation error message --}}
             @if ($errors->any())
             <div class="alert alert-danger" role="alert">
@@ -94,11 +95,12 @@
             {{-- end validation meesage --}}
 
             {{-- main content --}}
-            <main class="py-4">
+            <main class="py-4 m-4">
                 @yield('content')
             </main>
             {{-- end main content --}}
         </div>
+        @yield('script')
     </body>
 
 </html>

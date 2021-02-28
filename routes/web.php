@@ -41,3 +41,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('fair', 'FairController');
+Route::get('fair/{fair}/manage','FairController@manage')->name('fair.manage');
+Route::resource('suite', 'SuiteController')->except([
+'create'
+]);
+
+Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
+Route::resource('slide', 'SlideController');
+Route::resource('category','CategoryController');

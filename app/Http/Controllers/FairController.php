@@ -40,15 +40,12 @@ class FairController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = $request->validate([
+        $request->validate([
             'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'name_ar' => 'required|unique:fairs,name_ar',
             'name_en' => 'required|unique:fairs,name_en',
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withInput();
-        }
 
         $logo_arname = "";
         $logo_enname = "";
@@ -65,7 +62,7 @@ class FairController extends Controller
             $logo_enfile->move($logo_enfilepath, $logo_enname);
         }
 
-        $fair = fair::create($request->all());
+        $fair = Fair::create($request->all());
         $fair->logo_ar = $logo_arname;
         $fair->logo_en = $logo_enname;
         $fair->save();
@@ -106,21 +103,19 @@ class FairController extends Controller
     public function update(Request $request, Fair $fair)
     {
         //
-         $validator =$request->validate([
+        $request->validate([
             'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'name_ar' => 'required|unique:fairs,name_ar',
             'name_en' => 'required|unique:fairs,name_en',
         ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withInput();
-        }
+
         $logo_arname = $fair->logo_ar;
         $logo_enname = $fair->logo_en;
 
         $fair->update($request->all());
         if (request()->hasfile('logo_ar')) {
-            $logo_arfilepath = public_path('/storage/fairs/');
+            $logo_arfilepath = public_path('storage/fairs/');
             if ($fair->logo_ar != null) {
                 File::delete($logo_arfilepath . $logo_arname);
             }
@@ -130,7 +125,7 @@ class FairController extends Controller
         }
 
         if (request()->hasfile('logo_en')) {
-            $logo_enfilepath = public_path('/storage/fairs/');
+            $logo_enfilepath = public_path('storage/fairs/');
             if ($fair->logo_en != null) {
                 File::delete($logo_enfilepath . $logo_enname);
             }
@@ -164,16 +159,40 @@ class FairController extends Controller
 
         if ($fair->logo_ar != null) {
             $logo_arfilepath = public_path('/storage/fairs/');
-            File::delete($logo_arfilepath . $logo_arname);
+            File::delete($logo_arfilepath . $fair->logo_ar);
         }
 
         if ($fair->logo_en != null) {
             $logo_enfilepath = public_path('/storage/fairs/');
-            File::delete($logo_enfilepath . $logo_enname);
+            File::delete($logo_enfilepath . $fair->logo_en);
         }
 
         $fair->delete();
         return redirect(route('fair.index'));
 
     }
+
+/**
+ * manage the specified resource in storage.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  \App\Fair  $fair
+ * @return \Illuminate\Http\Response
+ */
+
+    public function manage(Fair $fair)
+    {
+        //
+        $slides = $fair->slides;
+        $categories = $fair->categories;
+        $suites = $fair->suites;
+
+        return view('fair.manage',compact('slides','categories','suites','fair'));
+    }
+
+    public function addSuite(int $fairId)
+    {
+        return view('suite.crupd',compact('fairId'));
+    }
+
 }
