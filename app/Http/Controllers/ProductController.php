@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 
 class ProductController extends Controller
 {
@@ -15,8 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products=Products::latest();
-        return view('product.index',compact('products'));
+        $products = Product::latest();
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -27,6 +31,8 @@ class ProductController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        return view('product.crupd', compact('categories'));
     }
 
     /**
@@ -38,6 +44,23 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'name' => 'required|unique:products,name',
+        ]);
+        $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('/storage/products/');
+            $imagefile->move($imagefilepath, $imagename);
+        }
+
+        $product = Product::create($request->all());
+        $product->imgfile = $imagename;
+        $product->save();
+        return redirect(route('product.index'));
+
     }
 
     /**
@@ -49,6 +72,8 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        return view('product.show', compact('product'));
+
     }
 
     /**
@@ -60,6 +85,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
+        $categories = Category::all();
+        return view('product.crupd', compact('categories', 'product'));
+
     }
 
     /**
@@ -72,6 +100,31 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
+        $request->validate([
+            'imgfile' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'name' => 'required|unique:products,name,' . $product->id,
+        ]);
+        $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('/storage/products/');
+            $imagefile->move($imagefilepath, $imagename);
+
+            if ($product->imgfile != null) {
+                File::delete($imagefilepath . $product->imgfile);
+            }}
+
+        $product->update($request->all());
+        $oksave = 0;
+        if ($imagename != "") {$product->imgfile = $imagename;
+            $oksave = 1;}
+        if (!$request->has('active')) {$product->active = 0;
+            $oksave = 1;}
+        if ($oksave == 1) {
+            $product->save();
+        }
+        return redirect(route('product.index'));
     }
 
     /**
@@ -83,5 +136,10 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+        $imagefilepath = public_path('/storage/products/');
+        if ($product->imgfile != null) {
+            File::delete($imagefilepath . $product->imgfile);
+        }
+        $product->delete();
     }
 }

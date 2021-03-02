@@ -106,8 +106,8 @@ class FairController extends Controller
         $request->validate([
             'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'name_ar' => 'required|unique:fairs,name_ar',
-            'name_en' => 'required|unique:fairs,name_en',
+            'name_ar' => 'required|unique:fairs,name_ar,'.$fair->name_ar,
+            'name_en' => 'required|unique:fairs,name_en,'.$fair->name_en,
         ]);
 
         $logo_arname = $fair->logo_ar;
@@ -140,7 +140,6 @@ class FairController extends Controller
 
         if (!$request->has('active')) {
             $fair->active = 0;
-            $oksave = 1;
         }
         $fair->save();
         return redirect(route('fair.index'));
@@ -172,13 +171,13 @@ class FairController extends Controller
 
     }
 
-/**
- * manage the specified resource in storage.
- *
- * @param  \Illuminate\Http\Request  $request
- * @param  \App\Fair  $fair
- * @return \Illuminate\Http\Response
- */
+    /**
+     * manage the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Fair  $fair
+     * @return \Illuminate\Http\Response
+     */
 
     public function manage(Fair $fair)
     {
@@ -190,9 +189,13 @@ class FairController extends Controller
         return view('fair.manage',compact('slides','categories','suites','fair'));
     }
 
-    public function addSuite(int $fairId)
-    {
-        return view('suite.crupd',compact('fairId'));
-    }
+    // public function addSuite(int $fairId)
+    // {
+    //     return view('suite.crupd',compact('fairId'));
+    // }
 
+
+    // public function storeSuite(Request $request){
+
+    // }
 }

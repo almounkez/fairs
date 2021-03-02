@@ -6,9 +6,8 @@ use App\Fair;
 use App\Suite;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Hash;
 
 class SuiteController extends Controller
 {
@@ -48,13 +47,13 @@ class SuiteController extends Controller
         //
         $request->validate([
             'userName' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name_ar' => ['requerd', 'string'],
+            'name_en' => ['requerd', 'string'],
         ]);
-// dd($request);
+
         $user = User::create([
             'name' => $request['userName'],
-            'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
 
@@ -66,23 +65,7 @@ class SuiteController extends Controller
             'name_ar' => $request['name_ar'],
             'name_en' => $request['name_en'],
         ]);
-        $logo_arname = "";
-        $logo_enname = "";
-        if (request()->hasfile('logo_ar')) {
-            $logo_arfile = request()->file('logo_ar');
-            $logo_arname = time() . "." . $request->logo_ar->extension();
-            $logo_arfilepath = public_path('storage/suites/');
-            $logo_arfile->move($logo_arfilepath, $logo_arname);
-        }
-        if (request()->hasfile('logo_en')) {
-            $logo_enfile = request()->file('logo_en');
-            $logo_enname = time() . "." . $request->logo_en->extension();
-            $logo_enfilepath = public_path('storage/suites/');
-            $logo_enfile->move($logo_enfilepath, $logo_enname);
-        }
 
-        $suite->logo_ar = $logo_arname;
-        $suite->logo_en = $logo_enname;
         $suite->save();
         return redirect(route('fair.manage', $suite->fair));
     }
@@ -107,7 +90,7 @@ class SuiteController extends Controller
     public function edit(Suite $suite)
     {
         //
-        return view('suite.crupd', compact('suite'));
+        return view('fair.addSuite', compact('suite'));
 
     }
 
@@ -121,18 +104,70 @@ class SuiteController extends Controller
     public function update(Request $request, Suite $suite)
     {
         //
+        $request->validate([
+            'userName' => ['required', 'string', 'max:255'],
+            'password' => ['confirmed'],
+            'name_ar' => ['required', 'string'],
+            'name_en' => ['required', 'string'],
+        ]);
 
-        $user= $suite->user;
-        $user->name=$request->userName;
-        $user->passowrd= Hash::make($request['password']);
-
+        $user = $suite->user;
+        $user->name = $request->userName;
+        if ($request['password'] != null && !empty($request['password'])) {
+            $user->password = Hash::make($request['password']);
+        }
         $user->save();
-        
+
+        $input = $request->only(['name_ar', 'name_en']);
+        $suite->update($input);
+        if ($request->has('active')) {
+            $suite->active = 1;} else {
+            $suite->active = 0;
+        }
+        $suite->save();
+
+        return redirect(route('fair.manage', $suite->fair));
+
+    }
+
+    /**
+     *
+     * edit all information aboute suite by owner
+     *
+     *  @param Suite $suite
+     */
+
+    public function editeAll(Suite $suite)
+    {
+        return view('suite.crupd', compact($suite));
+    }
+
+    /**
+     *  update by the owner of the suite
+     *
+     * @param Request $request
+     * @param Suite $suite
+     * @return void
+     */
+    public function updateAll(Request $request, Suite $suite)
+    {
+        $request->validate([
+            'userName' => ['required', 'string', 'max:255'],
+            'password' => ['confirmed'],
+            'name_ar' => ['required', 'string'],
+            'name_en' => ['required', 'string'],
+        ]);
+
+        $user = $suite->user;
+        $user->name = $request->userName;
+        if ($request['password'] != null && !empty($request['password'])) {
+            $user->passowrd = Hash::make($request['password']);
+        }
+
         $logo_arname = $suite->logo_ar;
         $logo_enname = $suite->logo_en;
 
-$input = $request->except(['userName', 'email','password','password_confirmation','logo_ar','logo_en']);
-// dd($input);
+        $input = $request->except(['userName', 'email', 'password', 'password_confirmation', 'logo_ar', 'logo_en']);
 
         $suite->update($input);
         if (request()->hasfile('logo_ar')) {
@@ -155,19 +190,13 @@ $input = $request->except(['userName', 'email','password','password_confirmation
             $logo_enfile->move($logo_enfilepath, $logo_enname);
 
         }
-
-        $suite->logo_ar = $logo_arname;
-        $suite->logo_en = $logo_enname;
-
-        if (!$request->has('active')) {
+        if ($request->has('active')) {
+            $suite->active = 1;} else {
             $suite->active = 0;
-            $oksave = 1;
         }
         $suite->save();
-        return redirect(route('fair.manage',$suite->fair));
-
+        return redirect(route('suite.show', $suite));
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -177,5 +206,20 @@ $input = $request->except(['userName', 'email','password','password_confirmation
     public function destroy(Suite $suite)
     {
         //
+        $fair = $suite->fair;
+
+        if ($suite->logo_ar != null) {
+            $logo_arfilepath = public_path('/storage/suites/');
+            File::delete($logo_arfilepath . $fair->logo_ar);
+        }
+
+        if ($suite->logo_en != null) {
+            $logo_enfilepath = public_path('/storage/suites/');
+            File::delete($logo_enfilepath . $fair->logo_en);
+        }
+
+        $suite->delete();
+        return redirect(route('fair.manage', $fair));
+
     }
 }

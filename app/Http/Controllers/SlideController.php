@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Slide;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,9 @@ class SlideController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        return view('slide.crupd', compact('categories'));
+
     }
 
     /**
@@ -39,6 +43,23 @@ class SlideController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+        ]);
+
+        $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('/storage/slides/');
+            $imagefile->move($imagefilepath, $imagename);
+        }
+
+        $slide = slide::create($request->all());
+        $slide->imgfile = $imagename;
+        $slide->save();
+        return redirect(route('slide.index'));
+
     }
 
     /**
@@ -50,6 +71,7 @@ class SlideController extends Controller
     public function show(Slide $slide)
     {
         //
+        return view('slide.show', compact('slide'));
     }
 
     /**
@@ -61,6 +83,9 @@ class SlideController extends Controller
     public function edit(Slide $slide)
     {
         //
+        $categories = Category::all();
+        return view('slide.crupd', compact('slide', 'categories'));
+
     }
 
     /**
@@ -73,6 +98,33 @@ class SlideController extends Controller
     public function update(Request $request, Slide $slide)
     {
         //
+        // dd($request);
+        $request->validate([
+            'imgfile' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+        ]);
+        $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('/storage/slides/');
+            $imagefile->move($imagefilepath, $imagename);
+
+            if ($slide->imgfile != null) {
+                File::delete($imagefilepath . $slide->imgfile);
+            }}
+
+        $slide->update($request->all());
+        $oksave = 0;
+        if ($imagename != "") {$slide->imgfile = $imagename;
+            $oksave = 1;}
+        if (!$request->has('active')) {$slide->active = 0;
+            $oksave = 1;}
+        if ($oksave == 1) {
+            $slide->save();
+        }
+
+        return redirect(route('slide.index'));
+
     }
 
     /**
@@ -84,5 +136,12 @@ class SlideController extends Controller
     public function destroy(Slide $slide)
     {
         //
+        $imagefilepath = public_path('/storage/slides/');
+        if ($slide->imgfile != null) {
+            File::delete($imagefilepath . $slide->imgfile);
+        }
+        $slide->delete();
+        return redirect(route('slide.index'));
+ 
     }
 }
