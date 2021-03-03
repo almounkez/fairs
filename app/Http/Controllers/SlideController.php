@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Slide;
+use App\Fair;
+use App\Suite;
 use Illuminate\Http\Request;
 
 class SlideController extends Controller
@@ -26,11 +28,11 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $fairId)
     {
         //
         $categories = Category::all();
-        return view('slide.crupd', compact('categories'));
+        return view('slide.crupd', compact('categories','fairId'));
 
     }
 
@@ -43,6 +45,8 @@ class SlideController extends Controller
     public function store(Request $request)
     {
         //
+
+
         $request->validate([
             'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
         ]);
@@ -51,14 +55,15 @@ class SlideController extends Controller
         if (request()->hasfile('imgfile')) {
             $imagefile = request()->file('imgfile');
             $imagename = time() . "." . $request->imgfile->extension();
-            $imagefilepath = public_path('/storage/slides/');
+            $imagefilepath = public_path('storage/slides/');
             $imagefile->move($imagefilepath, $imagename);
         }
 
         $slide = slide::create($request->all());
         $slide->imgfile = $imagename;
         $slide->save();
-        return redirect(route('slide.index'));
+        // dd($request->all(),$slide);
+        return redirect(route('fair.show',$slide->fair_id));
 
     }
 
@@ -106,7 +111,7 @@ class SlideController extends Controller
         if (request()->hasfile('imgfile')) {
             $imagefile = request()->file('imgfile');
             $imagename = time() . "." . $request->imgfile->extension();
-            $imagefilepath = public_path('/storage/slides/');
+            $imagefilepath = public_path('storage/slides/');
             $imagefile->move($imagefilepath, $imagename);
 
             if ($slide->imgfile != null) {
@@ -136,12 +141,12 @@ class SlideController extends Controller
     public function destroy(Slide $slide)
     {
         //
-        $imagefilepath = public_path('/storage/slides/');
+        $imagefilepath = public_path('storage/slides/');
         if ($slide->imgfile != null) {
             File::delete($imagefilepath . $slide->imgfile);
         }
         $slide->delete();
         return redirect(route('slide.index'));
- 
+
     }
 }

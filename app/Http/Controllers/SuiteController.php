@@ -222,4 +222,11 @@ class SuiteController extends Controller
         return redirect(route('fair.manage', $fair));
 
     }
+
+    public function addSlide(int $suiteId)
+    {
+        $categories = Category::all();
+        $fairId=Suite::select('fair_id')->where('id',$suiteId )->get();
+        return view('slide.crupd',compact('categories','suiteId','fairId'));
+    }
 }

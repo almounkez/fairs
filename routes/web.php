@@ -31,9 +31,9 @@ Route::get('/clear', function() {
    return "Cleared!";
 
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -42,10 +42,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('fair', 'FairController');
 Route::get('fair/{fair}/manage','FairController@manage')->name('fair.manage');
-Route::resource('suite', 'SuiteController')->except([
-'create'
-]);
-
+Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
-Route::resource('slide', 'SlideController');
-Route::resource('category','CategoryController');
+Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
+
+Route::resource('slide', 'SlideController')->except(['create']);
+Route::get('slide/{fairId}/create','SlideController@create')->name('slide.create');
+
+Route::resource('category','CategoryController')->except(['create']);
+Route::get('category/{fairId}/create', 'CategoryController@create')->name('category.create');

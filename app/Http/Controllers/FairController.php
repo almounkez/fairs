@@ -78,6 +78,7 @@ class FairController extends Controller
     public function show(Fair $fair)
     {
         //
+        return view('fair.show',compact('fair'));
     }
 
     /**
