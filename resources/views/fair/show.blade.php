@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row mb-2">
+<div class="row">
     <div class="col-12">
         <div class="card">
 
@@ -43,11 +43,13 @@
         </div>
     </div>
 </div>
+<br>
 <div class="row">
-    <div class="col-md-3 my-2">
+    <div class="col-md-3">
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active">
+            <a href="{{route('category.create',$fair->id)}}" class="list-group-item list-group-item-action ">
                 @lang('categories')
+                <span ><i class="zmdi zmdi-plus" style="float: inline-start"></i></span>
             </a>
             @foreach ($fair->categories as $category)
             <a href="#" class="list-group-item list-group-item-action">
@@ -65,7 +67,15 @@
     <div class="col-md-9">
         <div class="row">
             @foreach ($fair->suites as $suite)
-
+            <div class="col-md-4">
+                <a href="{{route('suite.show',$suite->id)}}">
+                    <figure class="figure">
+                        <img src="{{asset('storage/suites/'.$suite->logo_en)}}" class="figure-img img-fluid rounded"
+                            alt="A generic square placeholder image with rounded corners in a figure.">
+                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                    </figure>
+                </a>
+            </div>
             @endforeach
         </div>
     </div>

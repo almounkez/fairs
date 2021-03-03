@@ -95,7 +95,7 @@
             {{-- end validation meesage --}}
 
             {{-- main content --}}
-            <main class="py-4 m-4">
+            <main class="p-2 m-4">
                 @yield('content')
             </main>
             {{-- end main content --}}
