@@ -52,3 +52,4 @@ Route::get('slide/{fairId}/create','SlideController@create')->name('slide.create
 
 Route::resource('category','CategoryController')->except(['create']);
 Route::get('category/{fairId}/create', 'CategoryController@create')->name('category.create');
+

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Slide;
-use App\Fair;
-use App\Suite;
 use Illuminate\Http\Request;
 
 class SlideController extends Controller
@@ -32,7 +30,7 @@ class SlideController extends Controller
     {
         //
         $categories = Category::all();
-        return view('slide.crupd', compact('categories','fairId'));
+        return view('slide.crupd', compact('categories', 'fairId'));
 
     }
 
@@ -45,7 +43,6 @@ class SlideController extends Controller
     public function store(Request $request)
     {
         //
-
 
         $request->validate([
             'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
@@ -63,7 +60,7 @@ class SlideController extends Controller
         $slide->imgfile = $imagename;
         $slide->save();
         // dd($request->all(),$slide);
-        return redirect(route('fair.show',$slide->fair_id));
+        return redirect(route('fair.show', $slide->fair_id));
 
     }
 
@@ -119,14 +116,15 @@ class SlideController extends Controller
             }}
 
         $slide->update($request->all());
-        $oksave = 0;
-        if ($imagename != "") {$slide->imgfile = $imagename;
-            $oksave = 1;}
-        if (!$request->has('active')) {$slide->active = 0;
-            $oksave = 1;}
-        if ($oksave == 1) {
-            $slide->save();
+
+        if ($imagename != "") {
+            $slide->imgfile = $imagename;
         }
+        if (!$request->has('active')) {
+            $slide->active = 0;
+        }
+
+        $slide->save();
 
         return redirect(route('slide.index'));
 
