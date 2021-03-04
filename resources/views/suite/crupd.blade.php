@@ -148,7 +148,8 @@
             </div>
         </div>
     </div>
-</form> @endsection @section('script') <script>
+</form> @endsection
+@section('script') <script>
     function showPass() { var x = document.getElementById("password");
             if (x.type === "password"){ x.type = "text"; }
             else { x.type = "password"; }
@@ -157,4 +158,5 @@
             if (x.type === "password") { x.type = "text"; }
             else { x.type = "password"; }
         }
-</script> @endsection
+</script>
+@endsection
