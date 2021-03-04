@@ -3,11 +3,11 @@
 @section('content')
 {{-- {{dd($fair)}} --}}
 {{-- manage suites --}}
-{{-- <div class="row justify-content-center">
+<div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Suites') }}
-                <a class= "btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fair) }}">
+                <a class= "btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fair->id) }}">
                    <i class="zmdi zmdi-plus"></i>
                 </a>
             </div>
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($suites as $suite)
+                        @foreach($fair->suites as $suite)
                         <tr>
                             <th scope="row">
                             </th>
@@ -90,16 +90,17 @@
             </div>
         </div>
     </div>
-</div> --}}
-@include('suite.index')
-{{-- <hr> --}}
+</div>
+
+{{-- @include('suite.index') --}}
+<hr>
 
 {{-- manage Slides --}}
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Slides') }}
-                <a href="{{ route('slide.create') }}">
+                <a href="{{ route('slide.create',$fair->id) }}">
                     <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36"></span>
                 </a>
             </div>
@@ -117,7 +118,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($slides as $slide)
+                        @foreach ($fair->slides as $slide)
                         <tr>
                             <th scope="row">
                                 {{-- <a href="{{ route('slide.edit', $slide->id) }}"><span class="iconify"
@@ -186,7 +187,7 @@
         <div class="card">
             <div class="card-header">{{ __('Category') }}
 
-                <a href="{{ route('category.create') }}">
+                <a href="{{ route('category.create',$fair->id) }}">
                     <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36">
                     </span>
                 </a>
@@ -208,7 +209,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($fair->categories as $category)
                             <tr>
                                 <th scope="row">
                                     {{-- <a href="{{ route('category.edit', $category->id) }}"><span class="iconify"
