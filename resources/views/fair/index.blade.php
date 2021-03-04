@@ -75,10 +75,23 @@
                                     <div class="btn-group-justified">
                                         <div class="btn-group">
                                             <a class="btn btn-outline-warning rounded-circle"
-                                                href="{{route('fair.manage',$fair->id)}}">
+                                                href="{{route('fair.suite',$fair->id)}}">
                                                 <i class="zmdi zmdi-settings"></i>
                                             </a>
                                         </div>
+                                          <div class="btn-group">
+                                            <a class="btn btn-outline-warning rounded-circle"
+                                                href="{{route('fair.slides',$fair->id)}}">
+                                                <i class="zmdi zmdi-settings"></i>
+                                            </a>
+                                        </div>
+                                          <div class="btn-group">
+                                            <a class="btn btn-outline-warning rounded-circle"
+                                                href="{{route('fair.cats',$fair->id)}}">
+                                                <i class="zmdi zmdi-settings"></i>
+                                            </a>
+                                        </div>
+
                                         <div class="btn-group">
                                             <a class="btn btn-outline-secondary rounded-circle"
                                                 href="{{ route('fair.edit', $fair->id) }}">
