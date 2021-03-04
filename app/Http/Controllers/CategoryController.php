@@ -15,6 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
+
     }
 
     /**
@@ -22,9 +25,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $fairId)
     {
         //
+        return view('category.crupd', compact('fairId'));
     }
 
     /**
@@ -36,6 +40,24 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+        ]);
+
+        $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('storage/categories/');
+            $imagefile->move($imagefilepath, $imagename);
+        }
+
+        $category = Category::create($request->all());
+        $category->imgfile = $imagename;
+        $category->save();
+// dd($request->all(),$category);
+        return redirect(route('fair.show', $category->fair_id));
+
     }
 
     /**
@@ -47,6 +69,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
+        return view('fair.show');
     }
 
     /**
@@ -58,6 +81,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
+        return view('category.crupd');
     }
 
     /**
@@ -70,6 +94,32 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         //
+        $request->validate([
+            'imgfile' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+        ]);
+        $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('storage/categories/');
+            $imagefile->move($imagefilepath, $imagename);
+
+            if ($category->imgfile != null) {
+                File::delete($imagefilepath . $category->imgfile);
+            }}
+
+        $category->update($request->all());
+        $oksave = 0;
+        if ($imagename != "") {$category->imgfile = $imagename;
+            $oksave = 1;}
+        if (!$request->has('active')) {$category->active = 0;
+            $oksave = 1;}
+        if ($oksave == 1) {
+            $category->save();
+        }
+
+        return redirect(route('category.index'));
+
     }
 
     /**
@@ -81,5 +131,12 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+        $imagefilepath = public_path('storage/categories/');
+        if ($category->imgfile != null) {
+            File::delete($imagefilepath . $category->imgfile);
+        }
+        $category->delete();
+        return redirect(route('category.index'));
+
     }
 }

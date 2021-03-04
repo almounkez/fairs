@@ -18,7 +18,7 @@ class SlideController extends Controller
     public function index()
     {
         //
-        $slides = Slide::latest();
+        $slides = Slide::all();
         return view('slide.index', compact('slides'));
 
     }
@@ -59,7 +59,7 @@ class SlideController extends Controller
             $imagefile->move($imagefilepath, $imagename);
         }
 
-        $slide = slide::create($request->all());
+        $slide = Slide::create($request->all());
         $slide->imgfile = $imagename;
         $slide->save();
         // dd($request->all(),$slide);
