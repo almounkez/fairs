@@ -1,4 +1,5 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app')
+@section('content')
 <form action="{!! !empty($suite) ? route('suite.update', $suite) : route('suite.store') !!}" method="Post"
     enctype="multipart/form-data">
     @csrf
