@@ -28,11 +28,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $suiteId)
     {
         //
         $categories = Category::all();
-        return view('product.crupd', compact('categories'));
+        return view('product.crupd', compact('categories','suiteId'));
     }
 
     /**
@@ -48,6 +48,7 @@ class ProductController extends Controller
             'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'name' => 'required|unique:products,name',
         ]);
+
         $imagename = "";
         if (request()->hasfile('imgfile')) {
             $imagefile = request()->file('imgfile');
@@ -58,6 +59,7 @@ class ProductController extends Controller
 
         $product = Product::create($request->all());
         $product->imgfile = $imagename;
+
         $product->save();
         return redirect(route('product.index'));
 
