@@ -191,7 +191,8 @@ class SuiteController extends Controller
 
         }
         if ($request->has('active')) {
-            $suite->active = 1;} else {
+            $suite->active = 1;
+        } else {
             $suite->active = 0;
         }
         $suite->save();
@@ -226,7 +227,7 @@ class SuiteController extends Controller
     public function addSlide(int $suiteId)
     {
         $categories = Category::all();
-        $fairId=Suite::select('fair_id')->where('id',$suiteId )->get();
-        return view('slide.crupd',compact('categories','suiteId','fairId'));
+        $fairId = Suite::select('fair_id')->where('id', $suiteId)->get();
+        return view('slide.crupd', compact('categories', 'suiteId', 'fairId'));
     }
 }

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Product;
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-
 
 class ProductController extends Controller
 {
@@ -32,7 +30,7 @@ class ProductController extends Controller
     {
         //
         $categories = Category::all();
-        return view('product.crupd', compact('categories','suiteId'));
+        return view('product.crupd', compact('categories', 'suiteId'));
     }
 
     /**
@@ -118,14 +116,17 @@ class ProductController extends Controller
             }}
 
         $product->update($request->all());
-        $oksave = 0;
-        if ($imagename != "") {$product->imgfile = $imagename;
-            $oksave = 1;}
-        if (!$request->has('active')) {$product->active = 0;
-            $oksave = 1;}
-        if ($oksave == 1) {
-            $product->save();
+
+        if ($imagename != "") {
+            $product->imgfile = $imagename;
+
         }
+        if (!$request->has('active')) {
+            $product->active = 0;
+        }
+
+        $product->save();
+
         return redirect(route('product.index'));
     }
 

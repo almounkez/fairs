@@ -15,6 +15,7 @@ class AdvertiseController extends Controller
     public function index()
     {
         //
+        
     }
 
     /**
