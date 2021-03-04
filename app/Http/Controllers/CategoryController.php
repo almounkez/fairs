@@ -81,7 +81,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         //
-        return view('category.crupd');
+        return view('category.crupd',compact($category));
     }
 
     /**
