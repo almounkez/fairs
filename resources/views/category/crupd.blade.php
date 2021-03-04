@@ -32,13 +32,13 @@
                                 <label for="name_ar">{{ __('Arabic Name') }}:</label>
                             </div>
                             <div class="col-4"><input class="form-control" type="text" name="name_ar"
-                                value=@if (!empty($category) && old('name_ar', $category->name_ar)) {{ $category->name_ar }}@else{{old('name_ar')}} @endif>
+                                value="@if (!empty($category) && old('name_ar', $category->name_ar)) {{ $category->name_ar }}@else{{old('name_ar')}} @endif">
                             </div>
                             <div class="col-md-2 col-form-label text-md-left">
                                 <label for="name_ar">{{ __('English Name') }}:</label>
                             </div>
                             <div class="col-4"><input class="form-control" type="text" name="name_en"
-                                value=@if (!empty($category) && old('name_en', $category->name_en)) {{ $fair->name_en }}@else{{old('name_en')}} @endif>
+                                value="@if (!empty($category) && old('name_en', $category->name_en)) {{ $category->name_en }}@else{{old('name_en')}} @endif">
                             </div>
                     </div>
 
