@@ -42,6 +42,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('fair', 'FairController');
 Route::get('fair/{fair}/manage','FairController@manage')->name('fair.manage');
+
 Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
 Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');

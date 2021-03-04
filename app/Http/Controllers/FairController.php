@@ -183,11 +183,7 @@ class FairController extends Controller
     public function manage(Fair $fair)
     {
         //
-        $slides = $fair->slides;
-        $categories = $fair->categories;
-        $suites = $fair->suites;
-
-        return view('fair.manage',compact('slides','categories','suites','fair'));
+        return view('fair.manage',compact('fair'));
     }
 
     // public function addSuite(int $fairId)
