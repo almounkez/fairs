@@ -93,7 +93,7 @@
 </div>
 
 {{-- @include('suite.index') --}}
-{{-- <hr> --}}
+<hr>
 
 {{-- manage Slides --}}
 <div class="row justify-content-center">

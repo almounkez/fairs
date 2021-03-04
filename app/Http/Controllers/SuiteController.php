@@ -90,7 +90,7 @@ class SuiteController extends Controller
     public function edit(Suite $suite)
     {
         //
-        return view('fair.addSuite', compact('suite'));
+        return view('suite.crupd', compact('suite'));
 
     }
 
