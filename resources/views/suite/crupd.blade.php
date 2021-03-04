@@ -4,7 +4,7 @@
     @csrf
     @if (!empty($suite))
     @method('PUT')
-    @else <input name="fairId" value="{{$fair->id}}" hidden>
+    @else <input name="fairId" value="{{$fairId}}" hidden>
     @endif <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">

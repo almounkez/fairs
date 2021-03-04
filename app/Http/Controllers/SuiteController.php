@@ -29,11 +29,11 @@ class SuiteController extends Controller
      * @param  \App\Fair  $fair
      * @return \Illuminate\Http\Response
      */
-    public function create(Fair $fair)
+    public function create(int $fairId)
     {
         //
         // dd($fair);
-        return view('suite.crupd', compact('fair'));
+        return view('suite.crupd', compact('fairId'));
     }
 
     /**
@@ -195,7 +195,7 @@ class SuiteController extends Controller
             $suite->active = 0;
         }
         $suite->save();
-        return redirect(route('suite.show', $suite));
+        return redirect(route('fair.show', $suite));
     }
     /**
      * Remove the specified resource from storage.
