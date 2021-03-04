@@ -15,7 +15,9 @@ class AdvertiseController extends Controller
     public function index()
     {
         //
-        
+        $advertises = Advertise::all();
+        return view('advertise.index', compact('advertises'));
+
     }
 
     /**
@@ -23,9 +25,10 @@ class AdvertiseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $fairId)
     {
         //
+        return view('advertise.crupd', compact('fairId'));
     }
 
     /**
@@ -37,6 +40,23 @@ class AdvertiseController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+        ]);
+        $advertise = Advertise::create($request->all());
+
+// $imagename = "";
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('storage/advertises/');
+            $imagefile->move($imagefilepath, $imagename);
+            $advertise->imgfile = $imagename;
+        }
+        $advertise->save();
+
+        return redirect(route('advertise.index'));
+
     }
 
     /**
@@ -59,6 +79,7 @@ class AdvertiseController extends Controller
     public function edit(Advertise $advertise)
     {
         //
+        return view('advertise.crupd', compact('advertise'));
     }
 
     /**
@@ -71,6 +92,26 @@ class AdvertiseController extends Controller
     public function update(Request $request, Advertise $advertise)
     {
         //
+        $request->validate([
+            'imgfile' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+        ]);
+        $advertise->update($request->all());
+
+        if (request()->hasfile('imgfile')) {
+            $imagefile = request()->file('imgfile');
+            $imagename = time() . "." . $request->imgfile->extension();
+            $imagefilepath = public_path('storage/advertises/');
+            $imagefile->move($imagefilepath, $imagename);
+
+            if ($advertise->imgfile != null) {
+                File::delete($imagefilepath . $advertise->imgfile);
+            }
+            $advertise->imgfile = $imagename;
+        }
+        $advertise->save();
+
+        return redirect(route('advertise.index'));
+
     }
 
     /**
@@ -82,5 +123,11 @@ class AdvertiseController extends Controller
     public function destroy(Advertise $advertise)
     {
         //
+        $imagefilepath = public_path('/storage/advertises/');
+        if ($advertise->imgfile != null) {
+            File::delete($imagefilepath . $advertise->imgfile);
+        }
+        $advertise->delete();
+
     }
 }

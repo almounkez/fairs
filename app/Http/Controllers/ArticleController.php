@@ -122,7 +122,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         //
-        $imagefilepath = public_path('/storage/articls/');
+        $imagefilepath = public_path('/storage/articles/');
         if ($article->imgfile != null) {
             File::delete($imagefilepath . $article->imgfile);
         }

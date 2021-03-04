@@ -53,3 +53,8 @@ Route::get('slide/{fairId}/create','SlideController@create')->name('slide.create
 Route::resource('category','CategoryController')->except(['create']);
 Route::get('category/{fairId}/create', 'CategoryController@create')->name('category.create');
 
+Route::resource('article','ArticleController')->except(['create']);
+Route::get('article/{suiteId}/create', 'ArticleController@create')->name('article.create');
+
+Route::resource('advertise', 'AdvertiseController')->except(['create']);
+Route::get('advertise/{fairId}/create', 'AdvertiseController@create')->name('advertise.create');
