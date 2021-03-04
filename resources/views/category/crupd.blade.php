@@ -24,7 +24,7 @@
                             {{ $category->id }}
                         </div>
                     </div>
-                    @elseif($fairId!=null)
+                    @elseif(!empty($fairId))
                     <input name="fair_id" value="{{$fairId}}" hidden>
                     @endif
                     <div class="row">

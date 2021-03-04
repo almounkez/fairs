@@ -24,7 +24,7 @@
                             {{ $slide->id }}
                         </div>
                     </div>
-                    @elseif($fairId!=null)
+                    @elseif(!empty($fairId))
                     <input name="fair_id" value="{{$fairId}}" hidden>
                     @elseif($suiteId!=null)
                     <input name="suiteId" value="{{$suiteId}}" hidden>
