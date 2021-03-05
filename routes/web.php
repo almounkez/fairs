@@ -41,6 +41,7 @@ Route::get('/', function () {
 return redirect('/home');
 });
 Route::get('/home','HomeController@index')->name('home');
+
 // Route::resource('fairs', 'FairController');
 Route::resource('fair', 'FairController');
 Route::get('fair/{fair}/manage','FairController@manage')->name('fair.manage');
@@ -72,3 +73,6 @@ Route::get('marquee/{suiteId}/createForSuite', 'MarqueeController@createforSuite
 Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
 Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
 
+Route::resource('product', 'ProdcutController');
+// Route::get('product', 'Prodcut@index')->name('product.index');
+// Route::get('product/{suite}/suite', 'product@indexSuite')->name('product.indexSuite');
