@@ -7,8 +7,8 @@
             <div class="card-header">{{ __('Suites') }}
                 {{-- {{dd($fairId)}} --}}
                 @if(!empty('fairId'))
-                <a class= "btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fairId) }}">
-                   <i class="zmdi zmdi-plus"></i>
+                <a class="btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fairId) }}">
+                    <i class="zmdi zmdi-plus"></i>
                 </a>
                 @endif
             </div>
@@ -54,12 +54,18 @@
                             <td>{{ $suite->active }} </td>
 
 
-                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/' . $suite->logo_en) }}"
+                            <td style="width:20% ; max-width:24%;">
+                                @if(!empty($suite->logo_en))
+                                <img src="{{ asset('storage/suites/' . $suite->logo_en) }}"
                                     class="img-fluid img-thumbnail">
+                                @endif
                             </td>
 
-                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}"
+                            <td style="width:20% ; max-width:24%;">
+                                @if(!empty($suite->logo_en))
+                                <img src="{{ asset('storage/suites/'. $suite->logo_ar) }}"
                                     class="img-fluid img-thumbnail">
+                                @endif
                             </td>
                             <td>{{ $suite->hits }}</td>
                             <td>

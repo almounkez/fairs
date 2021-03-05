@@ -18,8 +18,11 @@ class SuiteController extends Controller
      */
     public function index()
     {
+        //
         $suites = Suite::all();
+
         return view('suite.index', compact('suites'));
+
     }
 
     /**
@@ -29,6 +32,8 @@ class SuiteController extends Controller
      */
     public function create(int $fairId)
     {
+        //
+        // dd($fair);
         return view('suite.crupd', compact('fairId'));
     }
 
@@ -62,29 +67,6 @@ class SuiteController extends Controller
             'name_en' => $request['name_en'],
         ]);
 
-        if (request()->hasfile('logo_ar')) {
-            $logo_arfilepath = public_path('storage/suites/');
-
-            $logo_arfile = request()->file('logo_ar');
-            $logo_arname = time() . "." . $request->logo_ar->extension();
-            $logo_arfile->move($logo_arfilepath, $logo_arname);
-            $suite->logo_ar = $logo_arname;
-        }
-
-        if (request()->hasfile('logo_en')) {
-            $logo_enfilepath = public_path('storage/suites/');
-            $logo_enfile = request()->file('logo_en');
-            $logo_enname = time() . "." . $request->logo_en->extension();
-            $logo_enfile->move($logo_enfilepath, $logo_enname);
-            $suite->logo_en = $logo_enname;
-
-        }
-        if ($request->has('active')) {
-            $suite->active = 1;
-        } else {
-            $suite->active = 0;
-        }
-
         $suite->save();
         return redirect(route('fair.suites', $suite->fair));
     }
@@ -112,14 +94,15 @@ class SuiteController extends Controller
         return view('suite.crupd', compact('suite'));
 
     }
-    /**
+
+ /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Suite  $suite
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Suite $suite)
+       public function update1(Request $request, Suite $suite)
     {
         //
         $request->validate([
@@ -138,6 +121,57 @@ class SuiteController extends Controller
 
         $input = $request->only(['name_ar', 'name_en']);
         $suite->update($input);
+        if ($request->has('active')) {
+            $suite->active = 1;} else {
+            $suite->active = 0;
+        }
+        $suite->save();
+
+        return redirect(route('fair.suites', $suite->fair));
+
+    }
+
+    /**
+     *
+     * edit all information aboute suite by owner
+     *
+     *  @param Suite $suite
+     */
+
+    public function editeAll(Suite $suite)
+    {
+        return view('suite.crupd', compact($suite));
+    }
+
+    /**
+     *  update by the owner of the suite
+     *
+     * @param Request $request
+     * @param Suite $suite
+     * @return void
+     */
+    public function update(Request $request, Suite $suite)
+    {
+        $request->validate([
+            'userName' => ['required', 'string', 'max:255'],
+            'password' => ['confirmed'],
+            'name_ar' => ['required', 'string'],
+            'name_en' => ['required', 'string'],
+        ]);
+
+        $user = $suite->user;
+        $user->name = $request->userName;
+        if ($request['password'] != null && !empty($request['password'])) {
+            $user->passowrd = Hash::make($request['password']);
+        }
+
+        $logo_arname = $suite->logo_ar;
+        $logo_enname = $suite->logo_en;
+
+        $input = $request->except(['userName', 'email', 'password', 'password_confirmation', 'logo_ar', 'logo_en']);
+
+        $suite->update($input);
+
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/suites/');
             if ($suite->logo_ar != null) {
@@ -146,7 +180,6 @@ class SuiteController extends Controller
             $logo_arfile = request()->file('logo_ar');
             $logo_arname = time() . "." . $request->logo_ar->extension();
             $logo_arfile->move($logo_arfilepath, $logo_arname);
-            $suite->logo_ar = $logo_arname;
         }
 
         if (request()->hasfile('logo_en')) {
@@ -157,20 +190,16 @@ class SuiteController extends Controller
             $logo_enfile = request()->file('logo_en');
             $logo_enname = time() . "." . $request->logo_en->extension();
             $logo_enfile->move($logo_enfilepath, $logo_enname);
-            $suite->logo_en = $logo_enname;
-        }
 
+        }
         if ($request->has('active')) {
             $suite->active = 1;
         } else {
             $suite->active = 0;
         }
         $suite->save();
-
         return redirect(route('fair.suites', $suite->fair));
-
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -195,5 +224,12 @@ class SuiteController extends Controller
         $suite->delete();
         return redirect(route('fair.suites', $fair));
 
+    }
+
+    public function addSlide(int $suiteId)
+    {
+        $categories = Category::all();
+        $fairId = Suite::select('fair_id')->where('id', $suiteId)->get();
+        return view('slide.crupd', compact('categories', 'suiteId', 'fairId'));
     }
 }
