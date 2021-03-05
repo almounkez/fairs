@@ -19,11 +19,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">{{ __('fair no') }}</th>
                                 <th scope="col">{{ __('Arabic Name') }}</th>
                                 <th scope="col">{{ __('English Name') }}</th>
-                                <th scope="col">{{ __('Active') }}</th>
-                                <th scope="col">{{ __('Arabic Description') }}</th>
-                                <th scope="col">{{ __('English Description') }}</th>
+                                <th scope="col">{{ __('hits') }}</th>
                                 <th scope="col">{{ __('imgfile') }}</th>
                                 <th scope="col" width="150">{{ __('Control') }}</th>
                             </tr>
@@ -32,25 +31,31 @@
                             @foreach ($categories as $category)
                             <tr>
                                 <th scope="row">
-                                    {{-- <a href="{{ route('category.edit', $category->id) }}"><span class="iconify"
+                                    <a href="{{ route('category.edit', $category->id) }}"><span class="iconify"
                                         data-icon="feather:edit" data-inline="false" height="36" width="36">
-                                        {{ $category->id }}</span></a> --}}
+                                   {{ $category->id }}</span></a>
                                 </th>
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->fair_id }}</td>
+                                <td>{{ $category->name_ar }}</td>
                                 <td>{{ $category->name_en }}</td>
+<<<<<<< HEAD
                                 <td>{{ $category->active }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td>{{ $category->description_en }}</td>
                                 <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/categories/' . $category->imgfile) }}"
+=======
+                                 <td>{{ $category->hits }}</td>
+                                <td><img src="{{ asset('storage/categories/' . $category->imgfile) }}" width="25%"
+>>>>>>> 05856226a1b831d5dab3a1d419600457a53163fe
                                         class="img-fluid img-thumbnail"></td>
                                 <td>
                                     <div class="btn-group-justified">
-                                        <div class="btn-group">
+                                        {{-- <div class="btn-group">
                                             <a class="btn btn-outline-warning rounded-circle"
                                                 href="{{route('category.edit',$category->id)}}">
                                                 <i class="zmdi zmdi-settings"></i>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                         <div class="btn-group">
                                             <form action="{{ route('category.destroy', $category->id) }}" method="POST">
                                                 @csrf

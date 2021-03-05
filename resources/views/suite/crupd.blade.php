@@ -122,7 +122,7 @@
                             <img src="{{ asset('storage/suites/' . $suite->logo_ar) }}" class="img-fluid img-thumbnail"
                                 >
                         </div> @endif <div class="col-8">
-                            <input class="form-control" type="file" name="logo_ar" @if(empty($suite)) required @endif>
+                            <input class="form-control" type="file" name="logo_ar" @if(!empty($suite)) required @endif>
                         </div>
                     </div>
                     <div class="row">
@@ -133,7 +133,7 @@
                             <img src="{{ asset('storage/suites/' . $suite->logo_en) }}" class="img-fluid img-thumbnail"
                                 >
                         </div> @endif <div class="col-8">
-                            <input class="form-control" type="file" name="logo_en" @if(empty($suite)) required @endif>
+                            <input class="form-control" type="file" name="logo_en" @if(!empty($suite)) required @endif>
                         </div>
                     </div>
                     <div class="row">

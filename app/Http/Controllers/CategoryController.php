@@ -113,8 +113,7 @@ class CategoryController extends Controller
         $oksave = 0;
         if ($imagename != "") {$category->imgfile = $imagename;
             $oksave = 1;}
-        if (!$request->has('active')) {$category->active = 0;
-            $oksave = 1;}
+
         if ($oksave == 1) {
             $category->save();
         }

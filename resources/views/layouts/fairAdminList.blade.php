@@ -1,9 +1,3 @@
-<?php
-if(!empty($fair)){
-    $fairId=$fair->id;
-}
-
-?>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
@@ -15,12 +9,13 @@ if(!empty($fair)){
         </a>
         <a class="dropdown-item" href="{{ route('fair.create') }}">
             @lang('New Fair')</a>
-        @if(!empty($fairId))
-        <a class="dropdown-item" href="{{ route('fair.suites',$fairId) }}">
+
+        @if(!empty($fairId)||!empty($fair))
+        <a class="dropdown-item" href="{{ route('fair.suites',$fairId ?? $fair->id) }}">
             @lang('Suites')</a>
-        <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
+        <a class="dropdown-item" href="{{ route('fair.categories',$fairId ?? $fair->id) }}">
             @lang('Categories')</a>
-        <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}">
+        <a class="dropdown-item" href="{{ route('fair.slides',$fairId ?? $fair->id) }}">
             @lang('Slides')</a>
         @endif
     </div>
