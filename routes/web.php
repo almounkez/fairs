@@ -73,6 +73,6 @@ Route::get('marquee/{suiteId}/createForSuite', 'MarqueeController@createforSuite
 Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
 Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
 
-Route::resource('product', 'ProdcutController');
+Route::resource('product', 'ProductController');
 // Route::get('product', 'Prodcut@index')->name('product.index');
 // Route::get('product/{suite}/suite', 'product@indexSuite')->name('product.indexSuite');
