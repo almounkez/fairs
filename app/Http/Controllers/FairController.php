@@ -107,8 +107,8 @@ class FairController extends Controller
         $request->validate([
             'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'name_ar' => 'required|unique:fairs,name_ar,'.$fair->name_ar,
-            'name_en' => 'required|unique:fairs,name_en,'.$fair->name_en,
+            'name_ar' => 'required|unique:fairs,name_ar,'.$fair->id,
+            'name_en' => 'required|unique:fairs,name_en,'.$fair->id,
         ]);
 
         $logo_arname = $fair->logo_ar;
