@@ -59,7 +59,7 @@
                                     <td>{{ $product->descp_ar }}</td>
                                     <td>{{ $product->descp_en }}</td>
                                     <td>{{ $product->hits }}</td>
-                                    <td><img src="{{ asset('storage/products/' . $product->imgfile) }}" width="25%"
+                                    <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/products/' . $product->imgfile) }}
                                             class="img-fluid img-thumbnail">
                                     </td>
                                     <td>

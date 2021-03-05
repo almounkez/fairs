@@ -48,7 +48,7 @@
                         @if (!empty($category))
                         <div class="col-md-2 col-form-label " style="text-align:start">
                             <img src="{{ asset('storage/categories/' . $category->imgfile) }}" class="img-fluid img-thumbnail"
-                                width="64%">
+                               >
                         </div>
                         @endif
 

@@ -87,7 +87,7 @@
                         @if (!empty($slide))
                         <div class="col-md-2 col-form-label " style="text-align:start">
                             <img src="{{ asset('storage/slides/' . $slide->imgfile) }}" class="img-fluid img-thumbnail"
-                                width="64%">
+                                >
                         </div>
                         @endif
 

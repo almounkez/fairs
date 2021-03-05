@@ -53,11 +53,11 @@
                             <td>{{ $suite->active }} </td>
 
 
-                            <td><img src="{{ asset('storage/suites/' . $suite->logo_en) }}" width="25%"
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/' . $suite->logo_en) }}"
                                     class="img-fluid img-thumbnail">
                             </td>
 
-                            <td><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}" width="25%"
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}" 
                                     class="img-fluid img-thumbnail">
                             </td>
                             <td>{{ $suite->hits }}</td>
@@ -147,7 +147,7 @@
                             </td>
                             <td>{{ $slide->link }}</td>
 
-                            <td><img src="{{ asset('storage/slides/' . $slide->imgfile) }}" width="25%"
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/slides/' . $slide->imgfile) }}"
                                     class="img-fluid img-thumbnail">
                             </td>
                             <td>
@@ -221,7 +221,7 @@
                                 <td>{{ $category->active }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td>{{ $category->description_en }}</td>
-                                <td><img src="{{ asset('storage/categories/' . $category->imgfile) }}" width="25%"
+                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/categories/' . $category->imgfile) }}"
                                         class="img-fluid img-thumbnail"></td>
                                 <td>
                                     <div class="btn-group-justified">

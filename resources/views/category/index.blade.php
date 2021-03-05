@@ -41,7 +41,7 @@
                                 <td>{{ $category->active }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td>{{ $category->description_en }}</td>
-                                <td><img src="{{ asset('storage/categories/' . $category->imgfile) }}" width="25%"
+                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/categories/' . $category->imgfile) }}"
                                         class="img-fluid img-thumbnail"></td>
                                 <td>
                                     <div class="btn-group-justified">

@@ -111,7 +111,7 @@
                         </div> @if(!empty($suite))
                         <div class="col-md-2 col-form-label " style="text-align:start">
                             <img src="{{ asset('storage/suites/' . $suite->logo_ar) }}" class="img-fluid img-thumbnail"
-                                width="64%">
+                                >
                         </div> @endif <div class="col-8">
                             <input class="form-control" type="file" name="logo_ar" @if(empty($suite)) required @endif>
                         </div>
@@ -122,7 +122,7 @@
                             <label for="logo_en">{{ __('logo_en') }}:</label>
                         </div> @if (!empty($suite)) <div class="col-md-2 col-form-label " style="text-align:start">
                             <img src="{{ asset('storage/suites/' . $suite->logo_en) }}" class="img-fluid img-thumbnail"
-                                width="64%">
+                                >
                         </div> @endif <div class="col-8">
                             <input class="form-control" type="file" name="logo_en" @if(empty($suite)) required @endif>
                         </div>

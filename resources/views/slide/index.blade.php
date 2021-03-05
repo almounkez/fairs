@@ -54,7 +54,7 @@
                             </td>
                             <td>{{ $slide->link }}</td>
 
-                            <td><img src="{{ asset('storage/slides/' . $slide->imgfile) }}" width="25%"
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/slides/' . $slide->imgfile) }}"
                                     class="img-fluid img-thumbnail">
                             </td>
                             <td>

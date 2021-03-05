@@ -54,11 +54,11 @@
                             <td>{{ $suite->active }} </td>
 
 
-                            <td><img src="{{ asset('storage/suites/' . $suite->logo_en) }}" width="25%"
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/' . $suite->logo_en) }}"
                                     class="img-fluid img-thumbnail">
                             </td>
 
-                            <td><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}" width="25%"
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}"
                                     class="img-fluid img-thumbnail">
                             </td>
                             <td>{{ $suite->hits }}</td>

@@ -67,7 +67,7 @@
                             @if (!empty($fair))
                                 <div class="col-md-2 col-form-label " style="text-align:start">
                                     <img src="{{ asset('storage/fairs/' . $fair->logo_ar) }}"
-                                        class="img-fluid img-thumbnail" width="64%">
+                                        class="img-fluid img-thumbnail" >
                                 </div>
                             @endif
                             <div class="col-8">
@@ -83,7 +83,7 @@
                             @if (!empty($fair))
                                 <div class="col-md-2 col-form-label " style="text-align:start">
                                     <img src="{{ asset('storage/fairs/' . $fair->logo_en) }}"
-                                        class="img-fluid img-thumbnail" width="64%">
+                                        class="img-fluid img-thumbnail" >
                                 </div>
                             @endif
 
