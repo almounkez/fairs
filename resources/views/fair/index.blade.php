@@ -12,7 +12,7 @@
 
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -55,11 +55,13 @@
                                 <td>{{ $fair->active }} </td>
 
 
-                                <td style="width:12% ; max-width:15%"><img src="{{ asset('storage/fairs/' . $fair->logo_en) }}"
+                                <td style="width:20% ; max-width:24%;"><img
+                                        src="{{ asset('storage/fairs/' . $fair->logo_en) }}"
                                         class="img-fluid img-thumbnail">
                                 </td>
 
-                                <td style="width:12% ; max-width:15%"><img src="{{ asset('storage/fairs/' . $fair->logo_ar) }}"
+                                <td style="width:20% ; max-width:24%;"><img
+                                        src="{{ asset('storage/fairs/' . $fair->logo_ar) }}"
                                         class="img-fluid img-thumbnail">
                                 </td>
                                 <td>{{ $fair->hits }}</td>
@@ -71,22 +73,21 @@
                                                 @lang('Suites')
                                             </a>
                                         </div>
-                                          <div class="btn-group">
-                                            <a class="btn btn-outline-info"
-                                                href="{{route('fair.slides',$fair->id)}}">
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-info" href="{{route('fair.slides',$fair->id)}}">
                                                 {{-- <i class="zmdi zmdi-settings"></i> --}}
                                                 @lang('Slides')
                                             </a>
                                         </div>
-                                          <div class="btn-group">
+                                        <div class="btn-group">
                                             <a class="btn btn-outline-success"
                                                 href="{{route('fair.categories',$fair->id)}}">
                                                 {{-- <i class="zmdi zmdi-settings"></i> --}}
                                                 @lang('Categories')
                                             </a>
                                         </div>
-</div>
-<div class="btn-group-justified">
+                                    </div>
+                                    <div class="btn-group-justified">
                                         <div class="btn-group">
                                             <a class="btn btn-outline-secondary rounded-circle"
                                                 href="{{ route('fair.edit', $fair->id) }}">

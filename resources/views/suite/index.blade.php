@@ -5,6 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Suites') }}
+                {{-- {{dd($fairId)}} --}}
                 @if(!empty('fairId'))
                 <a class= "btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fairId) }}">
                    <i class="zmdi zmdi-plus"></i>

@@ -5,9 +5,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Slides') }}
-                <a href="{{ route('slide.create',$fair->id) }}">
+                @if(!empty($fairId))
+                <a href="{{ route('slide.create',$fairId) }}">
                     <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36"></span>
                 </a>
+                @endif
             </div>
             <div class="card-body">
                 <table class="table">
@@ -23,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($fair->slides as $slide)
+                        @foreach ($slides as $slide)
                         <tr>
                             <th scope="row">
                                 {{-- <a href="{{ route('slide.edit', $slide->id) }}"><span class="iconify"
