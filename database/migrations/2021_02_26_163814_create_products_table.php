@@ -17,11 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('suite_id');
             $table->unsignedBigInteger('cat_id');
+            $table->string('sub_id')->nullable();
 
             $table->string('name_ar');
             $table->string('name_en');
 
-            $table->string('sub_id')->nullable();
             $table->string('imgfile')->nullable();
             $table->boolean('active')->nullable()->default(true);
             $table->string('descp_ar')->nullable();

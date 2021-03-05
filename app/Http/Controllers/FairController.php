@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Fair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -78,7 +79,31 @@ class FairController extends Controller
     public function show(Fair $fair)
     {
         //
-        return view('fair.show',compact('fair'));
+        $fair->hits += 1;
+        $fair->save();
+        return view('fair.show', ['fairId' => $fair->id,
+            'slides' => $fair->slides,
+            'suites' => $fair->suites,
+            'categories' => $fair->categories]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Fair  $fair
+     * @return \Illuminate\Http\Response
+     */
+    public function byCategory(Fair $fair, Category $cat)
+    {
+        //
+
+        $cat->hits += 1;
+        $cat->save();
+        return view('fair.show', ['fairId' => $fair->id,
+            'slides' => $fair->slides,
+            'suites' => $cat->suites,
+            'categories' => $fair->categories,
+            'catId' => $cat->id]);
     }
 
     /**
@@ -107,8 +132,8 @@ class FairController extends Controller
         $request->validate([
             'logo_ar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
             'logo_en' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'name_ar' => 'required|unique:fairs,name_ar,'.$fair->id,
-            'name_en' => 'required|unique:fairs,name_en,'.$fair->id,
+            'name_ar' => 'required|unique:fairs,name_ar,' . $fair->id,
+            'name_en' => 'required|unique:fairs,name_en,' . $fair->id,
         ]);
 
         $logo_arname = $fair->logo_ar;
@@ -183,36 +208,35 @@ class FairController extends Controller
     public function manage(Fair $fair)
     {
         //
-        return view('fair.manage',compact('fair'));
+        return view('fair.manage', compact('fair'));
     }
 
     public function suites(Fair $fair)
     {
-        $suites=$fair->suites;
-        $fairId=$fair->id;
+        $suites = $fair->suites;
+        $fairId = $fair->id;
         // dd($fairId);
 
-        return view('suite.index',compact('suites','fairId'));
+        return view('suite.index', compact('suites', 'fairId'));
     }
-        public function categories(Fair $fair)
+    public function categories(Fair $fair)
     {
 
-        $categories=$fair->categories;
-        $fairId=$fair->id;
+        $categories = $fair->categories;
+        $fairId = $fair->id;
 
-        return view('category.index',compact('categories','fairId'));
+        return view('category.index', compact('categories', 'fairId'));
     }
-        public function slides(Fair $fair)
+    public function slides(Fair $fair)
     {
-        $slides=$fair->slides;
-        $fairId=$fair->id;
-        return view('slide.index',compact('slides','fairId'));
+        $slides = $fair->slides;
+        $fairId = $fair->id;
+        return view('slide.index', compact('slides', 'fairId'));
     }
     // public function addSuite(int $fairId)
     // {
     //     return view('suite.crupd',compact('fairId'));
     // }
-
 
     // public function storeSuite(Request $request){
 
