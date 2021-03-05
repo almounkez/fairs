@@ -58,8 +58,8 @@
                             </li>
                             @endif
                             @else
-                            @include('layouts.fairAdminList')
-                            {{-- <li class="nav-item dropdown">
+                            {{-- @include('layouts.fairAdminList') --}}
+                            <li class="nav-item dropdown">
                                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     ادارة المعرض <span class="caret"></span>
@@ -69,7 +69,7 @@
                             قائمة المعارض
                             </a>
                     </div>
-                    </li> --}}
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
