@@ -59,8 +59,10 @@ Route::get('article/{suiteId}/create', 'ArticleController@create')->name('articl
 Route::resource('advertise', 'AdvertiseController')->except(['create']);
 Route::get('advertise/{fairId}/create', 'AdvertiseController@create')->name('advertise.create');
 
-Route::resource('marquee', 'MarqueeController')->except(['create']);
-Route::get('marquee/{fairId}/createForFair', 'MarqueeController@createforFair')->name('marquee.createForFire');
+Route::resource('marquee', 'MarqueeController')->except(['create','index']);
+Route::get('marquee/{fairId}/createForFair', 'MarqueeController@createforFair')->name('marquee.createForFair');
 Route::get('marquee/{suiteId}/createForSuite', 'MarqueeController@createforSuite')->name('marquee.createForSuite');
 
+Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
+Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
 

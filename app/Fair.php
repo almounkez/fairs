@@ -49,5 +49,15 @@ class Fair extends Model
     {
         return $this->hasMany('App\Advertise', 'fair_id');
     }
+
+    /**
+     * Get all of the marquees for the Fair
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function marquees()
+    {
+        return $this->hasMany('App\Marquee','fair_id');
+    }
 }
 

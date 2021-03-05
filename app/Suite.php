@@ -66,4 +66,5 @@ class Suite extends Model
     {
         return $this->hasMany('App\Marquee','suite_id');
     }
+
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Fair;
 use App\Marquee;
+use App\Suite;
 use Illuminate\Http\Request;
 
 class MarqueeController extends Controller
@@ -12,11 +14,20 @@ class MarqueeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexFair(Fair $fair)
     {
         //
-        $marquees = Marquee::all();
-        return view('marquee.index', compact('marquees'));
+        $marquees = $fair->marquees;
+        $fairId = $fair->id;
+        return view('marquee.index', compact('marquees', 'fairId'));
+
+    }
+    public function indexSuite(Suite $suite)
+    {
+        //
+        $marquees = $suite->marquees;
+        $suiteId = $suite->id;
+        return view('marquee.index', compact('marquees', 'suiteId'));
 
     }
 
@@ -28,7 +39,7 @@ class MarqueeController extends Controller
     public function createforFair(int $fairId)
     {
         //
-        return view('marquee.crupd',compact('fairId'));
+        return view('marquee.crupd', compact('fairId'));
     }
     /**
      * Show the form for creating a new resource.
@@ -38,7 +49,7 @@ class MarqueeController extends Controller
     public function createforSuite(int $suiteId)
     {
         //
-        return view('marquee.crupd',compact('suiteId'));
+        return view('marquee.crupd', compact('suiteId'));
     }
 
     /**
@@ -50,8 +61,19 @@ class MarqueeController extends Controller
     public function store(Request $request)
     {
         //
-        $marquee=Marquee::create($request->all());
-        return redirect(route('marquee.index'));
+        $request->validate([
+            'newstext_ar' => 'required',
+            'newstext_en' => 'required',
+        ]);
+
+        $marquee = Marquee::create($request->all());
+
+        if ($marquee->suite_id != null) {
+            return redirect(route('marquee.indexSuite', $marquee->suite_id));
+        } else if ($marquee->fair_id != null) {
+            return redirect(route('marquee.indexFair', $marquee->fair_id));
+        }
+
     }
 
     /**
@@ -75,7 +97,7 @@ class MarqueeController extends Controller
     public function edit(Marquee $marquee)
     {
         //
-        return view('marquee.crupd',compact('marquee'));
+        return view('marquee.crupd', compact('marquee'));
     }
 
     /**
@@ -88,9 +110,19 @@ class MarqueeController extends Controller
     public function update(Request $request, Marquee $marquee)
     {
         //
+        $request->validate([
+            'newstext_ar' => 'required',
+            'newstext_en' => 'required',
+        ]);
 
         $marquee->update($request->all());
         $marquee->save();
+        if ($marquee->suite_id != null) {
+            return redirect(route('marquee.indexSuite', $marquee->suite_id));
+        } else {
+            return redirect(route('marquee.indexFair', $marquee->fair_id));
+        }
+
     }
 
     /**
@@ -102,7 +134,17 @@ class MarqueeController extends Controller
     public function destroy(Marquee $marquee)
     {
         //
+        $fairId = $marquee->fair_id ?? null;
+        $suiteId = $marquee->suite_id ?? null;
         $marquee->delete();
-        return redirect(route('marquee.index'));
+
+        if ($suiteId != null) {
+            return redirect(route('marquee.indexSuite', $suiteId));
+        } else if ($fairId != null) {
+            return redirect(route('marquee.indexFair', $fairId));
+        } else {
+            return ('errore accord');
+        }
+
     }
 }

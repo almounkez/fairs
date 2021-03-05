@@ -24,41 +24,42 @@
                         </div>
                     </div>
                     @elseif(!empty($fairId))
-                    <input name="fair_id" value="{{$fairId}}" hidden>
+                    <input name="fair_id" value="{{$fairId}}" hidden >
                     @elseif(!empty($suiteId))
                     <input name="suite_id" value="{{$suiteId}}" hidden>
                     @endif
-                    <div class="row">
+                    <div class="row my-2">
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="newstext_ar">{{ __('Arabic Text') }}:</label>
                         </div>
                         <div class="col-10">
-                            <textarea class="form-control" type="text" name="newstext_ar">
-                            @if (!empty($marquee) && old('newstext_ar', $marquee->newstext_ar)) {{ $marquee->newstext_ar }}@else{{old('newstext_ar')}} @endif
-                            </textarea>
+                            <textarea required class="form-control" type="text"
+                             name="newstext_ar"> @if(!empty($marquee) && old('newstext_ar', $marquee->newstext_ar)){{ $marquee->newstext_ar }}@else{{old('newstext_ar')}}@endif</textarea>
                         </div>
                     </div>
-                    <br>
-                    <div class="row form-group">
+
+                    <div class="row my-2">
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="newstext_en">{{ __('English Text') }}:</label>
                         </div>
                         <div class="col-10">
-                            <textarea class="form-control" type="text" name="newstext_en">
-                                @if (!empty($marquee) && old('newstext_en', $marquee->newstext_en))
-                                {{ $marquee->newstext_en }}
-                                @else{{old('newstext_en')}}
-                                 @endif
-                            </textarea>
+                            <textarea required class="form-control" type="text"
+                            name="newstext_en">@if (!empty($marquee) && old('newstext_en', $marquee->newstext_en)){{ $marquee->newstext_en }}@else{{old('newstext_en')}}@endif</textarea>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row my-2">
                         <div class="col-4 text-md-center">
                             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                         </div>
                         <div class="col-8 text-md-center">
-                            <a href="{{ route('marquee.index') }}" type="button"
+                            <a
+                            @if(!empty($fairId))
+                            href="{{ route('marquee.indexFair',$fairId) }}"
+                            @elseif(!empty($suiteId))
+                            href="{{ route('marquee.indexSuite',$suiteId) }}"
+                            @endif
+                            type="button"
                                 class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>
