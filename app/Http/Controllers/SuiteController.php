@@ -20,7 +20,7 @@ class SuiteController extends Controller
     {
         //
         $suites = Suite::all();
-        
+
         return view('suite.index', compact('suites'));
 
     }
@@ -49,8 +49,8 @@ class SuiteController extends Controller
         $request->validate([
             'userName' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'name_ar' => ['requerd', 'string'],
-            'name_en' => ['requerd', 'string'],
+            'name_ar' => ['required', 'string'],
+            'name_en' => ['required', 'string'],
         ]);
 
         $user = User::create([

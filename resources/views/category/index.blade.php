@@ -38,15 +38,8 @@
                                 <td>{{ $category->fair_id }}</td>
                                 <td>{{ $category->name_ar }}</td>
                                 <td>{{ $category->name_en }}</td>
-<<<<<<< HEAD
-                                <td>{{ $category->active }}</td>
-                                <td>{{ $category->description }}</td>
-                                <td>{{ $category->description_en }}</td>
-                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/categories/' . $category->imgfile) }}"
-=======
                                  <td>{{ $category->hits }}</td>
-                                <td><img src="{{ asset('storage/categories/' . $category->imgfile) }}" width="25%"
->>>>>>> 05856226a1b831d5dab3a1d419600457a53163fe
+                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/categories/' . $category->imgfile) }}"
                                         class="img-fluid img-thumbnail"></td>
                                 <td>
                                     <div class="btn-group-justified">
