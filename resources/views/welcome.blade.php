@@ -23,8 +23,8 @@
                 <figcaption class="figure-caption">A caption for the above image.</figcaption>
             </figure>
         </a>
-        </>
-        @endforeach
     </div>
+    @endforeach
+</div>
 
-    @endsection
+@endsection
