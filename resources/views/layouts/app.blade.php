@@ -23,7 +23,6 @@
         <link rel="stylesheet" href="{{ asset('css/zmdi.css') }}">
         <link rel="stylesheet" href="{{ asset('css/material-design-iconic-font.min.css') }}">
         <script src="{{ asset('js/iconify.min.js') }}"></script>
-
     </head>
 
     <body>
@@ -59,57 +58,57 @@
                             </li>
                             @endif
                             @else
-                            <li class="nav-item dropdown">
+                            @include('layouts.fairAdminList')
+                            {{-- <li class="nav-item dropdown">
                                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     ادارة المعرض <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('fair.index') }}" >
-                                       قائمة المعارض
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                            @endguest
-                        </ul>
+                            قائمة المعارض
+                            </a>
                     </div>
+                    </li> --}}
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                    @endguest
+                    </ul>
                 </div>
-            </nav>
-            {{-- end top navebar --}}
+        </div>
+        </nav>
+        {{-- end top navebar --}}
 
-            {{-- validation error message --}}
-            @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                @foreach ($errors->all() as $error)
-                {{ $error }}
-                @endforeach
-            </div>
-            @endif
-            {{-- end validation meesage --}}
+        {{-- validation error message --}}
+        @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            @foreach ($errors->all() as $error)
+            {{ $error }}
+            @endforeach
+        </div>
+        @endif
+        {{-- end validation meesage --}}
 
-            {{-- main content --}}
-            <main class="p-2 m-4">
-                @yield('content')
-            </main>
-            {{-- end main content --}}
+        {{-- main content --}}
+        <main class="p-2 m-4">
+            @yield('content')
+        </main>
+        {{-- end main content --}}
         </div>
         @yield('script')
     </body>

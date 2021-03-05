@@ -5,9 +5,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Suites') }}
-                <a class= "btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fair->id) }}">
+                @if(!empty('fairId'))
+                <a class= "btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('suite.create',$fairId) }}">
                    <i class="zmdi zmdi-plus"></i>
                 </a>
+                @endif
             </div>
             <div class="card-body">
                 <table class="table">
@@ -26,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($fair->suites as $suite)
+                        @foreach($suites as $suite)
                         <tr>
                             <th scope="row">
                             </th>

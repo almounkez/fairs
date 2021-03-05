@@ -55,43 +55,38 @@
                                 <td>{{ $fair->active }} </td>
 
 
-                                <td><img src="{{ asset('storage/fairs/' . $fair->logo_en) }}" width="25%"
+                                <td style="width:12% ; max-width:15%"><img src="{{ asset('storage/fairs/' . $fair->logo_en) }}"
                                         class="img-fluid img-thumbnail">
                                 </td>
 
-                                <td><img src="{{ asset('storage/fairs/' . $fair->logo_ar) }}" width="25%"
+                                <td style="width:12% ; max-width:15%"><img src="{{ asset('storage/fairs/' . $fair->logo_ar) }}"
                                         class="img-fluid img-thumbnail">
                                 </td>
                                 <td>{{ $fair->hits }}</td>
-                                <td>
-                                    {{--
-                                <form action="{{ route('fair.destroy', $fair->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button Type="submit" class="iconify" data-icon="clarity:remove-line"
-                                        data-inline="false" height="36" width="36">
-                                    </button>
-                                    </form> --}}
-                                    <div class="btn-group-justified">
+                                <td style="width: 25%">
+                                    <div class="btn-group-justified mb-2">
                                         <div class="btn-group">
-                                            <a class="btn btn-outline-warning rounded-circle"
-                                                href="{{route('fair.suite',$fair->id)}}">
-                                                <i class="zmdi zmdi-settings"></i>
+                                            <a class="btn btn-outline-warning"
+                                                href="{{route('fair.suites',$fair->id)}}">
+                                                @lang('Suites')
                                             </a>
                                         </div>
                                           <div class="btn-group">
-                                            <a class="btn btn-outline-warning rounded-circle"
+                                            <a class="btn btn-outline-info"
                                                 href="{{route('fair.slides',$fair->id)}}">
-                                                <i class="zmdi zmdi-settings"></i>
+                                                {{-- <i class="zmdi zmdi-settings"></i> --}}
+                                                @lang('Slides')
                                             </a>
                                         </div>
                                           <div class="btn-group">
-                                            <a class="btn btn-outline-warning rounded-circle"
-                                                href="{{route('fair.cats',$fair->id)}}">
-                                                <i class="zmdi zmdi-settings"></i>
+                                            <a class="btn btn-outline-success"
+                                                href="{{route('fair.categories',$fair->id)}}">
+                                                {{-- <i class="zmdi zmdi-settings"></i> --}}
+                                                @lang('Categories')
                                             </a>
                                         </div>
-
+</div>
+<div class="btn-group-justified">
                                         <div class="btn-group">
                                             <a class="btn btn-outline-secondary rounded-circle"
                                                 href="{{ route('fair.edit', $fair->id) }}">

@@ -186,6 +186,24 @@ class FairController extends Controller
         return view('fair.manage',compact('fair'));
     }
 
+    public function suites(Fair $fair)
+    {
+        $suites=$fair->suites;
+        // $fairId=$fair->id;
+        return view('suite.index',compact('suites'));
+    }
+        public function categories(Fair $fair)
+    {
+        $categories=$fair->categories;
+        $fairId=$fair->id;
+        return view('category.index',compact('categories','fairId'));
+    }
+        public function slides(Fair $fair)
+    {
+        $slides=$fair->slides;
+        $fairId=$fair->id;
+        return view('slide.index',compact('slides','fairId'));
+    }
     // public function addSuite(int $fairId)
     // {
     //     return view('suite.crupd',compact('fairId'));

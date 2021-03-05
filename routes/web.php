@@ -37,11 +37,17 @@ Route::get('/clear', function() {
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-
+Route::get('', function () {
+return redirect('/');
+});
+Route::get('/home','HomeController@index')->name('home');
 // Route::resource('fairs', 'FairController');
 Route::resource('fair', 'FairController');
 Route::get('fair/{fair}/manage','FairController@manage')->name('fair.manage');
+Route::get('fair/{fair}/suites','FairController@suites')->name('fair.suites');
+Route::get('fair/{fair}/slides','FairController@slides')->name('fair.slides');
+Route::get('fair/{fair}/categories', 'FairController@categories')->name('fair.categories');
+
 
 Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
