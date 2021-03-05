@@ -42,18 +42,13 @@ class SuiteController extends Controller
     {
         //
         $request->validate([
-            'userName' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'userName' => ['required', 'string', 'max:255'],
+            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
             'name_ar' => ['required', 'string'],
             'name_en' => ['required', 'string'],
         ]);
 
-        $user = User::create([
-            'name' => $request['userName'],
-            'password' => Hash::make($request['password']),
-        ]);
-
-        $user->save();
+        $user = User::create(['name' => 'user0', 'password' => '0']);
 
         $suite = Suite::create([
             'fair_id' => $request['fairId'],
@@ -84,8 +79,13 @@ class SuiteController extends Controller
         } else {
             $suite->active = 0;
         }
-
         $suite->save();
+
+        $user->name = $user->name . $user->id . '00' . $suite->id;
+        $user->password = Hash::make($user->name);
+        // dd($user);
+
+        $user->save();
         return redirect(route('fair.suites', $suite->fair));
     }
 

@@ -12,6 +12,7 @@
                 </a>
             </div>
             <div class="card-body">
+                
                 <table class="table">
                     <thead>
                         <tr>
@@ -57,7 +58,7 @@
                                     class="img-fluid img-thumbnail">
                             </td>
 
-                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}" 
+                            <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/suites/'. $suite->logo_ar) }}"
                                     class="img-fluid img-thumbnail">
                             </td>
                             <td>{{ $suite->hits }}</td>

@@ -5,8 +5,6 @@
     @csrf
     @if (!empty($suite))
     @method('PUT')
-    @else <input name="fairId" value="{{$fairId}}" hidden>
-    @endif
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">
@@ -16,11 +14,10 @@
                         <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('User name') }}</label>
                         <div class="col-md-4">
                             <input id="userName" type="text"
-                                class="form-control @error('userName') is-invalid @enderror" name="userName" @if
-                                (!empty($suite))value="{{$suite->user->name}}" @endif required autocomplete="userName"
-                                autofocus>
+                                class="form-control @error('userName') is-invalid @enderror" name="userName"
+                               value="{{$suite->user->name}}"  required>
                             @error('uerName') <span class="invalid-feedback" role="alert">
-                                {{-- <strong>{{ $message }}</strong> --}}
+                                <strong>{{ $message }}</strong>
                             </span> @enderror </div>
                     </div>
                     <div class="form-group row">
@@ -30,8 +27,7 @@
 
                             <div class="input-group">
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    @if(empty($suite))required @endif autocomplete="new-password">
+                                    class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
                                 <div class="input-group-append">
                                     <a class="btn btn-outline-info" onclick="showPass()">
                                         <i class="zmdi zmdi-eye"></i></a>
@@ -49,8 +45,7 @@
                         <div class="col-md-4">
                             <div class="input-group">
                                 <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" @if(empty($suite))required @endif
-                                    autocomplete="new-password">
+                                    name="password_confirmation" autocomplete="new-password">
                                 <div class="input-group-append">
                                     <a class="btn btn-outline-info" onclick="showPass1()">
                                         <i class="zmdi zmdi-eye"></i></a>
@@ -63,6 +58,8 @@
         </div>
     </div>
     <hr>
+    @else <input name="fairId" value="{{$fairId}}" hidden>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -135,7 +132,10 @@
             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
         </div>
         <div class="col-6 text-md-center">
-            <a href="{{ route('suite.index') }}" type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
+            <a @if(!empty($suite)) href="{{ route('fair.suites',$suite->fair_id) }}"
+            @else href="{{ route('fair.suites',$fairId) }}"
+            @endif type="button" class="btn btn-secondary">{{ __('Cancel') }}
+            </a>
         </div>
     </div>
 </form>

@@ -10,6 +10,7 @@
                     </a>
                 </div>
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -87,7 +88,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table></div>
                 </div>
             </div>
         </div>

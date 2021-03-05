@@ -13,10 +13,11 @@
                 @endif
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">{{__('User Name')}}</th>
                             <th scope="col">{{ __('Arabic Name') }}</th>
                             <th scope="col">{{ __('English Name') }}</th>
                             <th scope="col">{{ __('Start Date') }}</th>
@@ -25,52 +26,34 @@
                             <th scope="col">{{ __('Arabic Logo') }}</th>
                             <th scope="col">{{ __('English Logo') }}</th>
                             <th scope="col">{{ __('hits') }}</th>
-                            <th scope="col" width="150">{{ __('Control') }}</th>
+                            <th scope="col" width="10%">{{ __('Control') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($suites as $suite)
                         <tr>
-                            <th scope="row">
-                            </th>
-                            <td>
-                                @if (!empty($suite->name_ar))
-                                {{ $suite->name_ar }}
-                                @endif
-                            </td>
-                            <td>
-                                @if (!empty($suite->name_en))
-                                {{ $suite->name_en }}
-                                @endif
-                            </td>
-                            <td>
-                                @if (!empty($suite->start_date))
-                                {!! $suite->start_date !!} @endif
-                            </td>
-                            <td>
-                                @if (!empty($suite->end_date))
-                                {!! $suite->end_date !!} @endif
-                            </td>
+                            <th scope="row"></th>
+                            <td>@if(!empty($suite->user)){{$suite->user->name}}@endif</td>
+                            <td>@if (!empty($suite->name_ar)){{ $suite->name_ar }}@endif </td>
+                            <td>@if (!empty($suite->name_en)){{ $suite->name_en }}@endif</td>
+                            <td>@if (!empty($suite->start_date)) {!! $suite->start_date !!} @endif</td>
+                            <td> @if (!empty($suite->end_date)) {!! $suite->end_date !!} @endif</td>
                             <td>{{ $suite->active }} </td>
 
-
-                            <td style="width:20% ; max-width:24%;">
+                            <td style="width:15% ; max-width:20%;">
                                 @if(!empty($suite->logo_en))
-                                <img src="{{ asset('storage/suites/' . $suite->logo_en) }}"
+                                <img src="{{ asset('storage/suites/'.$suite->logo_en) }}"
                                     class="img-fluid img-thumbnail">
                                 @endif
                             </td>
-
-                            <td style="width:20% ; max-width:24%;">
+                            <td style="width:15% ; max-width:20%;">
                                 @if(!empty($suite->logo_en))
-                                <img src="{{ asset('storage/suites/'. $suite->logo_ar) }}"
+                                <img src="{{ asset('storage/suites/'.$suite->logo_ar) }}"
                                     class="img-fluid img-thumbnail">
                                 @endif
                             </td>
                             <td>{{ $suite->hits }}</td>
-                            <td>
-
-                                <div class="btn-group-justified">
+                            <td><div class="btn-group-justified">
                                     <div class="btn-group">
                                         <a class="btn btn-outline-warning rounded-circle"
                                             href="{{route('suite.edit',$suite->id)}}">
@@ -87,7 +70,6 @@
                                         </form>
                                     </div>
                                 </div>
-
                             </td>
                         </tr>
                         @endforeach
