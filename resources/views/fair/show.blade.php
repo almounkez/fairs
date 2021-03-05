@@ -10,20 +10,19 @@
                 <ul class="carousel-indicators">
                     {{-- @Admin --}}
 
-                    <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('slide.create',$fair->id)}}">
+                    <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('slide.create',$fairId)}}">
                         <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
                     </a>
 
                     {{-- @endAdmin --}}
-                    @for ($i = 0; $i < count($fair->slides); $i++) <li data-target="#masterSlides"
+                    @for ($i = 0; $i < count($slides); $i++) <li data-target="#masterSlides"
                             data-slide-to="{{ $i }}" @if ($i==0) class="active" @endif>
                         </li>
                         @endfor
                 </ul>
                 <!-- wrapper for slides -->
-                <div class="row"></div>
                 <div class="carousel-inner h-50" role="listbox" style="max-height:300px !important">
-                    @foreach ($fair->slides as $key => $slide)
+                    @foreach ($slides as $key => $slide)
                     <div class="carousel-item @if ($key==0) active @endif">
                         <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}"
                             class="img-fluid carousel-inner img-thumbnail">
@@ -47,13 +46,13 @@
 <div class="row">
     <div class="col-md-3">
         <div class="list-group">
-            <a href="{{route('category.create',$fair->id)}}" class="list-group-item list-group-item-action ">
-                @lang('categories')
-                <span ><i class="zmdi zmdi-plus" style="float: inline-start"></i></span>
+            <a href="{{route('category.create',$fairId)}}" class="list-group-item list-group-item-action active">
+                <h5 class="d-flex justify-content-center"> @lang('Categories ')
+                    <span><i class="zmdi zmdi-plus" style="float: inline-start"></i></span></h5>
             </a>
-            @foreach ($fair->categories as $category)
+            @foreach ($categories as $category)
             <a href="#" class="list-group-item list-group-item-action">
-                <h5 class="card-header d-flex align-items-center justify-content-center h-100">
+                <h5 class="d-flex align-items-center justify-content-center">
                     @if (config('app.locale') == 'ar')
                     {{ $category->name }}
                     @else
@@ -66,7 +65,7 @@
     </div>
     <div class="col-md-9">
         <div class="row">
-            @foreach ($fair->suites as $suite)
+            @foreach ($suites as $suite)
             <div class="col-md-4">
                 <a href="{{route('suite.show',$suite->id)}}">
                     <figure class="figure">
