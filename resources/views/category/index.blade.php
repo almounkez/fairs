@@ -5,11 +5,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">{{ __('Category') }}
-
-                <a href="{{ route('category.create',$fair->id) }}">
+                @if(!empty($fairId))
+                <a href="{{ route('category.create',$fairId) }}">
                     <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36">
                     </span>
                 </a>
+                @endif
             </div>
 
             <div class="card-body">
@@ -28,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($fair->categories as $category)
+                            @foreach ($categories as $category)
                             <tr>
                                 <th scope="row">
                                     {{-- <a href="{{ route('category.edit', $category->id) }}"><span class="iconify"

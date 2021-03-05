@@ -189,13 +189,17 @@ class FairController extends Controller
     public function suites(Fair $fair)
     {
         $suites=$fair->suites;
-        // $fairId=$fair->id;
-        return view('suite.index',compact('suites'));
+        $fairId=$fair->id;
+        // dd($fairId);
+
+        return view('suite.index',compact('suites','fairId'));
     }
         public function categories(Fair $fair)
     {
+
         $categories=$fair->categories;
         $fairId=$fair->id;
+
         return view('category.index',compact('categories','fairId'));
     }
         public function slides(Fair $fair)
