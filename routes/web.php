@@ -58,3 +58,9 @@ Route::get('article/{suiteId}/create', 'ArticleController@create')->name('articl
 
 Route::resource('advertise', 'AdvertiseController')->except(['create']);
 Route::get('advertise/{fairId}/create', 'AdvertiseController@create')->name('advertise.create');
+
+Route::resource('marquee', 'MarqueeController')->except(['create']);
+Route::get('marquee/{fairId}/createForFair', 'MarqueeController@createforFair')->name('marquee.createForFire');
+Route::get('marquee/{suiteId}/createForSuite', 'MarqueeController@createforSuite')->name('marquee.createForSuite');
+
+

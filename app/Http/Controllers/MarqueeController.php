@@ -15,7 +15,7 @@ class MarqueeController extends Controller
     public function index()
     {
         //
-        $marquees = Marquee::latest();
+        $marquees = Marquee::all();
         return view('marquee.index', compact('marquees'));
 
     }
@@ -25,9 +25,20 @@ class MarqueeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createforFair(int $fairId)
     {
         //
+        return view('marquee.crupd',compact('fairId'));
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createforSuite(int $suiteId)
+    {
+        //
+        return view('marquee.crupd',compact('suiteId'));
     }
 
     /**
@@ -39,6 +50,8 @@ class MarqueeController extends Controller
     public function store(Request $request)
     {
         //
+        $marquee=Marquee::create($request->all());
+        return redirect(route('marquee.index'));
     }
 
     /**
@@ -50,6 +63,7 @@ class MarqueeController extends Controller
     public function show(Marquee $marquee)
     {
         //
+
     }
 
     /**
@@ -61,6 +75,7 @@ class MarqueeController extends Controller
     public function edit(Marquee $marquee)
     {
         //
+        return view('marquee.crupd',compact('marquee'));
     }
 
     /**
@@ -73,6 +88,9 @@ class MarqueeController extends Controller
     public function update(Request $request, Marquee $marquee)
     {
         //
+
+        $marquee->update($request->all());
+        $marquee->save();
     }
 
     /**
@@ -84,5 +102,7 @@ class MarqueeController extends Controller
     public function destroy(Marquee $marquee)
     {
         //
+        $marquee->delete();
+        return redirect(route('marquee.index'));
     }
 }
