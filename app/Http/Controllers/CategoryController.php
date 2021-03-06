@@ -6,7 +6,6 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-
 class CategoryController extends Controller
 {
     /**
@@ -45,8 +44,8 @@ class CategoryController extends Controller
         // $fair_id=$request->fair_id;
         $request->validate([
             'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'name_ar' => ['required',Rule::unique('categories')->where('fair_id', $request->fair_id)],
-            'name_en' => ['required',Rule::unique('categories')->where('fair_id', $request->fair_id)]
+            'name_ar' => ['required', Rule::unique('categories')->where('fair_id', $request->fair_id)],
+            'name_en' => ['required', Rule::unique('categories')->where('fair_id', $request->fair_id)],
         ]);
 
         $imagename = "";
@@ -87,7 +86,7 @@ class CategoryController extends Controller
     {
         //
         // dd($category);
-        return view('category.crupd',compact('category'));
+        return view('category.crupd', compact('category'));
     }
 
     /**
@@ -102,6 +101,8 @@ class CategoryController extends Controller
         //
         $request->validate([
             'imgfile' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'name_ar' => ['required', Rule::unique('categories')->ignore($category->id)->where('fair_id', $request->fair_id)],
+            'name_en' => ['required', Rule::unique('categories')->ignore($category->id)->where('fair_id', $request->fair_id)],
         ]);
         $imagename = "";
         if (request()->hasfile('imgfile')) {
