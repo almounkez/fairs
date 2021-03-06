@@ -20,7 +20,6 @@
                                 <th scope="col">{{ __('Subegory') }}</th>
                                 <th scope="col">{{ __('name_ar') }}</th>
                                 <th scope="col">{{ __('name_en') }}</th>
-
                                 <th scope="col">{{ __('active') }}</th>
                                 <th scope="col">{{ __('descp_ar') }}</th>
                                 <th scope="col">{{ __('descp_en') }}</th>
@@ -44,15 +43,9 @@
                                             @endif
                                         @endif
                                     </td>
-                                    <td>
-                                        @if (!empty($product->category))
-                                            @if (config('app.locale') == 'ar')
-                                                {{ $product->category_sub->name }}
-                                            @else
-                                                {{ $product->category_sub->name_en }}
-                                            @endif
-                                        @endif
-                                    <th>
+                                    <td>{{ $product->sub_id }}</td>
+
+
                                     <td>{{ $product->name_ar }}</td>
                                     <td>{{ $product->name_en }}</td>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Subcategory;
 use App\Fair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -105,7 +106,25 @@ class FairController extends Controller
             'categories' => $fair->categories,
             'catId' => $cat->id]);
     }
+/**
+     * Display the specified resource.
+     *
+     * @param  \App\Fair  $fair
+     * @return \Illuminate\Http\Response
+     */
+    public function bySubcategory(Fair $fair, Subcategory $subcat)
+    {
+        //
 
+        $subcat->hits += 1;
+        $subcat->save();
+        return view('fair.show', ['fairId' => $fair->id,
+            'slides' => $fair->slides,
+            'suites' => $cat->suites,
+            'categories' => $fair->categories,
+            'subcategories' => $fair->subcategories,
+            'catId' => $cat->id]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -226,6 +245,14 @@ class FairController extends Controller
         $fairId = $fair->id;
 
         return view('category.index', compact('categories', 'fairId'));
+    }
+        public function subcategories(Fair $fair)
+    {
+
+        $subcategories = $fair->subcategories;
+        $fairId = $fair->id;
+
+        return view('subcategory.index', compact('subcategories', 'fairId'));
     }
     public function slides(Fair $fair)
     {
