@@ -24,7 +24,7 @@ class SubcategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $fairId)
     {
         return view('subcategory.crupd', compact('fairId'));
     }
