@@ -30,7 +30,10 @@ class Fair extends Model
     {
         return $this->hasMany('App\Category', 'fair_id');
     }
-
+   public function subcategories()
+    {
+        return $this->hasMany('App\Subcategory', 'fair_id');
+    }
     /**
      * Get all of the slides for the Fair
      *
