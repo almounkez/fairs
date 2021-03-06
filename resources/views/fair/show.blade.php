@@ -10,7 +10,7 @@
                 <ul class="carousel-indicators">
                     {{-- @Admin --}}
 
-                    <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('slide.create',$fairId)}}">
+                    <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('slide.createForFair',$fairId)}}">
                         <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
                     </a>
 
@@ -51,7 +51,7 @@
                     <span><i class="zmdi zmdi-plus" style="float: inline-start"></i></span></h5>
             </a>
             @foreach ($categories as $category)
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="{{route('search.suites.cat',['fair' => $fairId,'category'=>$category])}}" class="list-group-item list-group-item-action">
                 <h5 class="d-flex align-items-center justify-content-center">
                     @if (config('app.locale') == 'ar')
                     {{ $category->name }}

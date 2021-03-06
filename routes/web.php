@@ -54,8 +54,12 @@ Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
 Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
 
-Route::resource('slide', 'SlideController')->except(['create']);
-Route::get('slide/{fairId}/create','SlideController@create')->name('slide.create');
+Route::resource('slide', 'SlideController')->except(['create','index']);
+Route::get('slide/{fairId}/createForFair','SlideController@createforFair')->name('slide.createForFair');
+Route::get('slide/{fairId}/createForSuite', 'SlideController@createforSuite')->name('slide.createForSuite');
+Route::get('slide/{fair}/fair', 'SlideController@indexFair')->name('slide.indexFair');
+Route::get('slide/{suite}/suite', 'SlideController@indexSuite')->name('slide.indexSuite');
+
 
 Route::resource('category','CategoryController')->except(['create']);
 Route::get('category/{fairId}/create', 'CategoryController@create')->name('category.create');
@@ -76,4 +80,7 @@ Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.
 Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
 
 Route::resource('product', 'ProductController')->except(['create']);
-Route::get('product/{suiteId}/create', 'product@create')->name('product.create');
+Route::get('product/{suiteId}/create', 'ProductController@create')->name('product.create');
+
+Route::get('search/suites/{fair}/cat/{category}','SearchController@suitesByCat')->name('search.suites.cat');
+Route::get('search/products/{suite}/cat/{category}','SearchController@productsByCat')->name('search.products.cat');

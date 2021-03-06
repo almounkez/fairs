@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Slide;
+use App\Suite;
+use App\Fair;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class SlideController extends Controller
 {
@@ -22,18 +25,57 @@ class SlideController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFair(Fair $fair)
+    {
+        //
+        $slides = $fair->slides;
+        $fairId = $fair->id;
+
+        return view('slide.index', compact('slides','fairId'));
+
+    }/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexSuite(Suite $suite)
+    {
+        //
+        $slides = $suite->slides;
+        $suiteId = $suite->id;
+
+        return view('slide.index', compact('slides','suiteId'));
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(int $fairId)
+    public function createForFair(int $fairId)
     {
         //
         $categories = Category::all();
         return view('slide.crupd', compact('categories', 'fairId'));
 
     }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createForSuite(int $suiteId)
+    {
+        //
+        $categories = Category::all();
+        return view('slide.crupd', compact('categories', 'suiteId'));
 
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -60,8 +102,12 @@ class SlideController extends Controller
         $slide->imgfile = $imagename;
         $slide->save();
         // dd($request->all(),$slide);
-        return redirect(route('fair.show', $slide->fair_id));
 
+        if ($slide->suite_id != null) {
+            return redirect(route('slide.indexSuite', $slide->suite_id));
+        } else if ($slide->fair_id != null) {
+            return redirect(route('slide.indexFair', $slide->fair_id));
+        }
     }
 
     /**
@@ -126,7 +172,13 @@ class SlideController extends Controller
 
         $slide->save();
 
-        return redirect(route('slide.index'));
+        if ($slide->suite_id != null) {
+            return redirect(route('slide.indexSuite', $slide->suite_id));
+        } else if ($slide->fair_id != null) {
+            return redirect(route('slide.indexFair', $slide->fair_id));
+        }
+
+        // return redirect(route('slide.index'));
 
     }
 
@@ -139,12 +191,25 @@ class SlideController extends Controller
     public function destroy(Slide $slide)
     {
         //
+
+        $fairId = $slide->fair_id ?? null;
+        $suiteId = $slide->suite_id ?? null;
+
         $imagefilepath = public_path('storage/slides/');
         if ($slide->imgfile != null) {
             File::delete($imagefilepath . $slide->imgfile);
         }
         $slide->delete();
-        return redirect(route('slide.index'));
+
+        if ($suiteId != null) {
+            return redirect(route('slide.indexSuite', $suiteId));
+        } else if ($fairId != null) {
+            return redirect(route('slide.indexFair', $fairId));
+        } else {
+            return ('errore accord');
+        }
+
+        // return redirect(route('slide.index'));
 
     }
 }

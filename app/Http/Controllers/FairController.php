@@ -88,24 +88,7 @@ class FairController extends Controller
             'categories' => $fair->categories]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Fair  $fair
-     * @return \Illuminate\Http\Response
-     */
-    public function byCategory(Fair $fair, Category $cat)
-    {
-        //
 
-        $cat->hits += 1;
-        $cat->save();
-        return view('fair.show', ['fairId' => $fair->id,
-            'slides' => $fair->slides,
-            'suites' => $cat->suites,
-            'categories' => $fair->categories,
-            'catId' => $cat->id]);
-    }
 /**
      * Display the specified resource.
      *

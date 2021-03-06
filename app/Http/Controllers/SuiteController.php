@@ -98,6 +98,15 @@ class SuiteController extends Controller
     public function show(Suite $suite)
     {
         //
+
+
+        return view('suite.show', [
+            'products' => $suite->products,
+            'slides' => $suite->slides,
+            'categories' => $suite->fair->categories,
+            'suiteId' => $suite->id,
+            'fairId' => $suite->fair->id
+        ]);
     }
 
     /**

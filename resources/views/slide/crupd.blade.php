@@ -27,7 +27,7 @@
                     @elseif(!empty($fairId))
                     <input name="fair_id" value="{{$fairId}}" hidden>
                     @elseif($suiteId!=null)
-                    <input name="suiteId" value="{{$suiteId}}" hidden>
+                    <input name="suite_id" value="{{$suiteId}}" hidden>
                     @endif
                     <div class="row">
                         <div class="col-md-4 col-form-label " style="text-align:start">
@@ -86,8 +86,7 @@
                             style="text-align:start"><label for="imgfile">{{ __('imgfile') }}: </label></div>
                         @if (!empty($slide))
                         <div class="col-md-2 col-form-label " style="text-align:start">
-                            <img src="{{ asset('storage/slides/' . $slide->imgfile) }}" class="img-fluid img-thumbnail"
-                                >
+                            <img src="{{ asset('storage/slides/' . $slide->imgfile) }}" class="img-fluid img-thumbnail">
                         </div>
                         @endif
 
@@ -101,9 +100,11 @@
                             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                         </div>
                         <div class="col-8 text-md-center">
-                            <a href="{{ route('slide.index') }}" type="button"
-                                class="btn btn-secondary">{{ __('Cancel') }}</a>
-
+                            {{-- <a href="{{ route('slide.index') }}" type="button"
+                                class="btn btn-secondary">{{ __('Cancel') }}</a> --}}
+                            <a @if(!empty($fairId)) href="{{ route('slide.indexFair',$fairId) }}"
+                                @elseif(!empty($suiteId)) href="{{ route('slide.indexSuite',$suiteId) }}" @endif
+                                type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
 
                         </div>
                     </div>
