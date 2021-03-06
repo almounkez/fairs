@@ -16,11 +16,15 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fair_id');
-            $table->string('name_ar')->unique();
-            $table->string('name_en')->unique();
+            $table->string('name_ar');
+            $table->string('name_en');
             $table->string('imgfile')->nullable();
             $table->unsignedBigInteger('hits')->default(0);
             $table->timestamps();
+
+            $table->unique(['fair_id', 'name_ar']);
+            $table->unique(['fair_id', 'name_en']);
+
         });
     }
 
