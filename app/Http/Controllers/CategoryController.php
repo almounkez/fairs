@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class CategoryController extends Controller
 {
@@ -40,8 +42,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        // $fair_id=$request->fair_id;
         $request->validate([
             'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
+            'name_ar' => ['required',Rule::unique('categories')->where('fair_id', $request->fair_id)],
+            'name_en' => ['required',Rule::unique('categories')->where('fair_id', $request->fair_id)]
         ]);
 
         $imagename = "";
