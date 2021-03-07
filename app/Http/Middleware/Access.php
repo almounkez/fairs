@@ -20,7 +20,9 @@ class Access
         if(!Auth::check()){
             return redirect(route('login'));
         }
-        $suiteId=$request->route()->parameter('suiteId');
+
+        $suiteId=$request->route()->parameter('suiteId')??$request->route()->parameter('suite')->id??null;
+        // dd(  $suiteId,Auth::user()->suite->id);
         if(Auth::user()->role =='admin'||Auth::user()->suite->id==$suiteId)
             return $next($request);
         else
