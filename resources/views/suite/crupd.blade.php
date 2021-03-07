@@ -5,6 +5,7 @@
     @csrf
     @if (!empty($suite))
     @method('PUT')
+    <input type="hidden" name='suite_id' value="{{$suite->id}}" >
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">

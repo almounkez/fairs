@@ -20,12 +20,12 @@ class Access
         if(!Auth::check()){
             return redirect(route('login'));
         }
-
-        $suiteId=$request->route()->parameter('suiteId')??$request->route()->parameter('suite')->id??null;
-        // dd(  $suiteId,Auth::user()->suite->id);
-        if(Auth::user()->role =='admin'||Auth::user()->suite->id==$suiteId)
+        // dd($request->suite_id);
+        $suiteId=$request->route()->parameter('suiteId')??$request->route()->parameter('suite')->id?? $request->suite_id ??null;
+        // dd(Auth::user()->role =='admin'||Auth::user()->suite->id==$suiteId);
+        if(Auth::user()->role =='admin'||Auth::user()->suite->id==$suiteId){
             return $next($request);
-        else
-            return back()->withErrors('you have no permission');
+        }
+        return back()->withErrors('you have no access');
     }
 }

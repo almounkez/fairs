@@ -18,9 +18,8 @@ class SuiteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('access')->except('show','index','create');
-
-        // $this->middleware('subscribed')->except('store');
+        $this->middleware('access')->only('edit','update');
+        $this->middleware('admin')->only('create','store','delete','index');
     }
 
     /**
@@ -188,7 +187,7 @@ class SuiteController extends Controller
         }
         $suite->save();
 
-        return redirect(route('fair.suites', $suite->fair));
+        return redirect(route('suite.show', $suite));
 
     }
 
