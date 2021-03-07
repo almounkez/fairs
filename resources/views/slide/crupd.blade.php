@@ -34,44 +34,39 @@
                             <label for="description">{{ __('Category') }}:</label>
                         </div>
                         <div class="col-8">
-                            <select class="form-control show-tick ms select2" name="category_id">
-                                @if (!empty($slide) && !empty($slide->category_id))
-                                <option value={{ $slide->category_id }}>
-                                    {{ $slide->category->name }}
+                            <select class="form-control show-tick ms select2" name="cat_id">
+                                @if (!empty($slide) && !empty($slide->cat_id))
+                                <option value={{ $slide->cat_id }}>
+                                    @if (app()->getLocale() == 'ar'){{ $slide->category->name_ar}}
+                                    @else{{ $slide->category->name_en}}@endif
                                 </option>
                                 @else
                                 <option disabled selected value>{{ __('Primary page') }}</option>
                                 @endif
-                                @foreach ($categories as $category)
 
-                                <option value={{ $category->id }}>{{ $category->name }}</option>
+                                @if (app()->getLocale() == 'ar')
+                                @foreach ($categories as $category)
+                                <option value={{ $category->id }}>{{ $category->name_ar }}</option>
                                 @endforeach
+                                @else
+                                @foreach ($categories as $category)
+                                <option value={{ $category->id }}>{{ $category->name_en }}</option>
+                                @endforeach
+                                @endif
                             </select>
 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-form-label " style="text-align:start">
-                            <label for="description">{{ __('Subegory') }}:</label>
+                        <div class="col-md-4  col-form-label " style="text-align:start">
+                            <label for="location">{{ __('location') }}:</label>
                         </div>
-                        <div class="col-8">
-                            <select class="form-control show-tick ms select2" name="subegory_id">
-                                @if (!empty($slide) && !empty($slide->subegory_id))
-                                <option value={{ $slide->subegory_id }}>
-                                    {{ $slide->category_sub->name }}
-                                </option>
-                                @else
-                                <option disabled selected value>{{ __('Primary page') }}</option>
-                                @endif
-                                @foreach ($categories as $category)
 
-                                <option value={{ $category->id }}>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-
+                        <div class="col-8"><input class="form-control" type="text" name="location"
+                                value=@if(!empty($slide) && old('location', $slide->location))
+                            {{ $slide->location }}@else{{old('location')}} @endif>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-4 col-form-label " style="text-align:start">
                             <label for="active">{{ __('Active') }}:</label>
@@ -83,29 +78,30 @@
                     </div>
                     <div class="row">
                         <div class="@if (!empty($slide)) col-md-2  @else col-md-4 @endif col-form-label "
-                            style="text-align:start"><label for="imgfile">{{ __('imgfile') }}: </label></div>
+                            style="text-align:start">
+                            <label for="imgfile">{{ __('imgfile') }}: </label>
+                        </div>
                         @if (!empty($slide))
                         <div class="col-md-2 col-form-label " style="text-align:start">
                             <img src="{{ asset('storage/slides/' . $slide->imgfile) }}" class="img-fluid img-thumbnail">
                         </div>
                         @endif
-
                         <div class="col-8 ">
                             <input class="form-control" type="file" name="imgfile" @if (empty($slide)) required @endif>
 
                         </div>
                     </div>
-                    <div class="row">
+
+                    <div class="row mt-2">
                         <div class="col-4 text-md-center">
                             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                         </div>
                         <div class="col-8 text-md-center">
                             {{-- <a href="{{ route('slide.index') }}" type="button"
-                                class="btn btn-secondary">{{ __('Cancel') }}</a> --}}
+                            class="btn btn-secondary">{{ __('Cancel') }}</a> --}}
                             <a @if(!empty($fairId)) href="{{ route('slide.indexFair',$fairId) }}"
                                 @elseif(!empty($suiteId)) href="{{ route('slide.indexSuite',$suiteId) }}" @endif
                                 type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
-
                         </div>
                     </div>
                 </form>

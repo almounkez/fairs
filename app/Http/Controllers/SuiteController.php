@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Hash;
 class SuiteController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('access')->except('show','index');
+
+        // $this->middleware('subscribed')->except('store');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

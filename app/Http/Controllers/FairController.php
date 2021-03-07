@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Storage;
 class FairController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('admin')->except('show');
+        // $this->middleware('subscribed')->except('store');
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -83,31 +95,31 @@ class FairController extends Controller
         $fair->hits += 1;
         $fair->save();
         return view('fair.show', ['fairId' => $fair->id,
-            'slides' => $fair->slides,
+            'slides' => $fair->slides()->doesntHave('category')->where('active','1')->get(),
             'suites' => $fair->suites,
             'categories' => $fair->categories]);
     }
 
 
-/**
-     * Display the specified resource.
-     *
-     * @param  \App\Fair  $fair
-     * @return \Illuminate\Http\Response
-     */
-    public function bySubcategory(Fair $fair, Subcategory $subcat)
-    {
-        //
+// /**
+//      * Display the specified resource.
+//      *
+//      * @param  \App\Fair  $fair
+//      * @return \Illuminate\Http\Response
+//      */
+//     public function bySubcategory(Fair $fair, Subcategory $subcat)
+//     {
+//         //
 
-        $subcat->hits += 1;
-        $subcat->save();
-        return view('fair.show', ['fairId' => $fair->id,
-            'slides' => $fair->slides,
-            'suites' => $cat->suites,
-            'categories' => $fair->categories,
-            'subcategories' => $fair->subcategories,
-            'catId' => $cat->id]);
-    }
+//         $subcat->hits += 1;
+//         $subcat->save();
+//         return view('fair.show', ['fairId' => $fair->id,
+//             'slides' => $fair->slides,
+//             'suites' => $cat->suites,
+//             'categories' => $fair->categories,
+//             'subcategories' => $fair->subcategories,
+//             'catId' => $cat->id]);
+//     }
     /**
      * Show the form for editing the specified resource.
      *
@@ -229,7 +241,8 @@ class FairController extends Controller
 
         return view('category.index', compact('categories', 'fairId'));
     }
-        public function subcategories(Fair $fair)
+
+    public function subcategories(Fair $fair)
     {
 
         $subcategories = $fair->subcategories;

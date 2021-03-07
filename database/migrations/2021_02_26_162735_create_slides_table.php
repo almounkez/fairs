@@ -21,7 +21,7 @@ class CreateSlidesTable extends Migration
              $table->string('group')->nullable();
              $table->string('location')->nullable();
             $table->string('imgfile')->nullable();
-            $table->boolean('active')->nullable()->default(true);
+            $table->boolean('active')->nullable()->default(false);
             $table->timestamps();
         });
     }

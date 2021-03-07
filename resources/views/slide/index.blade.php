@@ -6,11 +6,11 @@
         <div class="card">
             <div class="card-header">{{ __('Slides') }}
                 @if(!empty($fairId))
-                <a class="btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('slide.createForFair',$fairId) }}">
+                <a class="btn btn-sm btn-outline-primary zmdi-hc-lg" href="{{ route('slide.createForFair',$fairId) }}">
                     <i class="zmdi zmdi-plus"></i>
                 </a>
                 @elseif(!empty($suiteId))
-                <a class="btn btn-sm btn-primary zmdi-hc-lg" href="{{ route('slide.createForSuite',$suiteId) }}">
+                <a class="btn btn-sm btn-outline-primary zmdi-hc-lg" href="{{ route('slide.createForSuite',$suiteId) }}">
                     <i class="zmdi zmdi-plus"></i>
                 </a>
                 @endif
@@ -25,7 +25,7 @@
                                 <th scope="col">{{ __('Category') }}</th>
                                 <th scope="col">{{ __('Group') }}</th>
                                 <th scope="col">{{ __('Location') }}</th>
-                                <th scope="col">{{ __('imgfile') }}</th>
+                                <th scope="col"width="15%">{{ __('imgfile') }}</th>
                                 <th scope="col" width="15%">{{ __('Control') }}</th>
                             </tr>
                         </thead>

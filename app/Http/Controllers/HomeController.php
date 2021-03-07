@@ -26,16 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $fairs=Fair::all();
+        $fairs=Fair::where('active',1)->get();
         return view('welcome',compact('fairs'));
     }
 
-    public function visiteFair(Fair $fair)
-    {
-        # code...
-        // $fair->hits=$fair->hits+1;
-        $fair->hits+=1;
-        $fair->save();
-        return view('fair.show');
-    }
+    // public function visiteFair(Fair $fair)
+    // {
+    //     # code...
+    //     // $fair->hits=$fair->hits+1;
+    //     $fair->hits+=1;
+    //     $fair->save();
+    //     return view('fair.show');
+    // }
 }
