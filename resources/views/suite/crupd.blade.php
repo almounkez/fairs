@@ -128,6 +128,145 @@
         </div>
     </div>
     <br>
+        <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">{{ __('Contact Info') }}</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="facebook">{{ __('facebook') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="facebook" @if(!empty($suite) && old('facebook',
+                                $suite->facebook))
+                            value="{{ $suite->facebook }}"
+                            @else value="{{old('facebook')}}"
+                            @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="twitter">{{ __('twitter') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="twitter" @if(!empty($suite) && old('twitter',
+                                $suite->twitter))
+                            value="{{ $suite->twitter }}"@else value="{{old('twitter')}}"
+                            @endif>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="whatsapp">{{ __('whatsapp') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="whatsapp" @if(!empty($suite) && old('whatsapp',
+                                $suite->whatsapp))
+                            value="{{ $suite->whatsapp }}"
+                            @else value="{{old('whatsapp')}}"
+                            @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="linkedin">{{ __('linkedin') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="linkedin" @if(!empty($suite) && old('linkedin',
+                                $suite->linkedin))
+                            value="{{ $suite->linkedin }}"@else value="{{old('linkedin')}}"
+                            @endif>
+                        </div>
+                    </div>
+<div class="row">
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="tel">{{ __('tel') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="tel" @if(!empty($suite) && old('tel',
+                                $suite->tel))
+                            value="{{ $suite->tel }}"                            @else value="{{old('tel')}}"
+                            @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="mobile">{{ __('mobile') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="mobile" @if(!empty($suite) && old('mobile',
+                                $suite->mobile))
+                            value="{{ $suite->mobile }}"@else value="{{old('mobile')}}"
+                            @endif>
+                        </div>
+                    </div>
+<div class="row">
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="email">{{ __('email') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="email" @if(!empty($suite) && old('email',
+                                $suite->email))
+                            value="{{ $suite->email }}"                            @else value="{{old('email')}}"
+                            @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="website">{{ __('website') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="website" @if(!empty($suite) && old('website',
+                                $suite->website))
+                            value="{{ $suite->website }}"@else value="{{old('website')}}"
+                            @endif>
+                        </div>
+                    </div>
+<div class="row">
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="instegram">{{ __('instegram') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="instegram" @if(!empty($suite) && old('instegram',
+                                $suite->instegram))
+                            value="{{ $suite->instegram }}" @else value="{{old('instegram')}}"
+                            @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="telegram">{{ __('telegram') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="telegram" @if(!empty($suite) && old('telegram',
+                                $suite->telegram))
+                            value="{{ $suite->telegram }}"@else value="{{old('telegram')}}"
+                            @endif>
+                        </div>
+                    </div>
+<div class="row">
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="address_ar">{{ __('address_ar') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="address_ar" @if(!empty($suite) && old('address_ar',
+                                $suite->address_ar))
+                            value="{{ $suite->address_ar }}" @else value="{{old('address_ar')}}"
+                            @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label text-md-left">
+                            <label for="address_en">{{ __('address_en') }}:</label>
+                        </div>
+                        <div class="col-4">
+                            <input class="form-control" type="text" name="address_en" @if(!empty($suite) && old('address_en',
+                                $suite->address_en))
+                            value="{{ $suite->address_en }}"@else value="{{old('address_en')}}"
+                            @endif>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <div class="col-6 text-md-center">
             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>

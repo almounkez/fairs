@@ -5,9 +5,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Products') }}
-                    {{-- <a href="{{ route('product.create', $suite->id) }}"> --}}
+                    <a href="{{ route('product.create', $suite->id) }}"> --}}
                         <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36"></span>
-                    {{-- </a> --}}
+                    {{-- </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
