@@ -57,14 +57,21 @@
 
                         </div>
                     </div>
-                    <div class="row">
+<div class="row">
                         <div class="col-md-4  col-form-label " style="text-align:start">
                             <label for="location">{{ __('location') }}:</label>
                         </div>
-
-                        <div class="col-8"><input class="form-control" type="text" name="location"
-                                value=@if(!empty($slide) && old('location', $slide->location))
+                        <div class="col-8"><input class="form-control" type="text" name="location" value=@if(!empty($slide) &&
+                                old('location', $slide->location))
                             {{ $slide->location }}@else{{old('location')}} @endif>
+                        </div>
+                    </div><div class="row">
+                        <div class="col-md-4  col-form-label " style="text-align:start">
+                            <label for="group">{{ __('group') }}:</label>
+                        </div>
+                        <div class="col-8"><input class="form-control" type="text" name="group" value=@if(!empty($slide) &&
+                                old('group', $slide->group))
+                            {{ $slide->group }}@else{{old('group')}} @endif>
                         </div>
                     </div>
                     <div class="row">

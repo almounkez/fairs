@@ -30,10 +30,8 @@ Route::get('/clear', function() {
 
    return "Cleared!";
 
-});
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+})->middleware('admin');
+
 
 Auth::routes();
 
@@ -53,7 +51,7 @@ Route::get('fair/{fair}/subcategories', 'FairController@subcategories')->name('f
 
 Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
-Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
+// Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
 
 Route::resource('slide', 'SlideController')->except(['create','index']);
 Route::get('slide/{fairId}/createForFair','SlideController@createforFair')->name('slide.createForFair');

@@ -18,7 +18,7 @@ class SuiteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('access')->except('show','index');
+        $this->middleware('access')->except('show','index','create');
 
         // $this->middleware('subscribed')->except('store');
     }

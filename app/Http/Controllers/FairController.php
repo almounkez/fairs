@@ -19,7 +19,6 @@ class FairController extends Controller
     public function __construct()
     {
         $this->middleware('admin')->except('show');
-        // $this->middleware('subscribed')->except('store');
     }
 
 
