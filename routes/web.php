@@ -51,6 +51,8 @@ Route::get('fair/{fair}/subcategories', 'FairController@subcategories')->name('f
 
 Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
+Route::get('suite/{suite}/product', 'SuiteController@products')->name('suite.products');
+
 // Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
 
 Route::resource('slide', 'SlideController')->except(['create','index']);

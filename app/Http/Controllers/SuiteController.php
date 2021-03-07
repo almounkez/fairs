@@ -18,8 +18,8 @@ class SuiteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('access')->only('edit','update');
-        $this->middleware('admin')->only('create','store','delete','index');
+        $this->middleware('access')->only('edit', 'update');
+        $this->middleware('admin')->only('create', 'store', 'delete', 'index');
     }
 
     /**
@@ -110,13 +110,12 @@ class SuiteController extends Controller
     {
         //
 
-
         return view('suite.show', [
             'products' => $suite->products,
             'slides' => $suite->slides,
             'categories' => $suite->fair->categories,
             'suiteId' => $suite->id,
-            'fairId' => $suite->fair->id
+            'fairId' => $suite->fair->id,
         ]);
     }
 
@@ -215,5 +214,17 @@ class SuiteController extends Controller
         $suite->delete();
         return redirect(route('fair.suites', $fair));
 
+    }
+    public function slides(Fair $fair)
+    {
+        $slides = $fair->slides;
+        $fairId = $fair->id;
+        return view('slide.index', compact('slides', 'fairId'));
+    }
+    public function products(Suite $suite)
+    {
+        $products = $suite->products;
+        $suiteId = $suite->id;
+        return view('products.index', compact('products', 'suiteId'));
     }
 }
