@@ -16,8 +16,11 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-
-        if(Auth::check() && Auth::user()->isAdmin){
+        // dd($next($request));
+        if (!Auth::check()) {
+            return redirect('login');
+        }
+        if (Auth::user()->role =='admin') {
             return $next($request);
         }
         return back()->withErrors("you have no permission");

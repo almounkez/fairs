@@ -21,7 +21,7 @@ class Access
             return redirect(route('login'));
         }
         $suiteId=$request->route()->parameter('suiteId');
-        if(Auth::user()->isAdmin||Auth::user()->suite->id==$suiteId)
+        if(Auth::user()->role =='admin'||Auth::user()->suite->id==$suiteId)
             return $next($request);
         else
             return back()->withErrors('you have no permission');

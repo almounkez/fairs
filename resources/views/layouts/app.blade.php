@@ -52,13 +52,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                            @endif
+                                @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                                @endif
                             @else
-                            {{-- @include('layouts.fairAdminList') --}}
+                            @if(Auth::user()->role=='admin')
                             <li class="nav-item dropdown">
                                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -70,6 +70,8 @@
                                     </a>
                                 </div>
                             </li>
+
+                            @elseif(Auth::user()->suite!=null)
                             <li class="nav-item dropdown">
                                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -79,8 +81,10 @@
                                     <a class="dropdown-item" href="{{ route('product.index') }}" >
                                         قائمة المنتجات
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('suite.edit',Auth::user()->suite) }}">تعديل معلومات الجناح </a>
                                 </div>
                             </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
