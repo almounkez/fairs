@@ -63,11 +63,11 @@ Route::get('suite/{suite}/marquees', 'SuiteController@marquees')->name('suite.ma
 
 // Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
 
-Route::resource('slide', 'SlideController')->except(['create','index']);
+Route::resource('slide', 'SlideController')->except(['create']);
 Route::get('slide/{fairId}/createForFair','SlideController@createforFair')->name('slide.createForFair');
 Route::get('slide/{suite}/createForSuite', 'SlideController@createforSuite')->name('slide.createForSuite');
-Route::get('slide/{fair}/fair', 'SlideController@indexFair')->name('slide.indexFair');
-Route::get('slide/{suite}/suite', 'SlideController@indexSuite')->name('slide.indexSuite');
+// Route::get('slide/{fair}/fair', 'SlideController@indexFair')->name('slide.indexFair');
+// Route::get('slide/{suite}/suite', 'SlideController@indexSuite')->name('slide.indexSuite');
 
 Route::resource('category','CategoryController')->except(['create']);
 Route::get('category/{fairId}/create', 'CategoryController@create')->name('category.create');
@@ -81,13 +81,13 @@ Route::get('advertise/{fairId}/create', 'AdvertiseController@create')->name('adv
 Route::resource('marquee', 'MarqueeController')->except(['create','index']);
 Route::get('marquee/{fairId}/createForFair', 'MarqueeController@createforFair')->name('marquee.createForFair');
 Route::get('marquee/{suiteId}/createForSuite', 'MarqueeController@createforSuite')->name('marquee.createForSuite');
-Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
+// Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
 Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
 
-Route::resource('product', 'ProductController')->except(['create']);
+Route::resource('product', 'ProductController')->except(['create','index']);
 Route::get('product/{suite}/create', 'ProductController@create')->name('product.create');
 
-Route::resource('article', 'ArticleController')->except(['create']);
+Route::resource('article', 'ArticleController')->except(['create','index']);
 Route::get('article/{suiteId}/create', 'ArticleController@create')->name('article.create');
 
 Route::get('search/suites/{fair}/cat/{category}','SearchController@suitesByCat')->name('search.suites.cat');

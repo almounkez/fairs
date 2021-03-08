@@ -33,6 +33,27 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    {{-- @yield('fair')
+                    @yield('suite') --}}
+                    <?php $fid= $fairId?? $fair->id??$suite->fair_id??null ?>
+                    {{-- {{dd($fid)}} --}}
+
+                    @if(!empty($fid))
+                    <a class="navbar-brand" href="{{ route('fair.show',$fid) }}">
+                        @lang('Current Fair')
+                    </a>
+                    {{-- @endsection --}}
+                    @endif
+                    <?php $sid= $suiteId?? $suite->id ?? $product->suite_id ??null ?>
+                    {{-- {{dd($sid)}} --}}
+                    @if(!empty($sid))
+                    <a class="navbar-brand" href="{{ route('suite.show',$sid) }}">
+                        @lang('Current Suite')
+                    </a>
+                    @endif
+                    {{-- @yield('fair')
+                    @yield('suite')
+                    @yield('category') --}}
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -61,31 +82,22 @@
                             @if(Auth::user()->role=='admin')
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    ادارة المعرض <span class="caret"></span>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    v-pre>@lang('Manage Fair')<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('fair.index') }}">
-                                        قائمة المعارض
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('fair.create') }}">
-                                        @lang('New Fair')
-                                    </a>
+                                    <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List') </a>
+                                    <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair') </a>
                                     @if(!empty($fairId))
-                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}">
-                                        @lang('current fair slides')
-                                    </a>
+                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}"> @lang('current
+                                        fair slides')</a>
                                     <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
-                                        @lang('current fair categories')
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">
-                                        @lang('current fair marquees')
-                                    </a><a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">
-                                        @lang('current fair advertises')
-                                    </a>
-                                    {{-- <a class="dropdown-item" href="{{ route('fair.slides') }}">
-                                    @lang('current fair slides')
-                                    </a> --}}
+                                        @lang('current fair categories') </a>
+                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('current
+                                        fair marquees')</a>
+                                    <a class="dropdown-item"
+                                        href="{{ route('fair.advertises',$fairId) }}">@lang('current fair
+                                        advertises')</a>
                                     @endif
                                 </div>
 
@@ -95,14 +107,18 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    ادارة الجناح <span class="caret"></span>
+                                    @lang('Suite')<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('product.index') }}">
-                                        قائمة المنتجات
+                                    <a class="dropdown-item" href="{{ route('suite.show',Auth::user()->suite) }}">
+                                        @lang('Show my suite')
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('suite.edit',Auth::user()->suite) }}">تعديل
-                                        معلومات الجناح </a>
+                                    <a class="dropdown-item" href="{{ route('suite.edit',Auth::user()->suite) }}">
+                                        @lang('Edit suite info')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('suite.products',Auth::user()->suite) }}">
+                                        @lang('Products')
+                                    </a>
                                 </div>
                             </li>
                             @endif
@@ -132,9 +148,8 @@
             {{-- end top navebar --}}
             @if(!empty($marquees))
             <div>
-                <marquee class="bg-primary text-white" behavior="scroll" direction=@if (app()->getLocale() ==
-                    'ar')"right" @else
-                    "left" @endif>
+                <marquee class="bg-primary text-white" behavior="scroll" direction=@if (app()->getLocale()
+                    =='ar')"right" @else "left" @endif>
                     @foreach ($marquees as $marquee)
                     <span> :: </span>
                     @if (app()->getLocale() == 'ar')

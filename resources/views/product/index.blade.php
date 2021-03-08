@@ -17,7 +17,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">{{ __('id') }}</th>
-                                <th scope="col">{{ __('suite_id') }}</th>
+                                {{-- <th scope="col">{{ __('suite_id') }}</th> --}}
                                 <th scope="col">{{ __('Category') }}</th>
                                 <th scope="col">{{ __('Subegory') }}</th>
                                 <th scope="col">{{ __('name_ar') }}</th>
@@ -34,18 +34,27 @@
                             @foreach ($products as $product)
                             <tr>
                                 <th scope="row">
-                                <td>{{ $product->id }}</td>
-                                <td>{{ $product->suite_id }}</td>
+                                {{ $product->id }}</th>
+                                {{-- <td>{{ $product->suite_id }}</td> --}}
                                 <td>
                                     @if (!empty($product->category))
                                     @if (config('app.locale') == 'ar')
-                                    {{ $product->category->name }}
+                                    {{ $product->category->name_ar }}
                                     @else
                                     {{ $product->category->name_en }}
                                     @endif
                                     @endif
                                 </td>
-                                <td>{{ $product->sub_id }}</td>
+                                <td>
+                                    @if (!empty($product->subcategory))
+                                    @if (config('app.locale') == 'ar')
+                                    {{ $product->subcategory->name_ar }}
+                                    @else
+                                    {{ $product->subcategory->name_en }}
+                                    @endif
+                                    @endif
+                                </td>
+
 
 
                                 <td>{{ $product->name_ar }}</td>
@@ -55,7 +64,7 @@
                                 <td>{{ $product->descp_ar }}</td>
                                 <td>{{ $product->descp_en }}</td>
                                 <td>{{ $product->hits }}</td>
-                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/products/' . $product->imgfile) }}
+                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/products/' . $product->imgfile) }}"
                                             class=" img-fluid img-thumbnail">
                                 </td>
                                 <td>

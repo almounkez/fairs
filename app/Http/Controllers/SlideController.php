@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Fair;
 use App\Slide;
 use App\Suite;
@@ -19,9 +18,8 @@ class SlideController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin')->only('index', 'indexFair','createForFair');
-        // $this->middleware('access')->only('indexSuite','createForSuite','store', 'destroy','edit', 'update');
-        $this->middleware('access')->except('index', 'indexFair','createForFair','show');
+        $this->middleware('admin')->only('index', 'indexFair', 'createForFair');
+        $this->middleware('access')->except('index', 'indexFair', 'createForFair', 'show');
 
     }
 
@@ -30,7 +28,8 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+    public function index()
+    {
         //
         $slides = Slide::all();
         return view('slide.index', compact('slides'));
@@ -41,7 +40,8 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexFair(Fair $fair){
+    public function indexFair(Fair $fair)
+    {
         //
         $slides = $fair->slides;
         $fairId = $fair->id;
@@ -53,7 +53,8 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexSuite(Suite $suite){
+    public function indexSuite(Suite $suite)
+    {
         $slides = $suite->slides;
         $suiteId = $suite->id;
         return view('slide.index', compact('slides', 'suiteId'));
@@ -63,9 +64,11 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForFair(int $fairId){
+    public function createForFair(Fair $fair)
+    {
         //
-        $categories = Category::all();
+        $categories = $fair->categories;
+        $fairId = $fair->id;
         return view('slide.crupd', compact('categories', 'fairId'));
 
     }
@@ -74,10 +77,11 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForSuite(int $suiteId){
+    public function createForSuite(Suite $suite)
+    {
         //
-        $categories = Category::all();
-        return view('slide.crupd', compact('categories', 'suiteId'));
+        $categories = $suite->fair->categories;
+        return view('slide.crupd', ['categories' => $categories, 'suiteId' => $suite->id]);
 
     }
     /**
@@ -86,7 +90,8 @@ class SlideController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //
 
         $request->validate([
@@ -107,9 +112,9 @@ class SlideController extends Controller
         // dd($request->all(),$slide);
 
         if ($slide->suite_id != null) {
-            return redirect(route('slide.indexSuite', $slide->suite_id));
+            return redirect(route('suite.slides', $slide->suite_id));
         } else if ($slide->fair_id != null) {
-            return redirect(route('slide.indexFair', $slide->fair_id));
+            return redirect(route('fair.slides', $slide->fair_id));
         }
     }
 
@@ -119,7 +124,8 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function show(Slide $slide){
+    public function show(Slide $slide)
+    {
         //
         return view('slide.show', compact('slide'));
     }
@@ -129,9 +135,11 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slide $slide){
+    public function edit(Slide $slide)
+    {
         //
-        $categories = Category::all();
+        // dd($slide);
+        $categories = $slide->fair->categories??$slide->suite->fair->categories;
         return view('slide.crupd', compact('slide', 'categories'));
 
     }
@@ -143,7 +151,8 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slide $slide){
+    public function update(Request $request, Slide $slide)
+    {
         //
         // dd($request);
         $request->validate([
@@ -172,13 +181,10 @@ class SlideController extends Controller
         $slide->save();
 
         if ($slide->suite_id != null) {
-            return redirect(route('slide.indexSuite', $slide->suite_id));
+            return redirect(route('suite.slides', $slide->suite_id));
         } else if ($slide->fair_id != null) {
-            return redirect(route('slide.indexFair', $slide->fair_id));
+            return redirect(route('fair.slides', $slide->fair_id));
         }
-
-        // return redirect(route('slide.index'));
-
     }
 
     /**
@@ -187,7 +193,8 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slide $slide){
+    public function destroy(Slide $slide)
+    {
         //
 
         $fairId = $slide->fair_id ?? null;
@@ -200,14 +207,12 @@ class SlideController extends Controller
         $slide->delete();
 
         if ($suiteId != null) {
-            return redirect(route('slide.indexSuite', $suiteId));
+            return redirect(route('suite.slides', $suiteId));
         } else if ($fairId != null) {
-            return redirect(route('slide.indexFair', $fairId));
+            return redirect(route('fair.slides', $fairId));
         } else {
             return ('errore accord');
         }
-
-        // return redirect(route('slide.index'));
 
     }
 }

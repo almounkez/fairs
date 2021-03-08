@@ -113,6 +113,8 @@ class SuiteController extends Controller
             'products' => $suite->products,
             'slides' => $suite->slides,
             'categories' => $suite->fair->categories,
+            'advertises' => $suite->fair->advertises,
+            'marquees'=>$suite->marquees,
             'suiteId' => $suite->id,
             'fairId' => $suite->fair->id,
         ]);
@@ -214,25 +216,24 @@ class SuiteController extends Controller
         return redirect(route('fair.suites', $fair));
 
     }
-    public function slides(Fair $fair)
+    public function slides(Suite $suite)
     {
-        $slides = $fair->slides;
-        $fairId = $fair->id;
-        return view('slide.index', compact('slides', 'fairId'));
+        $slides = $suite->slides;
+        $suiteId=$suite->id;
+        $fairId = $suite->fair->id;
+        return view('slide.index', compact('slides', 'fairId','suiteId'));
     }
     public function products(Suite $suite)
     {
-        $products = $suite->products;
-        $suiteId = $suite->id;
-        return view('product.index', compact('products', 'suiteId'));
+        return view('product.index',['products'=>$suite->products, 'suiteId'=>$suite->id,'fairId'=>$suite->fair_id]);
     }
     public function marquees(Suite $suite)
     {
-        return view('marquee.index', ['marquees' => $suite->marquees, 'suiteId' => $suite->id]);
+        return view('marquee.index', ['marquees' => $suite->marquees, 'suiteId' => $suite->id,'fairId'=>$suite->fair_id]);
     }
     public function articles(Suite $suite)
     {
-        return view('article.index', ['articles' => $suite->articles, 'suiteId' => $suite->id]);
+        return view('article.index', ['articles' => $suite->articles, 'suiteId' => $suite->id,'fairId'=>$suite->fair_id]);
     }
 
 }

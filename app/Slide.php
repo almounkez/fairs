@@ -17,4 +17,22 @@ class Slide extends Model
      {
          return $this->belongsTo('App\Category', 'cat_id');
      }
+     /**
+      * Get the fair that owns the Slide
+      *
+      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+      */
+     public function fair()
+     {
+         return $this->belongsTo('App\Fair', 'fair_id');
+     }
+          /**
+      * Get the fair that owns the Slide
+      *
+      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+      */
+     public function suite()
+     {
+         return $this->belongsTo('App\Suite', 'suite_id');
+     }
 }

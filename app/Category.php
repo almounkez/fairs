@@ -28,4 +28,9 @@ class Category extends Model
     {
         return $this->hasMany('App\Product', 'cat_id');
     }
+
+    // public function suites(Type $var = null)
+    // {
+    //     # code...
+    // }
 }

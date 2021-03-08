@@ -1,6 +1,13 @@
 @extends('layouts.app')
-
+{{-- @section('fair')
+<a class="navbar-brand" href="{{ route('fair.show',$fairId) }}">
+@lang('Current Fair')
+</a>
+@endsection --}}
 @section('content')
+<div class="row">
+
+</div>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -9,10 +16,16 @@
                 <!-- Indicators -->
                 <ul class="carousel-indicators">
                     {{-- @Admin --}}
+                    @auth
 
-                    <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('slide.createForSuite',$suiteId)}}">
-                        <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+                    @if(!empty(auth()->user()->suite) && auth()->user()->suite->id == $suiteId)
+                    <a href="{{route('slide.createForSuite',$suiteId)}}">
+                        <span class="btn btn-sm btn-outline-secondary mx-2" style="float:inline-end">
+                            <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+                        </span>
                     </a>
+                    @endif
+                    @endauth
 
                     {{-- @endAdmin --}}
                     @for ($i = 0; $i < count($slides); $i++) <li data-target="#masterSlides" data-slide-to="{{ $i }}"
@@ -25,7 +38,7 @@
                     @foreach ($slides as $key => $slide)
                     <div class="carousel-item @if ($key==0) active @endif">
                         <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}"
-                            class="img-fluid carousel-inner img-thumbnail">
+                            class="img-fluid carousel-inner">
                     </div>
 
                     @endforeach
@@ -46,10 +59,15 @@
 <div class="row">
     <div class="col-md-3">
         <div class="list-group">
-            <a href="{{route('category.create',$fairId)}}" class="list-group-item list-group-item-action active">
-                <h5 class="d-flex justify-content-center"> @lang('Categories ')
-                    <span><i class="zmdi zmdi-plus" style="float: inline-start"></i></span></h5>
-            </a>
+            <i class="list-group-item list-group-item-action active h5">
+                @lang('Categories')
+                @auth @if(auth()->user()->role=='admin')
+                <span class="mx-2" style="float:right">
+                    <a class="btn btn-sm btn-outline-light" href="{{route('category.create',$fairId)}}"><i
+                            class="zmdi zmdi-plus zmdi-hc-lg"></i></a>
+                </span>
+                @endif @endauth
+            </i>
             @foreach ($categories as $category)
             <a href="{{route('search.products.cat',['suite' => $suiteId,'category'=>$category])}}"
                 class="list-group-item list-group-item-action">
@@ -65,12 +83,21 @@
         </div>
     </div>
     <div class="col-md-9">
+        @auth
+        @if(!empty(auth()->user()->suite) && auth()->user()->suite->id == $suiteId)
+        <div class="float-right" style="float:inline-end">
+            <a class="btn btn-sm btn-outline-primary rounded-circle mx-2" href="{{route('product.create',$suiteId)}}">
+                <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+            </a>
+        </div>
+        @endif
+        @endauth
         <div class="row">
             @foreach ($products as $product)
             <div class="col-md-4">
-                <a href="{{route('product.show',$product->id)}}">
+                <a href="#" {{-- "{{route('product.show',$product->id)}}" --}}>
                     <figure class="figure">
-                        <img src="{{asset('storage/products/'.$product->logo_en)}}" class="figure-img img-fluid rounded"
+                        <img src="{{asset('storage/products/'.$product->imgfile)}}" class="figure-img img-fluid rounded"
                             alt="A generic square placeholder image with rounded corners in a figure.">
                         <figcaption class="figure-caption">A caption for the above image.</figcaption>
                     </figure>

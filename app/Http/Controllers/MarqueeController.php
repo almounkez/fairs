@@ -84,7 +84,7 @@ class MarqueeController extends Controller
         if ($marquee->suite_id != null) {
             return redirect(route('marquee.indexSuite', $marquee->suite_id));
         } else if ($marquee->fair_id != null) {
-            return redirect(route('marquee.indexFair', $marquee->fair_id));
+            return redirect(route('fair.marquees', $marquee->fair_id));
         }
 
     }
@@ -133,7 +133,7 @@ class MarqueeController extends Controller
         if ($marquee->suite_id != null) {
             return redirect(route('marquee.indexSuite', $marquee->suite_id));
         } else {
-            return redirect(route('marquee.indexFair', $marquee->fair_id));
+            return redirect(route('fair.marquees', $marquee->fair_id));
         }
 
     }
@@ -154,7 +154,7 @@ class MarqueeController extends Controller
         if ($suiteId != null) {
             return redirect(route('marquee.indexSuite', $suiteId));
         } else if ($fairId != null) {
-            return redirect(route('marquee.indexFair', $fairId));
+            return redirect(route('fair.marquees', $fairId));
         } else {
             return ('errore accord');
         }

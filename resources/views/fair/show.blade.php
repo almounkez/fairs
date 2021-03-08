@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+{{-- @section('fair')
+<a class="navbar-brand" href="{{ route('fair.show',$fairId) }}">
+    @lang('Current Fair')
+</a>
+@endsection --}}
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -100,5 +104,3 @@
 
 
 @endsection
-
-
