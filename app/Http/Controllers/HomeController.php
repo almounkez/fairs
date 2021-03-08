@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Fair;
-use App\Suite;
-use App\Category;
+
 class HomeController extends Controller
 {
     // /**
@@ -26,16 +23,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $fairs=Fair::where('active',1)->get();
-        return view('welcome',compact('fairs'));
+        $fairs = Fair::where('active', 1)->get();
+        return view('welcome', compact('fairs'));
     }
 
-    // public function visiteFair(Fair $fair)
-    // {
-    //     # code...
-    //     // $fair->hits=$fair->hits+1;
-    //     $fair->hits+=1;
-    //     $fair->save();
-    //     return view('fair.show');
-    // }
+    public function visiteFair(Fair $fair)
+    {
+        # code...
+        // $fair->hits=$fair->hits+1;
+        $fair->hits += 1;
+        $fair->save();
+        return redirect(route('fair.show',$fair));
+    }
+    public function visiteSuite(Fair $suite)
+    {
+        # code...
+        // $fair->hits=$fair->hits+1;
+        $suite->hits += 1;
+        $suite->save();
+        return redirect(route('suite.show',$suite));
+    }
 }

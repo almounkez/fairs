@@ -3,24 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Fair;
 use App\Slide;
 use App\Suite;
-use App\Fair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class SlideController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Instantiate a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        //
-        $slides = Slide::all();
-        return view('slide.index', compact('slides'));
+        $this->middleware('admin')->only('index', 'indexFair','createForFair');
+        // $this->middleware('access')->only('indexSuite','createForSuite','store', 'destroy','edit', 'update');
+        $this->middleware('access')->except('index', 'indexFair','createForFair','show');
 
     }
 
@@ -29,36 +30,40 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexFair(Fair $fair)
-    {
+    public function index(){
+        //
+        $slides = Slide::all();
+        return view('slide.index', compact('slides'));
+
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexFair(Fair $fair){
         //
         $slides = $fair->slides;
         $fairId = $fair->id;
 
-        return view('slide.index', compact('slides','fairId'));
+        return view('slide.index', compact('slides', 'fairId'));
 
     }/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexSuite(Suite $suite)
-    {
-        //
+    public function indexSuite(Suite $suite){
         $slides = $suite->slides;
         $suiteId = $suite->id;
-
-        return view('slide.index', compact('slides','suiteId'));
-
+        return view('slide.index', compact('slides', 'suiteId'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForFair(int $fairId)
-    {
+    public function createForFair(int $fairId){
         //
         $categories = Category::all();
         return view('slide.crupd', compact('categories', 'fairId'));
@@ -69,8 +74,7 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForSuite(int $suiteId)
-    {
+    public function createForSuite(int $suiteId){
         //
         $categories = Category::all();
         return view('slide.crupd', compact('categories', 'suiteId'));
@@ -82,8 +86,7 @@ class SlideController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
 
         $request->validate([
@@ -116,20 +119,17 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function show(Slide $slide)
-    {
+    public function show(Slide $slide){
         //
         return view('slide.show', compact('slide'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slide $slide)
-    {
+    public function edit(Slide $slide){
         //
         $categories = Category::all();
         return view('slide.crupd', compact('slide', 'categories'));
@@ -143,8 +143,7 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slide $slide)
-    {
+    public function update(Request $request, Slide $slide){
         //
         // dd($request);
         $request->validate([
@@ -188,8 +187,7 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slide $slide)
-    {
+    public function destroy(Slide $slide){
         //
 
         $fairId = $slide->fair_id ?? null;

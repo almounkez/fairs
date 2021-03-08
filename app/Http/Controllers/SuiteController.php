@@ -18,8 +18,9 @@ class SuiteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('access')->only('edit', 'update');
-        $this->middleware('admin')->only('create', 'store', 'delete', 'index');
+        $this->middleware('admin')->only('create', 'store', 'destroy', 'index');
+        $this->middleware('access')->except('show','create', 'store', 'destroy', 'index');
+
     }
 
     /**
@@ -59,14 +60,9 @@ class SuiteController extends Controller
             'name_en' => ['required', 'string'],
         ]);
 
-        $user = User::create(['name' => 'user0', 'password' => '0']);
-
-        $suite = Suite::create([
-            'fair_id' => $request['fairId'],
-            'user_id' => $user->id,
-            'name_ar' => $request['name_ar'],
-            'name_en' => $request['name_en'],
-        ]);
+        $user = User::create(['name' => 'user0', 'password' => '0', 'role' => 'suite']);
+        $input = $request->except(['userName', 'password', 'name_ar', 'name_en', 'logo_ar', 'logo_en', 'fairId']);
+        $input = array_merge($input, ["user_id" => $user->id, 'fair_id' => $request->fairId]);
 
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/suites/');
@@ -74,7 +70,8 @@ class SuiteController extends Controller
             $logo_arfile = request()->file('logo_ar');
             $logo_arname = time() . "." . $request->logo_ar->extension();
             $logo_arfile->move($logo_arfilepath, $logo_arname);
-            $suite->logo_ar = $logo_arname;
+            // $suite->logo_ar = $logo_arname;
+            $input = array_merge($input, ["logo_ar" => $logo_arname]);
         }
 
         if (request()->hasfile('logo_en')) {
@@ -82,20 +79,20 @@ class SuiteController extends Controller
             $logo_enfile = request()->file('logo_en');
             $logo_enname = time() . "." . $request->logo_en->extension();
             $logo_enfile->move($logo_enfilepath, $logo_enname);
-            $suite->logo_en = $logo_enname;
-
+            // $suite->logo_en = $logo_enname;
+            $input = array_merge($input, ["logo_en" => $logo_enname]);
         }
         if ($request->has('active')) {
-            $suite->active = 1;
+            // $suite->active = 1;
+            $input = array_merge($input, ["active" => 1]);
         } else {
-            $suite->active = 0;
+            // $suite->active = 0;
+            $input = array_merge($input, ["active" => 0]);
         }
-        $suite->save();
+        $suite = Suite::create($input);
 
         $user->name = $user->name . $user->id . '00' . $suite->id;
         $user->password = Hash::make($user->name);
-        // dd($user);
-
         $user->save();
         return redirect(route('fair.suites', $suite->fair));
     }
@@ -109,6 +106,8 @@ class SuiteController extends Controller
     public function show(Suite $suite)
     {
         //
+        $suite->hits += 1;
+        $suite->save();
 
         return view('suite.show', [
             'products' => $suite->products,
@@ -155,7 +154,7 @@ class SuiteController extends Controller
         }
         $user->save();
 
-        $input = $request->only(['name_ar', 'name_en']);
+        $input = $request->except(['userName', 'password', 'name_ar', 'name_en', 'logo_ar', 'logo_en']);
         $suite->update($input);
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/suites/');
@@ -225,6 +224,15 @@ class SuiteController extends Controller
     {
         $products = $suite->products;
         $suiteId = $suite->id;
-        return view('products.index', compact('products', 'suiteId'));
+        return view('product.index', compact('products', 'suiteId'));
     }
+    public function marquees(Suite $suite)
+    {
+        return view('marquee.index', ['marquees' => $suite->marquees, 'suiteId' => $suite->id]);
+    }
+    public function articles(Suite $suite)
+    {
+        return view('article.index', ['articles' => $suite->articles, 'suiteId' => $suite->id]);
+    }
+
 }

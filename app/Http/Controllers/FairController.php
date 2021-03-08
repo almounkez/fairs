@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Subcategory;
 use App\Fair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -20,7 +18,6 @@ class FairController extends Controller
     {
         $this->middleware('admin')->except('show');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -93,32 +90,34 @@ class FairController extends Controller
         //
         $fair->hits += 1;
         $fair->save();
-        return view('fair.show', ['fairId' => $fair->id,
-            'slides' => $fair->slides()->doesntHave('category')->where('active','1')->get(),
+        return view('fair.show', [
+            'fairId' => $fair->id,
+            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->get(),
             'suites' => $fair->suites,
-            'categories' => $fair->categories]);
+            'categories' => $fair->categories,
+            'marquees' => $fair->marquees,
+            'advertises' => $fair->advertises]);
     }
 
-
 // /**
-//      * Display the specified resource.
-//      *
-//      * @param  \App\Fair  $fair
-//      * @return \Illuminate\Http\Response
-//      */
-//     public function bySubcategory(Fair $fair, Subcategory $subcat)
-//     {
-//         //
+    //      * Display the specified resource.
+    //      *
+    //      * @param  \App\Fair  $fair
+    //      * @return \Illuminate\Http\Response
+    //      */
+    //     public function bySubcategory(Fair $fair, Subcategory $subcat)
+    //     {
+    //         //
 
 //         $subcat->hits += 1;
-//         $subcat->save();
-//         return view('fair.show', ['fairId' => $fair->id,
-//             'slides' => $fair->slides,
-//             'suites' => $cat->suites,
-//             'categories' => $fair->categories,
-//             'subcategories' => $fair->subcategories,
-//             'catId' => $cat->id]);
-//     }
+    //         $subcat->save();
+    //         return view('fair.show', ['fairId' => $fair->id,
+    //             'slides' => $fair->slides,
+    //             'suites' => $cat->suites,
+    //             'categories' => $fair->categories,
+    //             'subcategories' => $fair->subcategories,
+    //             'catId' => $cat->id]);
+    //     }
     /**
      * Show the form for editing the specified resource.
      *
@@ -255,12 +254,11 @@ class FairController extends Controller
         $fairId = $fair->id;
         return view('slide.index', compact('slides', 'fairId'));
     }
-    // public function addSuite(int $fairId)
-    // {
-    //     return view('suite.crupd',compact('fairId'));
-    // }
+    public function marquees(Fair $fair)
+    {
+        $marquees = $fair->marquees;
+        $fairId = $fair->id;
+        return view('marquee.index', compact('marquees', 'fairId'));
+    }
 
-    // public function storeSuite(Request $request){
-
-    // }
 }

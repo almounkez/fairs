@@ -5,7 +5,7 @@
     @csrf
     @if (!empty($suite))
     @method('PUT')
-    <input type="hidden" name='suite_id' value="{{$suite->id}}" >
+    <input type="hidden" name='suite_id' value="{{$suite->id}}">
     <div class="row justify-content-center">
         <div class="col-md">
             <div class="card">
@@ -16,7 +16,7 @@
                         <div class="col-md-4">
                             <input id="userName" type="text"
                                 class="form-control @error('userName') is-invalid @enderror" name="userName"
-                               value="{{$suite->user->name}}"  required>
+                                value="{{$suite->user->name}}" required>
                             @error('uerName') <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span> @enderror </div>
@@ -28,7 +28,8 @@
 
                             <div class="input-group">
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    autocomplete="new-password">
                                 <div class="input-group-append">
                                     <a class="btn btn-outline-info" onclick="showPass()">
                                         <i class="zmdi zmdi-eye"></i></a>
@@ -128,7 +129,7 @@
         </div>
     </div>
     <br>
-        <div class="row justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Contact Info') }}</div>
@@ -138,8 +139,8 @@
                             <label for="facebook">{{ __('facebook') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="facebook" @if(!empty($suite) && old('facebook',
-                                $suite->facebook))
+                            <input class="form-control" type="text" name="facebook" @if(!empty($suite) &&
+                                old('facebook', $suite->facebook))
                             value="{{ $suite->facebook }}"
                             @else value="{{old('facebook')}}"
                             @endif>
@@ -159,8 +160,8 @@
                             <label for="whatsapp">{{ __('whatsapp') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="whatsapp" @if(!empty($suite) && old('whatsapp',
-                                $suite->whatsapp))
+                            <input class="form-control" type="text" name="whatsapp" @if(!empty($suite) &&
+                                old('whatsapp', $suite->whatsapp))
                             value="{{ $suite->whatsapp }}"
                             @else value="{{old('whatsapp')}}"
                             @endif>
@@ -169,20 +170,20 @@
                             <label for="linkedin">{{ __('linkedin') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="linkedin" @if(!empty($suite) && old('linkedin',
-                                $suite->linkedin))
+                            <input class="form-control" type="text" name="linkedin" @if(!empty($suite) &&
+                                old('linkedin', $suite->linkedin))
                             value="{{ $suite->linkedin }}"@else value="{{old('linkedin')}}"
                             @endif>
                         </div>
                     </div>
-<div class="row">
+                    <div class="row">
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="tel">{{ __('tel') }}:</label>
                         </div>
                         <div class="col-4">
                             <input class="form-control" type="text" name="tel" @if(!empty($suite) && old('tel',
                                 $suite->tel))
-                            value="{{ $suite->tel }}"                            @else value="{{old('tel')}}"
+                            value="{{ $suite->tel }}" @else value="{{old('tel')}}"
                             @endif>
                         </div>
                         <div class="col-md-2 col-form-label text-md-left">
@@ -195,14 +196,14 @@
                             @endif>
                         </div>
                     </div>
-<div class="row">
+                    <div class="row">
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="email">{{ __('email') }}:</label>
                         </div>
                         <div class="col-4">
                             <input class="form-control" type="text" name="email" @if(!empty($suite) && old('email',
                                 $suite->email))
-                            value="{{ $suite->email }}"                            @else value="{{old('email')}}"
+                            value="{{ $suite->email }}" @else value="{{old('email')}}"
                             @endif>
                         </div>
                         <div class="col-md-2 col-form-label text-md-left">
@@ -215,13 +216,13 @@
                             @endif>
                         </div>
                     </div>
-<div class="row">
+                    <div class="row">
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="instegram">{{ __('instegram') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="instegram" @if(!empty($suite) && old('instegram',
-                                $suite->instegram))
+                            <input class="form-control" type="text" name="instegram" @if(!empty($suite) &&
+                                old('instegram', $suite->instegram))
                             value="{{ $suite->instegram }}" @else value="{{old('instegram')}}"
                             @endif>
                         </div>
@@ -229,19 +230,19 @@
                             <label for="telegram">{{ __('telegram') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="telegram" @if(!empty($suite) && old('telegram',
-                                $suite->telegram))
+                            <input class="form-control" type="text" name="telegram" @if(!empty($suite) &&
+                                old('telegram', $suite->telegram))
                             value="{{ $suite->telegram }}"@else value="{{old('telegram')}}"
                             @endif>
                         </div>
                     </div>
-<div class="row">
+                    <div class="row">
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="address_ar">{{ __('address_ar') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="address_ar" @if(!empty($suite) && old('address_ar',
-                                $suite->address_ar))
+                            <input class="form-control" type="text" name="address_ar" @if(!empty($suite) &&
+                                old('address_ar', $suite->address_ar))
                             value="{{ $suite->address_ar }}" @else value="{{old('address_ar')}}"
                             @endif>
                         </div>
@@ -249,19 +250,12 @@
                             <label for="address_en">{{ __('address_en') }}:</label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" type="text" name="address_en" @if(!empty($suite) && old('address_en',
-                                $suite->address_en))
+                            <input class="form-control" type="text" name="address_en" @if(!empty($suite) &&
+                                old('address_en', $suite->address_en))
                             value="{{ $suite->address_en }}"@else value="{{old('address_en')}}"
                             @endif>
                         </div>
                     </div>
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -272,14 +266,13 @@
             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
         </div>
         <div class="col-6 text-md-center">
-            <a @if(!empty($suite)) href="{{ route('fair.suites',$suite->fair_id) }}"
-            @else href="{{ route('fair.suites',$fairId) }}"
-            @endif type="button" class="btn btn-secondary">{{ __('Cancel') }}
+            <a @if(!empty($suite)) href="{{ route('fair.suites',$suite->fair_id) }}" @else
+                href="{{ route('fair.suites',$fairId) }}" @endif type="button"
+                class="btn btn-secondary">{{ __('Cancel') }}
             </a>
         </div>
     </div>
 </form>
-
 @endsection
 @section('script') <script>
     function showPass() { var x = document.getElementById("password");

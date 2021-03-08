@@ -26,10 +26,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(int $suiteId)
+    public function create(Suite $suite)
     {
         //
-        $categories = Category::all();
+        $categories = $suite->fair->categories;
         return view('product.crupd', compact('categories', 'suiteId'));
     }
 

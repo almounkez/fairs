@@ -86,11 +86,25 @@
                                                 @lang('Categories')
                                             </a>
                                         </div>
-                                                  <div class="btn-group">
+                                        <div class="btn-group">
                                             <a class="btn btn-outline-success"
                                                 href="{{route('fair.subcategories',$fair->id)}}">
                                                 {{-- <i class="zmdi zmdi-settings"></i> --}}
                                                 @lang('SubCategories')
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-success"
+                                                href="{{route('fair.advertises',$fair->id)}}">
+                                                {{-- <i class="zmdi zmdi-settings"></i> --}}
+                                                @lang('Advertises')
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-success"
+                                                href="{{route('fair.marquees',$fair->id)}}">
+                                                {{-- <i class="zmdi zmdi-settings"></i> --}}
+                                                @lang('Marquee')
                                             </a>
                                         </div>
                                     </div>

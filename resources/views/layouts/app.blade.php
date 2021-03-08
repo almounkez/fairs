@@ -52,78 +52,115 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                                @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                                @endif
+                            @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                            @endif
                             @else
                             @if(Auth::user()->role=='admin')
                             <li class="nav-item dropdown">
-                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     ادارة المعرض <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('fair.index') }}" >
+                                    <a class="dropdown-item" href="{{ route('fair.index') }}">
                                         قائمة المعارض
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('fair.create') }}">
+                                        @lang('New Fair')
+                                    </a>
+                                    @if(!empty($fairId))
+                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}">
+                                        @lang('current fair slides')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
+                                        @lang('current fair categories')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">
+                                        @lang('current fair marquees')
+                                    </a><a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">
+                                        @lang('current fair advertises')
+                                    </a>
+                                    {{-- <a class="dropdown-item" href="{{ route('fair.slides') }}">
+                                    @lang('current fair slides')
+                                    </a> --}}
+                                    @endif
                                 </div>
-                            </li>
 
-                            @elseif(Auth::user()->suite!=null)
+                            </li>
+                            @endif
+                            @if(Auth::user()->suite!=null)
                             <li class="nav-item dropdown">
-                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     ادارة الجناح <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('product.index') }}" >
+                                    <a class="dropdown-item" href="{{ route('product.index') }}">
                                         قائمة المنتجات
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('suite.edit',Auth::user()->suite) }}">تعديل معلومات الجناح </a>
+                                    <a class="dropdown-item" href="{{ route('suite.edit',Auth::user()->suite) }}">تعديل
+                                        معلومات الجناح </a>
                                 </div>
                             </li>
                             @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
+                                        {{ __('Logout') }}
+                                    </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                    @endguest
-                    </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            @endguest
+                        </ul>
+                    </div>
                 </div>
-        </div>
-        </nav>
-        {{-- end top navebar --}}
+            </nav>
+            {{-- end top navebar --}}
+            @if(!empty($marquees))
+            <div>
+                <marquee class="bg-primary text-white" behavior="scroll" direction=@if (app()->getLocale() ==
+                    'ar')"right" @else
+                    "left" @endif>
+                    @foreach ($marquees as $marquee)
+                    <span> :: </span>
+                    @if (app()->getLocale() == 'ar')
+                    {{ $marquee->newstext }}
+                    @else
+                    {{ $marquee->newstext_en }}
+                    @endif
+                    @endforeach
+                </marquee>
+            </div>
+            @endif
+            {{-- validation error message --}}
+            @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                {{ $error }}
+                @endforeach
+            </div>
+            @endif
+            {{-- end validation meesage --}}
 
-        {{-- validation error message --}}
-        @if ($errors->any())
-        <div class="alert alert-danger" role="alert">
-            @foreach ($errors->all() as $error)
-            {{ $error }}
-            @endforeach
-        </div>
-        @endif
-        {{-- end validation meesage --}}
-
-        {{-- main content --}}
-        <main class="p-2 m-4">
-            @yield('content')
-        </main>
-        {{-- end main content --}}
+            {{-- main content --}}
+            <main class="p-2 m-4">
+                @yield('content')
+            </main>
+            {{-- end main content --}}
         </div>
         @yield('script')
     </body>

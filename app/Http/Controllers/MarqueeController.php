@@ -10,6 +10,19 @@ use Illuminate\Http\Request;
 class MarqueeController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('admin')->only('index', 'indexFair','createForFair');
+        // $this->middleware('access')->only('indexSuite','createForSuite','store', 'destroy','edit', 'update');
+        $this->middleware('access')->except('index', 'indexFair','createForFair','show');
+
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
