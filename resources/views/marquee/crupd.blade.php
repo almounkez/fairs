@@ -57,7 +57,7 @@
                             @if(!empty($fairId))
                             href="{{ route('fair.marquees',$fairId) }}"
                             @elseif(!empty($suiteId))
-                            href="{{ route('marquee.indexSuite',$suiteId) }}"
+                            href="{{ route('suite.marquees',$suiteId) }}"
                             @endif
                             type="button"
                                 class="btn btn-secondary">{{ __('Cancel') }}</a>

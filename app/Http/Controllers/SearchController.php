@@ -22,11 +22,11 @@ class SearchController extends Controller
     public function suitesByCat(Fair $fair, Category $category)
     {
         //
-        dd($category);
+        // dd($category);
         $category->hits += 1;
         $category->save();
 
-        $suitesId = Product::select('suite_id')->where('cat_id', $category->id)->distinct()->get();
+        $suitesId = Product::select('suite_id')->where('cat_id', $category->id)->where('active',1)->get();
         // dd($suitesId);
         return view('fair.show', ['fairId' => $fair->id,
             'advertises' => $fair->advertises,

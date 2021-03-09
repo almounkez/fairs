@@ -242,10 +242,8 @@ class FairController extends Controller
 
     public function subcategories(Fair $fair)
     {
-
         $subcategories = $fair->subcategories;
         $fairId = $fair->id;
-
         return view('subcategory.index', compact('subcategories', 'fairId'));
     }
     public function slides(Fair $fair)

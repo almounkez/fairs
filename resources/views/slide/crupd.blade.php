@@ -17,6 +17,11 @@
 
                     @if (!empty($slide))
                     <div class="row">
+                        @if(!empty($slide->fair_id))
+                        <input name="fair_id" value="{{$slide->fair_id}}" hidden>
+                        @elseif(!empty($slide->suite_id))
+                        <input name="suite_id" value="{{$slide->suite_id}}" hidden>
+                        @endif
                         <div class="col-md-4 col-form-label " style="text-align:start">
                             <label class="" for="id">{{ __('id') }} : </label>
                         </div>
@@ -26,7 +31,7 @@
                     </div>
                     @elseif(!empty($fairId))
                     <input name="fair_id" value="{{$fairId}}" hidden>
-                    @elseif($suiteId!=null)
+                    @elseif(!empty($suiteId))
                     <input name="suite_id" value="{{$suiteId}}" hidden>
                     @endif
                     <div class="row">

@@ -18,8 +18,8 @@ class SlideController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin')->only('index', 'indexFair', 'createForFair');
-        $this->middleware('access')->except('index', 'indexFair', 'createForFair', 'show');
+        $this->middleware('admin')->only('index', 'indexFair', 'createforFair');
+        $this->middleware('access')->except('index', 'indexFair', 'createforFair', 'show');
 
     }
 
@@ -64,7 +64,7 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForFair(Fair $fair)
+    public function createforFair(Fair $fair)
     {
         //
         $categories = $fair->categories;
@@ -77,7 +77,7 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForSuite(Suite $suite)
+    public function createforSuite(Suite $suite)
     {
         //
         $categories = $suite->fair->categories;

@@ -16,9 +16,8 @@ class MarqueeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin')->only('index', 'indexFair','createForFair');
-        // $this->middleware('access')->only('indexSuite','createForSuite','store', 'destroy','edit', 'update');
-        $this->middleware('access')->except('index', 'indexFair','createForFair','show');
+        $this->middleware('admin')->only('index', 'indexFair', 'createforFair');
+        $this->middleware('access')->except('index', 'indexFair', 'createforFair', 'show');
 
     }
 
@@ -82,7 +81,7 @@ class MarqueeController extends Controller
         $marquee = Marquee::create($request->all());
 
         if ($marquee->suite_id != null) {
-            return redirect(route('marquee.indexSuite', $marquee->suite_id));
+            return redirect(route('suite.marquees', $marquee->suite_id));
         } else if ($marquee->fair_id != null) {
             return redirect(route('fair.marquees', $marquee->fair_id));
         }
@@ -131,7 +130,7 @@ class MarqueeController extends Controller
         $marquee->update($request->all());
         $marquee->save();
         if ($marquee->suite_id != null) {
-            return redirect(route('marquee.indexSuite', $marquee->suite_id));
+            return redirect(route('suite.marquees', $marquee->suite_id));
         } else {
             return redirect(route('fair.marquees', $marquee->fair_id));
         }
@@ -152,7 +151,7 @@ class MarqueeController extends Controller
         $marquee->delete();
 
         if ($suiteId != null) {
-            return redirect(route('marquee.indexSuite', $suiteId));
+            return redirect(route('suite.marquees', $suiteId));
         } else if ($fairId != null) {
             return redirect(route('fair.marquees', $fairId));
         } else {
