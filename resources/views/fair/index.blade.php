@@ -28,9 +28,9 @@
                                     <th scope="col" width="150">{{ __('Control') }}</th>
                                 </tr>
                             </thead>
-                            <tbody>
+
                                 @foreach ($fairs as $fair)
-                                    <tr>
+                                   
                                         <th scope="row">
                                             {{ $fair->id }}
                                         </th>
@@ -65,62 +65,10 @@
                                                 class="img-fluid img-thumbnail">
                                         </td>
                                         <td>{{ $fair->hits }}</td>
-                                        <td style="width: 25%">
-                                            <div class="btn-group-justified mb-2">
-                                                <div class="btn-group">
-                                                    <a class="btn btn-outline-warning"
-                                                        href="{{ route('fair.suites', $fair->id) }}">
-                                                        @lang('Suites')
-                                                    </a>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-outline-info"
-                                                        href="{{ route('fair.slides', $fair->id) }}">
-                                                        {{-- <i class="zmdi zmdi-settings"></i> --}}
-                                                        @lang('Slides')
-                                                    </a>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-outline-success"
-                                                        href="{{ route('fair.categories', $fair->id) }}">
-                                                        {{-- <i class="zmdi zmdi-settings"></i> --}}
-                                                        @lang('Categories')
-                                                    </a>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-outline-success"
-                                                        href="{{ route('fair.subcategories', $fair->id) }}">
-                                                        {{-- <i class="zmdi zmdi-settings"></i> --}}
-                                                        @lang('SubCategories')
-                                                    </a>
-                                                </div>
 
-<<<<<<< HEAD
-                                            </div>
-                                            <div class="btn-group-justified">
-                                                <div class="btn-group">
-                                                    <a class="btn btn-outline-secondary rounded-circle"
-                                                        href="{{ route('fair.edit', $fair->id) }}">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <form action="{{ route('fair.destroy', $fair->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button Type="submit"
-                                                            class="btn rounded-circle btn-outline-danger"><i
-                                                                class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-=======
-                                <td style="width:20% ; max-width:24%;"><img
-                                        src="{{ asset('storage/fairs/' . $fair->logo_ar) }}"
-                                        class="img-fluid img-thumbnail">
-                                </td>
-                                <td>{{ $fair->hits }}</td>
+
+
+
                                 <td style="width: 25%">
                                     <div class="btn-group-justified mb-2">
                                         <div class="btn-group">
@@ -181,7 +129,6 @@
                                             </form>
                                         </div>
                                     </div>
->>>>>>> 6004327a64e84c70e131b1014e6b9a8fcf77034e
 
                                         </td>
                                     </tr>
