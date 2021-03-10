@@ -18,11 +18,12 @@ class Admin
     {
         // dd($next($request));
         if (!Auth::check()) {
-            return redirect('login');
+            return redirect(route('login'));
         }
         if (Auth::user()->role =='admin') {
             return $next($request);
         }
-        return back()->withErrors("you have no permission");
+        // return "admin middleware";
+        return back()->withErrors("you have no admin permission");
     }
 }

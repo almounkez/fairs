@@ -27,7 +27,7 @@
                             <th scope="col">{{ __('Arabic Logo') }}</th>
                             <th scope="col">{{ __('English Logo') }}</th>
                             <th scope="col">{{ __('hits') }}</th>
-                            <th scope="col" width="10%">{{ __('Control') }}</th>
+                            <th scope="col" width="20%">{{ __('Control') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +54,37 @@
                                 @endif
                             </td>
                             <td>{{ $suite->hits }}</td>
-                            <td><div class="btn-group-justified">
+                            <td>
+                                <div class="btn-group-justified mb-2">
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-secondary" href="{{route('suite.articles',$suite->id)}}">
+                                            @lang('Artecles')
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-info" href="{{route('suite.slides',$suite->id)}}">
+                                            @lang('Slides')
+                                        </a>
+                                    </div>
+                                    {{-- <div class="btn-group">
+                                        <a class="btn btn-outline-success" href="{{route('suite.categories',$suite->id)}}">
+
+                                            @lang('Categories')
+                                        </a>
+                                    </div> --}}
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-warning" href="{{route('suite.products',$suite->id)}}">
+                                            @lang('Products')
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-success" href="{{route('suite.marquees',$suite->id)}}">
+                                            {{-- <i class="zmdi zmdi-settings"></i> --}}
+                                            @lang('Marquee')
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="btn-group-justified">
                                     <div class="btn-group">
                                         <a class="btn btn-outline-warning rounded-circle"
                                             href="{{route('suite.edit',$suite->id)}}">
@@ -77,7 +107,7 @@
 
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
     </div>

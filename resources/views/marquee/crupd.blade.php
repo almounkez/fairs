@@ -55,9 +55,9 @@
                         <div class="col-8 text-md-center">
                             <a
                             @if(!empty($fairId))
-                            href="{{ route('marquee.indexFair',$fairId) }}"
+                            href="{{ route('fair.marquees',$fairId) }}"
                             @elseif(!empty($suiteId))
-                            href="{{ route('marquee.indexSuite',$suiteId) }}"
+                            href="{{ route('suite.marquees',$suiteId) }}"
                             @endif
                             type="button"
                                 class="btn btn-secondary">{{ __('Cancel') }}</a>

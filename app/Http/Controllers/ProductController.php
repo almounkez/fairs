@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Product;
+use App\Suite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -26,11 +26,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(int $suiteId)
+    public function create(Suite $suite)
     {
         //
-        $categories = Category::all();
-        return view('product.crupd', compact('categories', 'suiteId'));
+        $categories = $suite->fair->categories;
+        $subcategories = $suite->fair->subcategories;
+        return view('product.crupd', ['categories' => $categories, 'subcategories' => $subcategories, 'suiteId' => $suite->id]);
     }
 
     /**
@@ -44,11 +45,11 @@ class ProductController extends Controller
         //
         $request->validate([
             'imgfile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'suite_id'=>'required',
-            'cat_id'=>'required',
-            'sub_id'=>'required',
-            'name_ar'=>'required',
-            'name_en'=>'required',
+            'suite_id' => 'required',
+            'cat_id' => 'required',
+            'sub_id' => 'required',
+            'name_ar' => 'required',
+            'name_en' => 'required',
 
         ]);
 
@@ -64,7 +65,7 @@ class ProductController extends Controller
         $product->imgfile = $imagename;
 
         $product->save();
-        return redirect(route('product.index'));
+        return redirect(route('suite.products', $request->suite_id));
 
     }
 
@@ -90,8 +91,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
-        $categories = Category::all();
-        return view('product.crupd', compact('categories', 'product'));
+        $categories = $product->suite->fair->categories;
+        $subcategories = $product->suite->fair->subcategories;
+        return view('product.crupd', ['product' => $product, 'categories' => $categories, 'subcategories' => $subcategories, 'suiteId' => $product->suite_id]);
 
     }
 
@@ -107,7 +109,8 @@ class ProductController extends Controller
         //
         $request->validate([
             'imgfile' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:256',
-            'name' => 'required|unique:products,name,' . $product->id,
+            'name_ar' => 'required',
+            'name_en' => 'required',
         ]);
         $imagename = "";
         if (request()->hasfile('imgfile')) {
@@ -132,7 +135,8 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route('product.index'));
+        return redirect(route('suite.products', $request->suite_id));
+
     }
 
     /**
@@ -144,10 +148,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+        $suiteId = $product->suite_id;
         $imagefilepath = public_path('/storage/products/');
         if ($product->imgfile != null) {
             File::delete($imagefilepath . $product->imgfile);
         }
         $product->delete();
+        return redirect(route('suite.products', $suiteId));
+
     }
 }

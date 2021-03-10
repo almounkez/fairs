@@ -2,20 +2,21 @@
 
 @section('content')
 {{-- @Admin --}}
-
-<div class="fixed-top m-2"><a class="btn btn-primary btn-sm rounded-circle" href="{{route('fair.create')}}"
-        alt=@lang('Add new fair')>
-        <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
-    </a></div>
+@auth
+    @if(auth()->user()->role=='admin')
+    <div class="fixed-top mx-3 mt-5 justify-content-center" >
+        <a class="align-items- btn btn-sm btn-outline-secondary" href="{{route('fair.create')}}" alt=@lang('Add new fair')>
+            <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+        </a>
+    </div>
+    @endif
+    @endauth
 
 {{-- @endAdmin --}}
 <div class="row">
-    <div class="fixed-top m-2"><a class="btn btn-primary btn-sm rounded-circle" href="{{route('fair.create')}}"
-            alt=@lang('Add new fair')>
-            <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
-        </a></div>
+
     @foreach ($fairs as $fair)
-    <div class="col-md-3">
+    <div class="col-md-4">
         <a href="{{route('fair.show',$fair->id)}}">
             <figure class="figure">
                 <img src="{{asset('storage/fairs/'.$fair->logo_en)}}" class="figure-img img-fluid rounded"

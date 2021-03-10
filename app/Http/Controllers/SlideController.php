@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Fair;
 use App\Slide;
 use App\Suite;
-use App\Fair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class SlideController extends Controller
 {
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('admin')->only('index', 'indexFair', 'createforFair');
+        $this->middleware('access')->except('index', 'indexFair', 'createforFair', 'show');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +35,6 @@ class SlideController extends Controller
         return view('slide.index', compact('slides'));
 
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +46,7 @@ class SlideController extends Controller
         $slides = $fair->slides;
         $fairId = $fair->id;
 
-        return view('slide.index', compact('slides','fairId'));
+        return view('slide.index', compact('slides', 'fairId'));
 
     }/**
      * Display a listing of the resource.
@@ -44,23 +55,20 @@ class SlideController extends Controller
      */
     public function indexSuite(Suite $suite)
     {
-        //
         $slides = $suite->slides;
         $suiteId = $suite->id;
-
-        return view('slide.index', compact('slides','suiteId'));
-
+        return view('slide.index', compact('slides', 'suiteId'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForFair(int $fairId)
+    public function createforFair(Fair $fair)
     {
         //
-        $categories = Category::all();
+        $categories = $fair->categories;
+        $fairId = $fair->id;
         return view('slide.crupd', compact('categories', 'fairId'));
 
     }
@@ -69,11 +77,11 @@ class SlideController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createForSuite(int $suiteId)
+    public function createforSuite(Suite $suite)
     {
         //
-        $categories = Category::all();
-        return view('slide.crupd', compact('categories', 'suiteId'));
+        $categories = $suite->fair->categories;
+        return view('slide.crupd', ['categories' => $categories, 'suiteId' => $suite->id]);
 
     }
     /**
@@ -104,9 +112,9 @@ class SlideController extends Controller
         // dd($request->all(),$slide);
 
         if ($slide->suite_id != null) {
-            return redirect(route('slide.indexSuite', $slide->suite_id));
+            return redirect(route('suite.slides', $slide->suite_id));
         } else if ($slide->fair_id != null) {
-            return redirect(route('slide.indexFair', $slide->fair_id));
+            return redirect(route('fair.slides', $slide->fair_id));
         }
     }
 
@@ -121,7 +129,6 @@ class SlideController extends Controller
         //
         return view('slide.show', compact('slide'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -131,7 +138,8 @@ class SlideController extends Controller
     public function edit(Slide $slide)
     {
         //
-        $categories = Category::all();
+        // dd($slide);
+        $categories = $slide->fair->categories??$slide->suite->fair->categories;
         return view('slide.crupd', compact('slide', 'categories'));
 
     }
@@ -173,13 +181,10 @@ class SlideController extends Controller
         $slide->save();
 
         if ($slide->suite_id != null) {
-            return redirect(route('slide.indexSuite', $slide->suite_id));
+            return redirect(route('suite.slides', $slide->suite_id));
         } else if ($slide->fair_id != null) {
-            return redirect(route('slide.indexFair', $slide->fair_id));
+            return redirect(route('fair.slides', $slide->fair_id));
         }
-
-        // return redirect(route('slide.index'));
-
     }
 
     /**
@@ -202,14 +207,12 @@ class SlideController extends Controller
         $slide->delete();
 
         if ($suiteId != null) {
-            return redirect(route('slide.indexSuite', $suiteId));
+            return redirect(route('suite.slides', $suiteId));
         } else if ($fairId != null) {
-            return redirect(route('slide.indexFair', $fairId));
+            return redirect(route('fair.slides', $fairId));
         } else {
             return ('errore accord');
         }
-
-        // return redirect(route('slide.index'));
 
     }
 }

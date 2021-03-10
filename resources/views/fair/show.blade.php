@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+{{-- @section('fair')
+<a class="navbar-brand" href="{{ route('fair.show',$fairId) }}">
+    @lang('Current Fair')
+</a>
+@endsection --}}
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -9,14 +13,18 @@
                 <!-- Indicators -->
                 <ul class="carousel-indicators">
                     {{-- @Admin --}}
-
-                    <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('slide.createForFair',$fairId)}}">
-                        <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+                    @auth
+                    @if(auth()->user()->role=='admin')
+                    <a href="{{route('slide.createForFair',$fairId)}}">
+                        <span class="btn btn-sm btn-outline-light mx-2" style="float:inline-end">
+                            <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+                        </span>
                     </a>
-
+                    @endif
+                    @endauth
                     {{-- @endAdmin --}}
-                    @for ($i = 0; $i < count($slides); $i++) <li data-target="#masterSlides"
-                            data-slide-to="{{ $i }}" @if ($i==0) class="active" @endif>
+                    @for ($i = 0; $i < count($slides); $i++) <li data-target="#masterSlides" data-slide-to="{{ $i }}"
+                        @if ($i==0) class="active" @endif>
                         </li>
                         @endfor
                 </ul>
@@ -24,8 +32,7 @@
                 <div class="carousel-inner h-50" role="listbox" style="max-height:300px !important">
                     @foreach ($slides as $key => $slide)
                     <div class="carousel-item @if ($key==0) active @endif">
-                        <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}"
-                            class="img-fluid carousel-inner img-thumbnail">
+                        <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}" class="img-fluid carousel-inner ">
                     </div>
 
                     @endforeach
@@ -45,13 +52,19 @@
 <br>
 <div class="row">
     <div class="col-md-3">
-        <div class="list-group">
-            <a href="{{route('category.create',$fairId)}}" class="list-group-item list-group-item-action active">
-                <h5 class="d-flex justify-content-center"> @lang('Categories ')
-                    <span><i class="zmdi zmdi-plus" style="float: inline-start"></i></span></h5>
-            </a>
+        <ul class="list-group">
+            <i class="list-group-item list-group-item-action active h5">
+                @lang('Categories')
+                @auth @if(auth()->user()->role=='admin')
+                <span class="mx-2" style="float:right">
+                    <a class="btn btn-sm btn-outline-light" href="{{route('category.create',$fairId)}}"><i
+                            class="zmdi zmdi-plus zmdi-hc-lg"></i></a>
+                </span>
+                @endif @endauth
+            </i>
             @foreach ($categories as $category)
-            <a href="{{route('search.suites.cat',['fair' => $fairId,'category'=>$category])}}" class="list-group-item list-group-item-action">
+            <a href="{{route('search.suites.cat',['fair' => $fairId,'category'=>$category])}}"
+                class="list-group-item list-group-item-action">
                 <h5 class="d-flex align-items-center justify-content-center">
                     @if (config('app.locale') == 'ar')
                     {{ $category->name }}
@@ -61,9 +74,18 @@
                 </h5>
             </a>
             @endforeach
-        </div>
+        </ul>
     </div>
     <div class="col-md-9">
+        @auth
+        @if(auth()->user()->role=='admin')
+        <div class="float-right" style="float:inline-end">
+            <a class="btn btn-sm btn-outline-primary rounded-circle mx-2" href="{{route('suite.create',$fairId)}}">
+                <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+            </a>
+        </div>
+        @endif
+        @endauth
         <div class="row">
             @foreach ($suites as $suite)
             <div class="col-md-4">
@@ -82,16 +104,3 @@
 
 
 @endsection
-
-{{-- @section('script')
-<script>
-    function fbs_click() {
-                                u = location.href;
-                                t = document.title;
-                                window.open('http://www.facebook.com/sharer.php?u=' + encodeURIComponent(u) + '&t=' +
-                                    encodeURIComponent(t), 'sharer', 'toolbar=0,status=0,width=626,height=436');
-                                return false;
-                            }
-
-</script>
-@endsection --}}

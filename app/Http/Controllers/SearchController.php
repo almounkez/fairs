@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Fair;
-use App\Suite;
 use App\Product;
+use App\Suite;
 
 // use Illuminate\Support\Facades\File;
 // use Illuminate\Support\Facades\Storage;
@@ -16,38 +16,44 @@ class SearchController extends Controller
      * findSuitebyCategory
      *
      * @param Fair $fair
-     * @param Category $cat
+     * @param Category $category
      * @return void
      */
-    public function suitesByCat(Fair $fair, Category $cat)
+    public function suitesByCat(Fair $fair, Category $category)
     {
         //
+        // dd($category);
+        $category->hits += 1;
+        $category->save();
 
-        $cat->hits = 1;
-        // $cat->save();
-
-        $suitesId = Product::select('suite_id')->where('cat_id', $cat->id)->distinct()->get();
+        $suitesId = Product::select('suite_id')->where('cat_id', $category->id)->where('active',1)->get();
         // dd($suitesId);
         return view('fair.show', ['fairId' => $fair->id,
-            'slides' => $fair->slides,
-            'suites' => Suite::whereIn('id',$suitesId)->get(),
+            'advertises' => $fair->advertises,
+            'slides' => $fair->slides()->where('active',1)->where('cat_id', $category->id)->get(),
+            'suites' => Suite::whereIn('id', $suitesId)->get(),
             'categories' => $fair->categories,
-            'catId' => $cat->id]);
+            'marquees' => $fair->marquees,
+            'advertises' => $fair->advertises,
+            'catId' => $category->id]);
     }
 
-    public function productsByCat(Fair $fair, Category $cat)
+    public function productsByCat(Suite $suite, Category $category)
     {
         //
 
-        $cat->hits = 1;
-        // $cat->save();
-
-        $suitesId = Product::select('suite_id')->where('cat_id', $cat->id)->distinct()->get();
-        dd($suitesId);
-        return view('fair.show', ['fairId' => $fair->id,
-            'slides' => $fair->slides,
-            'suites' => $cat->suites,
-            'categories' => $fair->categories,
-            'catId' => $cat->id]);
+        // dd($category);
+        $category->hits += 1;
+        $category->save();
+        $products = $suite->products()->where('cat_id', $category->id)->get();
+        // dd($products);
+        return view('suite.show', ['fairId' => $suite->fair->id,
+            'suiteId' => $suite->id,
+            'advertises' => $suite->fair->advertises,
+            'marquees' => $suite->marquees,
+            'slides' => $suite->slides()->where('active',1)->where('cat_id', $category->id)->get(),
+            'products' => $products,
+            'categories' => $suite->fair->categories,
+            'catId' => $category->id]);
     }
 }

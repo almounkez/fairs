@@ -17,6 +17,11 @@
 
                     @if (!empty($slide))
                     <div class="row">
+                        @if(!empty($slide->fair_id))
+                        <input name="fair_id" value="{{$slide->fair_id}}" hidden>
+                        @elseif(!empty($slide->suite_id))
+                        <input name="suite_id" value="{{$slide->suite_id}}" hidden>
+                        @endif
                         <div class="col-md-4 col-form-label " style="text-align:start">
                             <label class="" for="id">{{ __('id') }} : </label>
                         </div>
@@ -26,7 +31,7 @@
                     </div>
                     @elseif(!empty($fairId))
                     <input name="fair_id" value="{{$fairId}}" hidden>
-                    @elseif($suiteId!=null)
+                    @elseif(!empty($suiteId))
                     <input name="suite_id" value="{{$suiteId}}" hidden>
                     @endif
                     <div class="row">
@@ -57,20 +62,21 @@
 
                         </div>
                     </div>
-<div class="row">
+                    <div class="row">
                         <div class="col-md-4  col-form-label " style="text-align:start">
                             <label for="location">{{ __('location') }}:</label>
                         </div>
-                        <div class="col-8"><input class="form-control" type="text" name="location" value=@if(!empty($slide) &&
-                                old('location', $slide->location))
+                        <div class="col-8"><input class="form-control" type="text" name="location"
+                                value=@if(!empty($slide) && old('location', $slide->location))
                             {{ $slide->location }}@else{{old('location')}} @endif>
                         </div>
-                    </div><div class="row">
+                    </div>
+                    <div class="row">
                         <div class="col-md-4  col-form-label " style="text-align:start">
                             <label for="group">{{ __('group') }}:</label>
                         </div>
-                        <div class="col-8"><input class="form-control" type="text" name="group" value=@if(!empty($slide) &&
-                                old('group', $slide->group))
+                        <div class="col-8"><input class="form-control" type="text" name="group" value=@if(!empty($slide)
+                                && old('group', $slide->group))
                             {{ $slide->group }}@else{{old('group')}} @endif>
                         </div>
                     </div>
@@ -106,8 +112,8 @@
                         <div class="col-8 text-md-center">
                             {{-- <a href="{{ route('slide.index') }}" type="button"
                             class="btn btn-secondary">{{ __('Cancel') }}</a> --}}
-                            <a @if(!empty($fairId)) href="{{ route('slide.indexFair',$fairId) }}"
-                                @elseif(!empty($suiteId)) href="{{ route('slide.indexSuite',$suiteId) }}" @endif
+                            <a @if(!empty($slide->suite_id)) href="{{ route('suite.slides',$slide->suite_id) }}"
+                                @elseif(!empty($slide->fair_id)) href="{{ route('fair.slides',$slide->fair_id) }}" @endif
                                 type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>

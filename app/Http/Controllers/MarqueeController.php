@@ -10,6 +10,18 @@ use Illuminate\Http\Request;
 class MarqueeController extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('admin')->only('index', 'indexFair', 'createforFair');
+        $this->middleware('access')->except('index', 'indexFair', 'createforFair', 'show');
+
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -69,9 +81,9 @@ class MarqueeController extends Controller
         $marquee = Marquee::create($request->all());
 
         if ($marquee->suite_id != null) {
-            return redirect(route('marquee.indexSuite', $marquee->suite_id));
+            return redirect(route('suite.marquees', $marquee->suite_id));
         } else if ($marquee->fair_id != null) {
-            return redirect(route('marquee.indexFair', $marquee->fair_id));
+            return redirect(route('fair.marquees', $marquee->fair_id));
         }
 
     }
@@ -118,9 +130,9 @@ class MarqueeController extends Controller
         $marquee->update($request->all());
         $marquee->save();
         if ($marquee->suite_id != null) {
-            return redirect(route('marquee.indexSuite', $marquee->suite_id));
+            return redirect(route('suite.marquees', $marquee->suite_id));
         } else {
-            return redirect(route('marquee.indexFair', $marquee->fair_id));
+            return redirect(route('fair.marquees', $marquee->fair_id));
         }
 
     }
@@ -139,9 +151,9 @@ class MarqueeController extends Controller
         $marquee->delete();
 
         if ($suiteId != null) {
-            return redirect(route('marquee.indexSuite', $suiteId));
+            return redirect(route('suite.marquees', $suiteId));
         } else if ($fairId != null) {
-            return redirect(route('marquee.indexFair', $fairId));
+            return redirect(route('fair.marquees', $fairId));
         } else {
             return ('errore accord');
         }

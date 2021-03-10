@@ -43,22 +43,31 @@ Route::get('/home','HomeController@index')->name('home');
 // Route::resource('fairs', 'FairController');
 
 Route::resource('fair', 'FairController');
-// Route::get('fair/{fair}/manage','FairController@manage')->name('fair.manage');
+
 Route::get('fair/{fair}/suites','FairController@suites')->name('fair.suites');
 Route::get('fair/{fair}/slides','FairController@slides')->name('fair.slides');
 Route::get('fair/{fair}/categories', 'FairController@categories')->name('fair.categories');
 Route::get('fair/{fair}/subcategories', 'FairController@subcategories')->name('fair.subcategories');
+Route::get('fair/{fair}/advertises','FairController@advertises')->name('fair.advertises');
+Route::get('suite/{fair}/marquees', 'FairController@marquees')->name('fair.marquees');
+
 
 Route::resource('suite', 'SuiteController')->except(['create']);
 Route::get('suite/{fair}/create','SuiteController@create')->name('suite.create');
+
+Route::get('suite/{suite}/products','SuiteController@products')->name('suite.products');
+Route::get('suite/{suite}/slides','SuiteController@slides')->name('suite.slides');
+Route::get('suite/{suite}/articles', 'SuiteController@articles')->name('suite.articles');
+Route::get('suite/{suite}/marquees', 'SuiteController@marquees')->name('suite.marquees');
+
+
 // Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
 
-Route::resource('slide', 'SlideController')->except(['create','index']);
-Route::get('slide/{fairId}/createForFair','SlideController@createforFair')->name('slide.createForFair');
-Route::get('slide/{fairId}/createForSuite', 'SlideController@createforSuite')->name('slide.createForSuite');
-Route::get('slide/{fair}/fair', 'SlideController@indexFair')->name('slide.indexFair');
-Route::get('slide/{suite}/suite', 'SlideController@indexSuite')->name('slide.indexSuite');
-
+Route::resource('slide', 'SlideController')->except(['create']);
+Route::get('slide/{fair}/createForFair','SlideController@createforFair')->name('slide.createForFair');
+Route::get('slide/{suite}/createForSuite', 'SlideController@createforSuite')->name('slide.createForSuite');
+// Route::get('slide/{fair}/fair', 'SlideController@indexFair')->name('slide.indexFair');
+// Route::get('slide/{suite}/suite', 'SlideController@indexSuite')->name('slide.indexSuite');
 
 Route::resource('category','CategoryController')->except(['create']);
 Route::get('category/{fairId}/create', 'CategoryController@create')->name('category.create');
@@ -66,20 +75,20 @@ Route::get('category/{fairId}/create', 'CategoryController@create')->name('categ
 Route::resource('subcategory','SubcategoryController')->except(['create']);
 Route::get('subcategory/{fairId}/create', 'SubcategoryController@create')->name('subcategory.create');
 
-Route::resource('article','ArticleController')->except(['create']);
-Route::get('article/{suiteId}/create', 'ArticleController@create')->name('article.create');
-
 Route::resource('advertise', 'AdvertiseController')->except(['create']);
 Route::get('advertise/{fairId}/create', 'AdvertiseController@create')->name('advertise.create');
 
-Route::resource('marquee', 'MarqueeController')->except(['create','index']);
+Route::resource('marquee', 'MarqueeController')->except(['create']);
 Route::get('marquee/{fairId}/createForFair', 'MarqueeController@createforFair')->name('marquee.createForFair');
 Route::get('marquee/{suiteId}/createForSuite', 'MarqueeController@createforSuite')->name('marquee.createForSuite');
-Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
-Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
+// Route::get('marquee/{fair}/fair', 'MarqueeController@indexFair')->name('marquee.indexFair');
+// Route::get('marquee/{suite}/suite', 'MarqueeController@indexSuite')->name('marquee.indexSuite');
 
-Route::resource('product', 'ProductController')->except(['create']);
-Route::get('product/{suiteId}/create', 'ProductController@create')->name('product.create');
+Route::resource('product', 'ProductController')->except(['create','index']);
+Route::get('product/{suite}/create', 'ProductController@create')->name('product.create');
+
+Route::resource('article', 'ArticleController')->except(['create','index']);
+Route::get('article/{suiteId}/create', 'ArticleController@create')->name('article.create');
 
 Route::get('search/suites/{fair}/cat/{category}','SearchController@suitesByCat')->name('search.suites.cat');
 Route::get('search/products/{suite}/cat/{category}','SearchController@productsByCat')->name('search.products.cat');
