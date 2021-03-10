@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     @elseif(!empty($fairId))
-                    <input name="fair_id" value="{{$fairId}}" hidden >
+                    <input name="fair_id" value="{{$fairId}}" hidden>
                     @elseif(!empty($suiteId))
                     <input name="suite_id" value="{{$suiteId}}" hidden>
                     @endif
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-10">
                             <textarea required class="form-control" type="text"
-                             name="newstext_ar"> @if(!empty($marquee) && old('newstext_ar', $marquee->newstext_ar)){{ $marquee->newstext_ar }}@else{{old('newstext_ar')}}@endif</textarea>
+                                name="newstext_ar"> @if(!empty($marquee) && old('newstext_ar', $marquee->newstext_ar)){{ $marquee->newstext_ar }}@else{{old('newstext_ar')}}@endif</textarea>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-10">
                             <textarea required class="form-control" type="text"
-                            name="newstext_en">@if (!empty($marquee) && old('newstext_en', $marquee->newstext_en)){{ $marquee->newstext_en }}@else{{old('newstext_en')}}@endif</textarea>
+                                name="newstext_en">@if (!empty($marquee) && old('newstext_en', $marquee->newstext_en)){{ $marquee->newstext_en }}@else{{old('newstext_en')}}@endif</textarea>
                         </div>
                     </div>
 
@@ -53,14 +53,16 @@
                             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                         </div>
                         <div class="col-8 text-md-center">
-                            <a
-                            @if(!empty($fairId))
-                            href="{{ route('fair.marquees',$fairId) }}"
-                            @elseif(!empty($suiteId))
-                            href="{{ route('suite.marquees',$suiteId) }}"
-                            @endif
-                            type="button"
+                            @if(!empty($marquees))
+                            <a @if(!empty($marquees->suite_id)) href="{{ route('suite.marquees',$marquees->suite_id) }}"
+                                @elseif(!empty($marquees->fair_id)) href="{{ route('fair.marquees',$marquees->fair_id) }}"
+                                @endif
+                                type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                            @else
+                            <a @if(!empty($suiteId)) href="{{ route('suite.marquees',$suiteId) }}"
+                                @elseif(!empty($fairId)) href="{{ route('fair.marquees',$fairId) }}" @endif type="button"
                                 class="btn btn-secondary">{{ __('Cancel') }}</a>
+                            @endif
                         </div>
                     </div>
                 </form>

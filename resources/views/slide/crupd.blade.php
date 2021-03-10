@@ -112,9 +112,16 @@
                         <div class="col-8 text-md-center">
                             {{-- <a href="{{ route('slide.index') }}" type="button"
                             class="btn btn-secondary">{{ __('Cancel') }}</a> --}}
+                            @if(!empty($slide))
                             <a @if(!empty($slide->suite_id)) href="{{ route('suite.slides',$slide->suite_id) }}"
-                                @elseif(!empty($slide->fair_id)) href="{{ route('fair.slides',$slide->fair_id) }}" @endif
+                                @elseif(!empty($slide->fair_id)) href="{{ route('fair.slides',$slide->fair_id) }}"
+                                @endif
                                 type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                            @else
+                            <a @if(!empty($suiteId)) href="{{ route('suite.slides',$suiteId) }}"
+                                @elseif(!empty($fairId)) href="{{ route('fair.slides',$fairId) }}" @endif
+                                type="button" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                            @endif
                         </div>
                     </div>
                 </form>
