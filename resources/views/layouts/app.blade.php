@@ -89,13 +89,18 @@
                                     <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List') </a>
                                     <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair') </a>
                                     @if(!empty($fairId))
-                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}"> @lang('current fair slides')</a>
-                                    <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}"> @lang('current fair categories') </a>
-                                    <a class="dropdown-item" href="{{ route('fair.subcategories',$fairId) }}"> @lang('current fair subcategories') </a>
-                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('current fair marquees')</a>
-                                    <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('current fair advertises')</a>
+                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}"> @lang('current
+                                        fair slides')</a>
+                                    <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
+                                        @lang('current fair categories') </a>
+                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('current
+                                        fair marquees')</a>
+                                    <a class="dropdown-item"
+                                        href="{{ route('fair.advertises',$fairId) }}">@lang('current fair
+                                        advertises')</a>
                                     @endif
                                 </div>
+
                             </li>
                             @endif
                             @if(Auth::user()->suite!=null)
@@ -122,11 +127,13 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
                                         @csrf
@@ -163,9 +170,9 @@
             </div>
             @endif
             {{-- end validation meesage --}}
-            @yield('advertise')
+
             {{-- main content --}}
-            <main class="p-1 mx-2">
+            <main class="p-2 m-4">
                 @yield('content')
             </main>
             {{-- end main content --}}

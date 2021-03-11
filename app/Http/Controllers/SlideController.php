@@ -108,11 +108,6 @@ class SlideController extends Controller
 
         $slide = Slide::create($request->all());
         $slide->imgfile = $imagename;
-          if ($request->has('active')) {
-            $input = array_merge($input, ["active" => 1]);
-        } else {
-            $input = array_merge($input, ["active" => 0]);
-        }
         $slide->save();
         // dd($request->all(),$slide);
 

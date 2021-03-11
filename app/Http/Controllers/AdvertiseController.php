@@ -20,7 +20,6 @@ class AdvertiseController extends Controller
 
     }
 
-
     /**
      * Show the form for creating a new resource.
      *

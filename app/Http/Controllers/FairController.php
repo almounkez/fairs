@@ -71,14 +71,11 @@ class FairController extends Controller
             $logo_enfilepath = public_path('storage/fairs/');
             $logo_enfile->move($logo_enfilepath, $logo_enname);
         }
-               if ($request->has('active')) {
-                $fair->active = 1;
-        } else {
-                $fair->active = 0;
-        }
+
         $fair = Fair::create($request->all());
         $fair->logo_ar = $logo_arname;
         $fair->logo_en = $logo_enname;
+
         $fair->save();
         return redirect(route('fair.index'));
     }
@@ -96,16 +93,11 @@ class FairController extends Controller
         $fair->save();
         return view('fair.show', [
             'fairId' => $fair->id,
-            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->orderByRaw("RAND()")->get(),
-            'suites' => $fair->suites()->where('active', '1')->orderByRaw("RAND()")->get(),
+            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->get(),
+            'suites' => $fair->suites,
             'categories' => $fair->categories,
-            'subcategories' => $fair->subcategories,
             'marquees' => $fair->marquees,
-            'advertisesa' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
-            'advertisesb' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
-            'advertisesc' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()
-
-            ]);
+            'advertises' => $fair->advertises]);
     }
 
 

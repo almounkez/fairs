@@ -31,7 +31,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($advertises as $advertise)
+                            @foreach ($categories as $advertise)
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route('advertise.edit', $advertise->id) }}"><span class="iconify"
@@ -44,7 +44,7 @@
                                 <td>{{ $advertise->start_date }}</td>
                                 <td>{{ $advertise->end_date }}</td>
                                 <td>{{ $advertise->hits }}</td>
-                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/advertises/' . $advertise->imgfile) }}"
+                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/advertise/' . $advertise->imgfile) }}"
                                         class="img-fluid img-thumbnail"></td>
                                 <td>
                                     <div class="btn-group-justified">

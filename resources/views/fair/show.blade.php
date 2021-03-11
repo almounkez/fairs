@@ -1,8 +1,4 @@
 @extends('layouts.app')
-@section('advertise')
-
-@endsection
-
 {{-- @section('fair')
 <a class="navbar-brand" href="{{ route('fair.show',$fairId) }}">
     @lang('Current Fair')
