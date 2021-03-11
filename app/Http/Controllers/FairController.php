@@ -75,6 +75,7 @@ class FairController extends Controller
         $fair = Fair::create($request->all());
         $fair->logo_ar = $logo_arname;
         $fair->logo_en = $logo_enname;
+
         $fair->save();
         return redirect(route('fair.index'));
     }
@@ -99,25 +100,7 @@ class FairController extends Controller
             'advertises' => $fair->advertises]);
     }
 
-// /**
-    //      * Display the specified resource.
-    //      *
-    //      * @param  \App\Fair  $fair
-    //      * @return \Illuminate\Http\Response
-    //      */
-    //     public function bySubcategory(Fair $fair, Subcategory $subcat)
-    //     {
-    //         //
 
-//         $subcat->hits += 1;
-    //         $subcat->save();
-    //         return view('fair.show', ['fairId' => $fair->id,
-    //             'slides' => $fair->slides,
-    //             'suites' => $cat->suites,
-    //             'categories' => $fair->categories,
-    //             'subcategories' => $fair->subcategories,
-    //             'catId' => $cat->id]);
-    //     }
     /**
      * Show the form for editing the specified resource.
      *
