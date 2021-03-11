@@ -19,6 +19,7 @@ class AdvertiseController extends Controller
         return view('advertise.index', compact('advertises'));
 
     }
+ 
 
     /**
      * Show the form for creating a new resource.
@@ -52,6 +53,13 @@ class AdvertiseController extends Controller
             $imagefilepath = public_path('storage/advertises/');
             $imagefile->move($imagefilepath, $imagename);
             $advertise->imgfile = $imagename;
+        }
+               if ($request->has('active')) {
+            // $suite->active = 1;
+            $input = array_merge($input, ["active" => 1]);
+        } else {
+            // $suite->active = 0;
+            $input = array_merge($input, ["active" => 0]);
         }
         $advertise->save();
 
@@ -107,6 +115,9 @@ class AdvertiseController extends Controller
                 File::delete($imagefilepath . $advertise->imgfile);
             }
             $advertise->imgfile = $imagename;
+        }
+                if (!$request->has('active')) {
+            $advertise->active = 0;
         }
         $advertise->save();
 

@@ -89,15 +89,11 @@
                                     <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List') </a>
                                     <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair') </a>
                                     @if(!empty($fairId))
-                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}"> @lang('current
-                                        fair slides')</a>
-                                    <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
-                                        @lang('current fair categories') </a>
-                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('current
-                                        fair marquees')</a>
-                                    <a class="dropdown-item"
-                                        href="{{ route('fair.advertises',$fairId) }}">@lang('current fair
-                                        advertises')</a>
+                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}"> @lang('current fair slides')</a>
+                                    <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}"> @lang('current fair categories') </a>
+                                    <a class="dropdown-item" href="{{ route('fair.subcategories',$fairId) }}"> @lang('current fair subcategories') </a>
+                                    <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('current fair marquees')</a>
+                                    <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('current fair advertises')</a>
                                     @endif
                                 </div>
 

@@ -71,7 +71,13 @@ class FairController extends Controller
             $logo_enfilepath = public_path('storage/fairs/');
             $logo_enfile->move($logo_enfilepath, $logo_enname);
         }
-
+       if ($request->has('active')) {
+            // $suite->active = 1;
+            $input = array_merge($input, ["active" => 1]);
+        } else {
+            // $suite->active = 0;
+            $input = array_merge($input, ["active" => 0]);
+        }
         $fair = Fair::create($request->all());
         $fair->logo_ar = $logo_arname;
         $fair->logo_en = $logo_enname;
