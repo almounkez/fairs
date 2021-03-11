@@ -71,12 +71,10 @@ class FairController extends Controller
             $logo_enfilepath = public_path('storage/fairs/');
             $logo_enfile->move($logo_enfilepath, $logo_enname);
         }
-       if ($request->has('active')) {
-            // $suite->active = 1;
-            $input = array_merge($input, ["active" => 1]);
+               if ($request->has('active')) {
+                $fair->active = 1;
         } else {
-            // $suite->active = 0;
-            $input = array_merge($input, ["active" => 0]);
+                $fair->active = 0;
         }
         $fair = Fair::create($request->all());
         $fair->logo_ar = $logo_arname;
@@ -98,32 +96,19 @@ class FairController extends Controller
         $fair->save();
         return view('fair.show', [
             'fairId' => $fair->id,
-            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->get(),
-            'suites' => $fair->suites,
+            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->orderByRaw("RAND()")->get(),
+            'suites' => $fair->suites()->where('active', '1')->orderByRaw("RAND()")->get(),
             'categories' => $fair->categories,
+            'subcategories' => $fair->subcategories,
             'marquees' => $fair->marquees,
-            'advertises' => $fair->advertises]);
+            'advertisesa' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
+            'advertisesb' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
+            'advertisesc' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()
+
+            ]);
     }
 
-// /**
-    //      * Display the specified resource.
-    //      *
-    //      * @param  \App\Fair  $fair
-    //      * @return \Illuminate\Http\Response
-    //      */
-    //     public function bySubcategory(Fair $fair, Subcategory $subcat)
-    //     {
-    //         //
 
-//         $subcat->hits += 1;
-    //         $subcat->save();
-    //         return view('fair.show', ['fairId' => $fair->id,
-    //             'slides' => $fair->slides,
-    //             'suites' => $cat->suites,
-    //             'categories' => $fair->categories,
-    //             'subcategories' => $fair->subcategories,
-    //             'catId' => $cat->id]);
-    //     }
     /**
      * Show the form for editing the specified resource.
      *

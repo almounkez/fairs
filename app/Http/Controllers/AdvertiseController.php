@@ -19,7 +19,7 @@ class AdvertiseController extends Controller
         return view('advertise.index', compact('advertises'));
 
     }
- 
+
 
     /**
      * Show the form for creating a new resource.
@@ -55,11 +55,9 @@ class AdvertiseController extends Controller
             $advertise->imgfile = $imagename;
         }
                if ($request->has('active')) {
-            // $suite->active = 1;
-            $input = array_merge($input, ["active" => 1]);
+                $advertise->active = 1;
         } else {
-            // $suite->active = 0;
-            $input = array_merge($input, ["active" => 0]);
+                $advertise->active = 0;
         }
         $advertise->save();
 

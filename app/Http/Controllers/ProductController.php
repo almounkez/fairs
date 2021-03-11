@@ -63,13 +63,13 @@ class ProductController extends Controller
 
         $product = Product::create($request->all());
         $product->imgfile = $imagename;
-       if ($request->has('active')) {
-            // $suite->active = 1;
-            $input = array_merge($input, ["active" => 1]);
+                     if ($request->has('active')) {
+                $product->active = 1;
         } else {
-            // $suite->active = 0;
-            $input = array_merge($input, ["active" => 0]);
+                $product->active = 0;
         }
+
+
         $product->save();
         return redirect(route('suite.products', $request->suite_id));
 

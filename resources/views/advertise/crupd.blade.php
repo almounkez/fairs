@@ -36,9 +36,16 @@
                         <div class="col-md-4  col-form-label " style="text-align:start">
                             <label for="location">{{ __('location') }}:</label>
                         </div>
-                        <div class="col-8"><input class="form-control" type="text" name="location"
-                                value=@if(!empty($advertise) && old('location', $advertise->location))
-                            {{ $advertise->location }}@else{{old('location')}} @endif>
+                        <div class="col-8">
+                            <select class="form-control" name="location" id="location">
+                                @if(!empty($advertise) && old('location', $advertise->location))
+                                  <option value="{{ $advertise->location }}" selected> {{ $advertise->location }}</option> @endif>
+  <option value="gold">gold</option>
+  <option value="silver">silver</option>
+  <option value="bronze">bronze</option>
+</select>
+
+
                         </div>
                     </div>
 <div class="row">

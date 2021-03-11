@@ -96,7 +96,6 @@
                                     <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('current fair advertises')</a>
                                     @endif
                                 </div>
-
                             </li>
                             @endif
                             @if(Auth::user()->suite!=null)
@@ -123,13 +122,11 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                         style="display: none;">
                                         @csrf
@@ -166,12 +163,38 @@
             </div>
             @endif
             {{-- end validation meesage --}}
-
+            @yield('advertise')
             {{-- main content --}}
-            <main class="p-2 m-4">
+            <main class="p-1 mx-2">
                 @yield('content')
             </main>
             {{-- end main content --}}
+<footer class="bg-light text-center text-lg-start">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h6 class="text-uppercase">
+                    Footer title 1
+                </h6>
+                <p>
+                            Footer text
+                </p>
+            </div>
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h6 class="text-uppercase">
+                    Footer title 1
+                </h6>
+                <p>
+                            Footer text
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3" style="background-color:rgb(0,0,0,0.2)">
+        @2021 copyright <a class="text-dark" href="http://www.almounkez.com" target="_blank">innovative systems</a>
+
+    </div>
+</footer>
         </div>
         @yield('script')
     </body>
