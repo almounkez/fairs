@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Advertise;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class AdvertiseController extends Controller
 {
     /**
@@ -54,7 +54,7 @@ class AdvertiseController extends Controller
             $imagefile->move($imagefilepath, $imagename);
             $advertise->imgfile = $imagename;
         }
-               if ($request->has('active')) {
+        if (request()->has('active')) {
                 $advertise->active = 1;
         } else {
                 $advertise->active = 0;
@@ -110,11 +110,14 @@ class AdvertiseController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($advertise->imgfile != null) {
-                File::delete($imagefilepath . $advertise->imgfile);
+                if (Storage::exists($imagefilepath . $advertise->imgfile)){
+                    File::delete($imagefilepath . $advertise->imgfile);
+                }
+
             }
             $advertise->imgfile = $imagename;
         }
-                if (!$request->has('active')) {
+        if (!$request->has('active')) {
             $advertise->active = 0;
         }
         $advertise->save();
@@ -134,7 +137,10 @@ class AdvertiseController extends Controller
         //
         $imagefilepath = public_path('/storage/advertises/');
         if ($advertise->imgfile != null) {
-            File::delete($imagefilepath . $advertise->imgfile);
+            if (Storage::exists($imagefilepath . $advertise->imgfile)){
+                File::delete($imagefilepath . $advertise->imgfile);
+            }
+
         }
         $advertise->delete();
 

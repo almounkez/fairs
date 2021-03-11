@@ -126,7 +126,8 @@ class ProductController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($product->imgfile != null) {
-                File::delete($imagefilepath . $product->imgfile);
+                  if (Storage::exists($imagefilepath . $product->imgfile)){
+                File::delete($imagefilepath . $product->imgfile);}
             }}
 
         $product->update($request->all());
@@ -157,7 +158,8 @@ class ProductController extends Controller
         $suiteId = $product->suite_id;
         $imagefilepath = public_path('/storage/products/');
         if ($product->imgfile != null) {
-            File::delete($imagefilepath . $product->imgfile);
+                  if (Storage::exists($imagefilepath . $product->imgfile)){
+            File::delete($imagefilepath . $product->imgfile);}
         }
         $product->delete();
         return redirect(route('suite.products', $suiteId));

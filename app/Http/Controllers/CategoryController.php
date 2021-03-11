@@ -112,7 +112,9 @@ class CategoryController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($category->imgfile != null) {
+                 if (Storage::exists($imagefilepath . $category->imgfile)){
                 File::delete($imagefilepath . $category->imgfile);
+                 }
             }}
 
         $category->update($request->all());
@@ -139,7 +141,9 @@ class CategoryController extends Controller
         //
         $imagefilepath = public_path('storage/categories/');
         if ($category->imgfile != null) {
+            if (Storage::exists($imagefilepath . $category->imgfile)){
             File::delete($imagefilepath . $category->imgfile);
+            }
         }
         $category->delete();
         return redirect(route('category.index'));

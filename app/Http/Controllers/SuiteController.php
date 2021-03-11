@@ -161,7 +161,8 @@ class SuiteController extends Controller
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/suites/');
             if ($suite->logo_ar != null) {
-                File::delete($logo_arfilepath . $suite->logo_ar);
+                         if (Storage::exists($logo_arfilepath . $suite->logo_ar)){
+                File::delete($logo_arfilepath . $suite->logo_ar);}
             }
             $logo_arfile = request()->file('logo_ar');
             $logo_arname = time() . "." . $request->logo_ar->extension();
@@ -172,7 +173,8 @@ class SuiteController extends Controller
         if (request()->hasfile('logo_en')) {
             $logo_enfilepath = public_path('storage/suites/');
             if ($suite->logo_en != null) {
-                File::delete($logo_enfilepath . $suite->logo_en);
+                if (Storage::exists($logo_enfilepath . $suite->logo_en)){
+                File::delete($logo_enfilepath . $suite->logo_en);}
             }
             $logo_enfile = request()->file('logo_en');
             $logo_enname = time() . "." . $request->logo_en->extension();
@@ -204,12 +206,14 @@ class SuiteController extends Controller
 
         if ($suite->logo_ar != null) {
             $logo_arfilepath = public_path('/storage/suites/');
-            File::delete($logo_arfilepath . $fair->logo_ar);
+            if (Storage::exists($logo_arfilepath . $suite->logo_ar)){
+            File::delete($logo_arfilepath . $fair->logo_ar);}
         }
 
         if ($suite->logo_en != null) {
             $logo_enfilepath = public_path('/storage/suites/');
-            File::delete($logo_enfilepath . $fair->logo_en);
+                if (Storage::exists($logo_enfilepath . $suite->logo_en)){
+            File::delete($logo_enfilepath . $fair->logo_en);}
         }
 
         $suite->delete();

@@ -171,7 +171,9 @@ class SlideController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($slide->imgfile != null) {
-                File::delete($imagefilepath . $slide->imgfile);
+                         if (Storage::exists($imagefilepath . $slide->imgfile)){
+                File::delete($imagefilepath . $slide->imgfile);}
+
             }}
 
         $slide->update($request->all());
@@ -207,7 +209,8 @@ class SlideController extends Controller
 
         $imagefilepath = public_path('storage/slides/');
         if ($slide->imgfile != null) {
-            File::delete($imagefilepath . $slide->imgfile);
+                     if (Storage::exists($imagefilepath . $slide->imgfile)){
+            File::delete($imagefilepath . $slide->imgfile);}
         }
         $slide->delete();
 

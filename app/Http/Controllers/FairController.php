@@ -146,7 +146,9 @@ class FairController extends Controller
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/fairs/');
             if ($fair->logo_ar != null) {
+                if (Storage::exists($logo_arfilepath . $logo_arname)){
                 File::delete($logo_arfilepath . $logo_arname);
+                }
             }
             $logo_arfile = request()->file('logo_ar');
             $logo_arname = time() . "." . $request->logo_ar->extension();
@@ -156,7 +158,8 @@ class FairController extends Controller
         if (request()->hasfile('logo_en')) {
             $logo_enfilepath = public_path('storage/fairs/');
             if ($fair->logo_en != null) {
-                File::delete($logo_enfilepath . $logo_enname);
+                if (Storage::exists($logo_enfilepath . $logo_enname)){
+                File::delete($logo_enfilepath . $logo_enname);}
             }
             $logo_enfile = request()->file('logo_en');
             $logo_enname = time() . "." . $request->logo_en->extension();
@@ -187,12 +190,15 @@ class FairController extends Controller
 
         if ($fair->logo_ar != null) {
             $logo_arfilepath = public_path('/storage/fairs/');
-            File::delete($logo_arfilepath . $fair->logo_ar);
+                if (Storage::exists($logo_arfilepath . $fair->logo_ar)){
+            File::delete($logo_arfilepath . $fair->logo_ar);}
         }
 
         if ($fair->logo_en != null) {
             $logo_enfilepath = public_path('/storage/fairs/');
+                if (Storage::exists($logo_enfilepath . $fair->logo_en)){
             File::delete($logo_enfilepath . $fair->logo_en);
+                }
         }
 
         $fair->delete();
