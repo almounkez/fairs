@@ -103,7 +103,8 @@ class ArticleController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($article->imgfile != null) {
-                File::delete($imagefilepath . $article->imgfile);
+                if (Storage::exists($imagefilepath . $article->imgfile)){
+                File::delete($imagefilepath . $article->imgfile);}
             }
             $article->imgfile = $imagename;
         }
@@ -124,7 +125,8 @@ class ArticleController extends Controller
         //
         $imagefilepath = public_path('/storage/articles/');
         if ($article->imgfile != null) {
-            File::delete($imagefilepath . $article->imgfile);
+             if (Storage::exists($imagefilepath . $article->imgfile)){
+            File::delete($imagefilepath . $article->imgfile);}
         }
         $article->delete();
 
