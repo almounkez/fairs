@@ -128,6 +128,15 @@
                                     <a class="dropdown-item" href="{{ route('suite.products',Auth::user()->suite) }}">
                                         @lang('Products')
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('suite.slides',Auth::user()->suite) }}">
+                                        @lang('Slides')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('suite.articles',Auth::user()->suite) }}">
+                                        @lang('Article')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('suite.marquees',Auth::user()->suite) }}">
+                                        @lang('marquees')
+                                    </a>
                                 </div>
                             </li>
                             @endif
@@ -179,7 +188,17 @@
             </div>
             @endif
             {{-- end validation meesage --}}
+<div class="row">
+    <div class="col-lg-3 col-12">
+        @if(isset($ads_first_silver))
+    </div>
+    <div class="col-lg-3 col-12">
 
+    </div>
+    <div class="col-lg-3 col-12">
+
+    </div>
+</div>
             {{-- main content --}}
             <main class="p-1 m-1">
                 @yield('content')

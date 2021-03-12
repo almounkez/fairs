@@ -92,12 +92,16 @@ class FairController extends Controller
         $fair->hits += 1;
         $fair->save();
         return view('fair.show', [
-            'fairId' => $fair->id,
-            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->get(),
-            'suites' => $fair->suites,
+           'fairId' => $fair->id,
+            'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->orderByRaw("RAND()")->get(),
+            'suites' => $fair->suites()->where('active', '1')->orderByRaw("RAND()")->get(),
             'categories' => $fair->categories,
+            'subcategories' => $fair->subcategories,
             'marquees' => $fair->marquees,
-            'advertises' => $fair->advertises]);
+            'advertisesa' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
+            'advertisesb' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
+            'advertisesc' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()
+]);
     }
 
 
