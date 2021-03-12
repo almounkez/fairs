@@ -90,5 +90,9 @@ Route::get('product/{suite}/create', 'ProductController@create')->name('product.
 Route::resource('article', 'ArticleController')->except(['create','index']);
 Route::get('article/{suiteId}/create', 'ArticleController@create')->name('article.create');
 
-Route::get('search/suites/{fair}/cat/{category}','SearchController@suitesByCat')->name('search.suites.cat');
-Route::get('search/products/{suite}/cat/{category}','SearchController@productsByCat')->name('search.products.cat');
+Route::get('search/suites/{fair}/cat/{category}', 'SearchController@suitesByCat')->name('search.suites.cat');
+Route::get('search/suites/{fair}/cat/{category}/subcat/{subcategory}', 'SearchController@suitesBySubCat')->name('search.suites.subcat');
+Route::get('search/products/{suite}/cat/{category}', 'SearchController@productsByCat')->name('search.products.cat');
+Route::get('search/products/{suite}/cat/{category}/subcat/{subcategory}', 'SearchController@productsBySubCat')->name('search.products.subcat');
+
+

@@ -1,7 +1,7 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Fairs',
+    'name' => 'Stagea.org',
     'env' => 'local',
     'debug' => true,
     'url' => 'http://localhost',
@@ -216,7 +216,7 @@
         'endpoint' => NULL,
       ),
     ),
-    'prefix' => 'fairs_cache',
+    'prefix' => 'stageaorg_cache',
   ),
   'cors' => 
   array (
@@ -314,7 +314,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'fairs_database_',
+        'prefix' => 'stageaorg_database_',
       ),
       'default' => 
       array (
@@ -504,7 +504,7 @@
     'from' => 
     array (
       'address' => NULL,
-      'name' => 'Fairs',
+      'name' => 'Stagea.org',
     ),
     'markdown' => 
     array (
@@ -599,7 +599,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'fairs_session',
+    'cookie' => 'stageaorg_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,

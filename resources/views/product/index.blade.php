@@ -1,18 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<<<<<<< HEAD
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">{{ __('Products') }}
-                    <a href="{{ route('product.create', $suite->id) }}">
-                        <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36"></span>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-=======
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
@@ -25,7 +13,6 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
->>>>>>> 6004327a64e84c70e131b1014e6b9a8fcf77034e
                     <table class="table">
                         <thead>
                             <tr>
