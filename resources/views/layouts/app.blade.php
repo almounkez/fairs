@@ -28,8 +28,15 @@
     <body>
         <div id="app">
             {{-- top navbar --}}
+
+
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
+                      @if (app()->getLocale() == 'ar')
+                            <a class="btn btn-secondary" href="{{ url('locale/en') }}">E</a>
+                      @else
+                      <a class="btn btn-primary" href="{{ url('locale/ar') }}">ع</a>
+                        @endif
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
@@ -68,7 +75,9 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
+
                             <!-- Authentication Links -->
+
                             @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -172,7 +181,7 @@
             {{-- end validation meesage --}}
 
             {{-- main content --}}
-            <main class="p-2 m-4">
+            <main class="p-1 m-1">
                 @yield('content')
             </main>
             {{-- end main content --}}
