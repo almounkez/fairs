@@ -52,12 +52,12 @@
 <br>
 <div class="row">
     <div class="col-md-3">
-        <ul class="list-group">
-            <i class="list-group-item list-group-item-action active h5">
+        <ul class="list-group h5 text-center">
+            <i class="list-group-item list-group-item-action active">
                 @lang('Categories')
                 @auth @if(auth()->user()->role=='admin')
-                <span class="mx-2" style="float:right">
-                    <a class="btn btn-sm btn-outline-light" href="{{route('category.create',$fairId)}}"><i
+                <span class="mx-2 " style="float:right">
+                    <a class="btn btn-sm btn-outline-light " href="{{route('category.create',$fairId)}}"><i
                             class="zmdi zmdi-plus zmdi-hc-lg"></i></a>
                 </span>
                 @endif @endauth
@@ -65,14 +65,12 @@
             @foreach ($categories as $category)
 
             <a href="{{route('search.suites.cat',['fair' => $fairId,'category'=>$category])}}"
-                class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-info  @endif">
-                <h5 class="d-flex align-items-center justify-content-center">
+                class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark  @endif">
                     @if (config('app.locale') == 'ar')
                     {{ $category->name_ar }}
                     @else
                     {{ $category->name_en }}
                     @endif
-                </h5>
             </a>
             @endforeach
         </ul>
@@ -82,7 +80,7 @@
         <div class="row mb-2">
             @foreach ($subcategories as $subcategory)
             {{-- <div class="col mb-2"> --}}
-                <a class="btn btn-sm m-1 @if(!empty($subCatId) && $subCatId==$subcategory->id)btn-primary @else btn-secondary @endif"
+                <a class="btn btn-sm m-1 @if(!empty($subId) && $subId==$subcategory->id)btn-primary @else btn-secondary @endif"
                     href="{{route('search.suites.subcat',['fair' => $fairId,'category'=>$catId,'subcategory'=>$subcategory])}}">
                     @if (config('app.locale') == 'ar')
                     {{ $subcategory->name_ar }}

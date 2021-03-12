@@ -29,9 +29,9 @@ class SearchController extends Controller
 
         // $suitesId=$array->get('suite_id');
         $suitesId = Product::select('suite_id')->where('cat_id', $category->id)->where('active', 1);
-        $subId = Product::select('sub_id')->where('cat_id', $category->id)->where('active', 1);
+        $subIds = Product::select('sub_id')->where('cat_id', $category->id)->where('active', 1);
         $suites = Suite::whereIn('id', $suitesId)->get();
-        $subcategories = subcategory::whereIn('id', $subId)->get();
+        $subcategories = subcategory::whereIn('id', $subIds)->get();
 
         return view('fair.show', ['fairId' => $fair->id,
             'advertises' => $fair->advertises,
@@ -49,13 +49,14 @@ class SearchController extends Controller
         $subcategory->hits += 1;
         $subcategory->save();
 
-        $suitesId = Product::select('suite_id')->where('sub_id','=', $subcategory->id)->where('cat_id','=', $category->id)->where('active', 1)->get();
-        $subId = Product::select('sub_id')->where('cat_id','=', $category->id)->where('active', 1)->get();
+        $suitesId = Product::select('suite_id')->where('sub_id', $subcategory->id)->where('cat_id', $category->id)->where('active', 1);
+        $subIds = Product::select('sub_id')->where('cat_id',$category->id)->where('active', 1);
 
         $suites = Suite::whereIn('id', $suitesId)->get();
-        $subcategories = subcategory::whereIn('id', $subId)->get();
+        $subcategories = subcategory::whereIn('id', $subIds)->get();
 
-        return view('fair.show', ['fairId' => $fair->id,
+        return view('fair.show',
+        ['fairId' => $fair->id,
             'advertises' => $fair->advertises,
             'slides' => $fair->slides()->where('active', 1)->where('cat_id', $category->id)->get(),
             'suites' => $suites,
@@ -64,7 +65,7 @@ class SearchController extends Controller
             'marquees' => $fair->marquees,
             'advertises' => $fair->advertises,
             'catId' => $category->id,
-            'subCatId'=>$subcategory->id]);
+            'subId'=>$subcategory->id]);
     }
 
     public function productsByCat(Suite $suite, Category $category)
@@ -74,7 +75,8 @@ class SearchController extends Controller
         // dd($category);
         $category->hits += 1;
         $category->save();
-        $products = $suite->products()->where('cat_id', $category->id)->get();
+        $products = $suite->products()->where('active', 1)->where('cat_id', $category->id)->get();
+        $subIds=$suite->products()->where('active', 1)->where('cat_id', $category->id)->select('sub_id')->get();
         // dd($products);
         return view('suite.show', ['fairId' => $suite->fair->id,
             'suiteId' => $suite->id,
@@ -83,6 +85,29 @@ class SearchController extends Controller
             'slides' => $suite->slides()->where('active', 1)->where('cat_id', $category->id)->get(),
             'products' => $products,
             'categories' => $suite->fair->categories,
+            'subcategories'=>subcategory::whereIn('id',$subIds)->get(),
             'catId' => $category->id]);
+    }
+        public function productsBySubCat(Suite $suite,Category $category, subcategory $subcategory)
+    {
+        //
+
+        // dd($category);
+        $subcategory->hits += 1;
+        $subcategory->save();
+
+        $products = $suite->products()->where('sub_id', $subcategory->id)->where('active', 1)->get();
+        $subIds = $suite->products()->where('active', 1)->where('cat_id', $category->id)->select('sub_id')->get();
+
+        return view('suite.show', ['fairId' => $suite->fair->id,
+            'suiteId' => $suite->id,
+            'advertises' => $suite->fair->advertises,
+            'marquees' => $suite->marquees,
+            'slides' => $suite->slides()->where('active', 1)->where('cat_id', $category->id)->get(),
+            'products' => $products,
+            'categories' => $suite->fair->categories,
+            'subcategories'=>subcategory::whereIn('id',$subIds)->get(),
+            'catId' => $category->id,
+            'subId'=>$subcategory->id]);
     }
 }

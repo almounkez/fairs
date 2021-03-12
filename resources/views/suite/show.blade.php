@@ -37,8 +37,7 @@
                 <div class="carousel-inner h-50" role="listbox" style="max-height:300px !important">
                     @foreach ($slides as $key => $slide)
                     <div class="carousel-item @if ($key==0) active @endif">
-                        <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}"
-                            class="img-fluid carousel-inner">
+                        <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}" class="img-fluid carousel-inner">
                     </div>
 
                     @endforeach
@@ -70,7 +69,7 @@
             </i>
             @foreach ($categories as $category)
             <a href="{{route('search.products.cat',['suite' => $suiteId,'category'=>$category])}}"
-                class="list-group-item list-group-item-action">
+                class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark @endif">
                 <h5 class="d-flex align-items-center justify-content-center">
                     @if (config('app.locale') == 'ar')
                     {{ $category->name }}
@@ -83,6 +82,32 @@
         </div>
     </div>
     <div class="col-md-9">
+        @if(!empty($subcategories))
+        <div class="row mb-2">
+            @foreach ($subcategories as $subcategory)
+            {{-- <div class="col mb-2"> --}}
+            <a class="btn btn-sm m-1 @if(!empty($subId) && $subId==$subcategory->id)btn-primary @else btn-secondary @endif"
+                href="{{route('search.products.subcat',['suite' => $suiteId,'category'=>$catId,'subcategory'=>$subcategory->id])}}">
+                @if (config('app.locale') == 'ar')
+                {{ $subcategory->name_ar }}
+                @else
+                {{ $subcategory->name_en }}
+                @endif
+            </a>
+            {{-- </div> --}}
+            @endforeach
+            @auth
+            @if(auth()->user()->role=='admin')
+
+            <a class="btn btn-sm btn-outline-secondary rounded-circle m-1"
+                href="{{route('subcategory.create',$fairId)}}">
+                <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+            </a>
+
+            @endif
+            @endauth
+        </div>
+        @endif
         @auth
         @if(!empty(auth()->user()->suite) && auth()->user()->suite->id == $suiteId)
         <div class="float-right" style="float:inline-end">
