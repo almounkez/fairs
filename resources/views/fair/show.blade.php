@@ -1,7 +1,7 @@
 @extends('layouts.app')
 {{-- @section('fair')
 <a class="navbar-brand" href="{{ route('fair.show',$fairId) }}">
-    @lang('Current Fair')
+@lang('Current Fair')
 </a>
 @endsection --}}
 @section('content')
@@ -52,35 +52,59 @@
 <br>
 <div class="row">
     <div class="col-md-3">
-        <ul class="list-group">
-            <i class="list-group-item list-group-item-action active h5">
+        <ul class="list-group h5 text-center">
+            <i class="list-group-item list-group-item-action active">
                 @lang('Categories')
                 @auth @if(auth()->user()->role=='admin')
-                <span class="mx-2" style="float:right">
-                    <a class="btn btn-sm btn-outline-light" href="{{route('category.create',$fairId)}}"><i
+                <span class="mx-2 " style="float:right">
+                    <a class="btn btn-sm btn-outline-light " href="{{route('category.create',$fairId)}}"><i
                             class="zmdi zmdi-plus zmdi-hc-lg"></i></a>
                 </span>
                 @endif @endauth
             </i>
             @foreach ($categories as $category)
+
             <a href="{{route('search.suites.cat',['fair' => $fairId,'category'=>$category])}}"
-                class="list-group-item list-group-item-action">
-                <h5 class="d-flex align-items-center justify-content-center">
+                class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark  @endif">
                     @if (config('app.locale') == 'ar')
-                    {{ $category->name }}
+                    {{ $category->name_ar }}
                     @else
                     {{ $category->name_en }}
                     @endif
-                </h5>
             </a>
             @endforeach
         </ul>
     </div>
     <div class="col-md-9">
+        @if(!empty($subcategories))
+        <div class="row mb-2">
+            @foreach ($subcategories as $subcategory)
+            {{-- <div class="col mb-2"> --}}
+                <a class="btn btn-sm m-1 @if(!empty($subId) && $subId==$subcategory->id)btn-primary @else btn-secondary @endif"
+                    href="{{route('search.suites.subcat',['fair' => $fairId,'category'=>$catId,'subcategory'=>$subcategory])}}">
+                    @if (config('app.locale') == 'ar')
+                    {{ $subcategory->name_ar }}
+                    @else
+                    {{ $subcategory->name_en }}
+                    @endif
+                </a>
+            {{-- </div> --}}
+            @endforeach
+            @auth
+            @if(auth()->user()->role=='admin')
+
+                <a class="btn btn-sm btn-outline-secondary rounded-circle m-1" href="{{route('subcategory.create',$fairId)}}">
+                    <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+                </a>
+
+            @endif
+            @endauth
+        </div>
+        @endif
         @auth
         @if(auth()->user()->role=='admin')
-        <div class="float-right" style="float:inline-end">
-            <a class="btn btn-sm btn-outline-primary rounded-circle mx-2" href="{{route('suite.create',$fairId)}}">
+        <div class="float-right p-0">
+            <a class="btn btn-sm btn-outline-primary rounded-circle" href="{{route('suite.create',$fairId)}}">
                 <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
             </a>
         </div>
@@ -101,6 +125,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection
