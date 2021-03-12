@@ -72,7 +72,7 @@
                 class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark @endif">
                 {{-- <h5 class="d-flex align-items-center justify-content-center"> --}}
                     @if (config('app.locale') == 'ar')
-                    {{ $category->name }}
+                    {{ $category->name_ar }}
                     @else
                     {{ $category->name_en }}
                     @endif
