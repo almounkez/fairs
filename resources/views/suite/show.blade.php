@@ -57,8 +57,8 @@
 <br>
 <div class="row">
     <div class="col-md-3">
-        <div class="list-group">
-            <i class="list-group-item list-group-item-action active h5">
+        <div class="list-group h5">
+            <i class="list-group-item list-group-item-action active">
                 @lang('Categories')
                 @auth @if(auth()->user()->role=='admin')
                 <span class="mx-2" style="float:right">
@@ -70,13 +70,13 @@
             @foreach ($categories as $category)
             <a href="{{route('search.products.cat',['suite' => $suiteId,'category'=>$category])}}"
                 class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark @endif">
-                <h5 class="d-flex align-items-center justify-content-center">
+                {{-- <h5 class="d-flex align-items-center justify-content-center"> --}}
                     @if (config('app.locale') == 'ar')
                     {{ $category->name }}
                     @else
                     {{ $category->name_en }}
                     @endif
-                </h5>
+                {{-- </h5> --}}
             </a>
             @endforeach
         </div>
@@ -119,7 +119,7 @@
         @endauth
         <div class="row">
             @foreach ($products as $product)
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <a href="#" {{-- "{{route('product.show',$product->id)}}" --}}>
                     <figure class="figure">
                         <img src="{{asset('storage/products/'.$product->imgfile)}}" class="figure-img img-fluid rounded"
