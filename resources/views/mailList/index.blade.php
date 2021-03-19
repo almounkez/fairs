@@ -14,7 +14,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">{{ __('source') }}</th>
-                                
                                 <th scope="col">{{ __('') }}</th>
                                 <th scope="col">{{ __('Control') }}</th>
                                 <th scope="col">{{ __('Arabic Text') }}</th>
@@ -41,7 +40,7 @@
                                 <td>
                                     <div class="btn-group-justified">
                                         <div class="btn-group">
-                                            <form action="{{ route('mailList.destroy', $mailList->id) }}" method="POST">
+                                            <form action="{{ route('mail.destroy', $mailList->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button Type="submit" class="btn rounded-circle btn-outline-danger"><i

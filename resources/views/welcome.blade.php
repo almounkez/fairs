@@ -3,13 +3,13 @@
 @section('content')
 {{-- @Admin --}}
 @auth
-    @if(auth()->user()->role=='admin')
-    <div class="fixed-top mx-3 mt-5 justify-content-center" >
-        <a class="align-items- btn btn-sm btn-outline-secondary" href="{{route('fair.create')}}" alt=@lang('Add new fair')>
-            <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
-        </a>
-    </div>
-    @endif
+@if(auth()->user()->role=='admin')
+<div class="fixed-top mx-3 mt-5 justify-content-center">
+    <a class="align-items- btn btn-sm btn-outline-secondary" href="{{route('fair.create')}}" alt=@lang('Add new fair')>
+        <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+    </a>
+</div>
+@endif
 @endauth
 
 {{-- @endAdmin --}}
@@ -27,5 +27,5 @@
     </div>
     @endforeach
 </div>
-
-@stop
+@include('mailList.crupd')
+@endsection

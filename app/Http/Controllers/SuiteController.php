@@ -156,7 +156,7 @@ class SuiteController extends Controller
         }
         $user->save();
 
-        $input = $request->except(['userName', 'password', 'name_ar', 'name_en', 'logo_ar', 'logo_en']);
+        $input = $request->except(['userName', 'password','password_confirmation','logo_ar', 'logo_en','suite_id']);
         $suite->update($input);
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/suites/');

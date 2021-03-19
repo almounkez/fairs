@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MailList extends Model
 {
+    protected $guarded=[];
     //
     /**
      * Get the Suite that owns the MailList

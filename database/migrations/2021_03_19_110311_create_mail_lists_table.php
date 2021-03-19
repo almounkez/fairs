@@ -15,7 +15,7 @@ class CreateMailListsTable extends Migration
     {
         Schema::create('mail_lists', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('source_id');
+            $table->unsignedBigInteger('source_id')->nullable();
             $table->string('source_type');
             $table->string('full_name');
             $table->string('country');

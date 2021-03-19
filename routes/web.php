@@ -96,6 +96,11 @@ Route::get('search/products/{suite}/cat/{category}', 'SearchController@productsB
 Route::get('search/products/{suite}/cat/{category}/subcat/{subcategory}', 'SearchController@productsBySubCat')->name('search.products.subcat');
 
 
-Route::get('mail/create','MailListController@create');
-Route::post('/captcha-validation','MailListController@store');
-Route::get('/reload-captcha', 'MailListController@reloadCaptcha');
+Route::get('mail/create','MailListController@create')->name('mailList.create');
+Route::get('mail/{fairId}/createForFair','MailListController@createForFair')->name('mailList.createForFair');
+Route::get('mail/{suiteId}/createForSuite', 'MailListController@createForSuite')->name('mailList.createForSuite');
+
+// Route::post('mail/store','MailListController@store')->name('mailList.store');
+Route::get('mailList/reload-captcha', 'MailListController@reloadCaptcha')->name('mailList.recap');
+
+Route::resource('mailList','MailListController')->only(['store','destroy']);

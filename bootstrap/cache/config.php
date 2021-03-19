@@ -272,10 +272,10 @@
     ),
     'default' => 
     array (
-      'length' => 9,
+      'length' => 6,
       'width' => 120,
       'height' => 36,
-      'quality' => 90,
+      'quality' => 100,
       'math' => false,
       'expire' => 60,
       'encrypt' => false,
@@ -286,7 +286,7 @@
       'width' => 120,
       'height' => 36,
       'quality' => 90,
-      'math' => true,
+      'math' => false,
     ),
     'flat' => 
     array (
