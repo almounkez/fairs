@@ -10,7 +10,7 @@
         </a>
     </div>
     @endif
-    @endauth
+@endauth
 
 {{-- @endAdmin --}}
 <div class="row">
@@ -28,4 +28,4 @@
     @endforeach
 </div>
 
-@endsection
+@stop

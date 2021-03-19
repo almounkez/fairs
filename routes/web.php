@@ -96,3 +96,6 @@ Route::get('search/products/{suite}/cat/{category}', 'SearchController@productsB
 Route::get('search/products/{suite}/cat/{category}/subcat/{subcategory}', 'SearchController@productsBySubCat')->name('search.products.subcat');
 
 
+Route::get('mail/create','MailListController@create');
+Route::post('/captcha-validation','MailListController@store');
+Route::get('/reload-captcha', 'MailListController@reloadCaptcha');

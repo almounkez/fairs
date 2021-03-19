@@ -67,4 +67,14 @@ class Suite extends Model
         return $this->hasMany('App\Marquee','suite_id');
     }
 
+    /**
+     * Get all of the mails for the Suite
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mails()
+    {
+        return $this->hasMany('App\MailList','source_id')->where('mail_lists.source_type','suite');
+    }
+
 }
