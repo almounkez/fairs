@@ -21,6 +21,7 @@ class CreateAdvertisesTable extends Migration
             $table->boolean('active')->nullable()->default(true);
             $table->string('imgfile')->nullable();
             $table->string('location')->nullable();
+            $table->unsignedBigInteger('suite_id')->nullable();
             $table->unsignedBigInteger('hits')->default(0);
             $table->timestamps();
         });

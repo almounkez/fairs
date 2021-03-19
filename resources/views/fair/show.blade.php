@@ -23,7 +23,8 @@
                     @endif
                     @endauth
                     {{-- @endAdmin --}}
-                    @for ($i = 0; $i < count($slides); $i++) <li data-target="#masterSlides" data-slide-to="{{ $i }}"
+                    @for ($i = 0; $i < count($slides); $i++)
+                    <li data-target="#masterSlides" data-slide-to="{{ $i }}"
                         @if ($i==0) class="active" @endif>
                         </li>
                         @endfor
