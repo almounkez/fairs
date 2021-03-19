@@ -6,7 +6,7 @@ use App\Product;
 use App\Suite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     /**
