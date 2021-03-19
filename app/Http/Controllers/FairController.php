@@ -96,11 +96,10 @@ class FairController extends Controller
             'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->orderByRaw("RAND()")->get(),
             'suites' => $fair->suites()->where('active', '1')->orderByRaw("RAND()")->get(),
             'categories' => $fair->categories,
-            'subcategories' => $fair->subcategories,
             'marquees' => $fair->marquees,
-            'advertisesa' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
-            'advertisesb' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
-            'advertisesc' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()
+            'advertises_gold' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
+            'advertises_silver' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
+            'advertises_bronze' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()
 ]);
     }
 
