@@ -4,13 +4,13 @@
     'name' => 'Stagea.org',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://localhost:801/laravel7/vfairs/public/',
+    'url' => 'http://localhost',
     'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:ctW4w7rcKQboz7QJ6wrZJGMLniBoQ/LmPYWuGTmklIQ=',
+    'key' => 'base64:7zbtSqysi1hfan+7gFZXWWeCTixGR56JcgzyZwmZ570=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -40,6 +40,7 @@
       23 => 'App\\Providers\\AuthServiceProvider',
       24 => 'App\\Providers\\EventServiceProvider',
       25 => 'App\\Providers\\RouteServiceProvider',
+      26 => 'Mews\\Captcha\\CaptchaServiceProvider',
     ),
     'aliases' => 
     array (
@@ -79,6 +80,7 @@
       'URL' => 'Illuminate\\Support\\Facades\\URL',
       'Validator' => 'Illuminate\\Support\\Facades\\Validator',
       'View' => 'Illuminate\\Support\\Facades\\View',
+      'Captcha' => 'Mews\\Captcha\\Facades\\Captcha',
     ),
   ),
   'auth' => 
@@ -177,7 +179,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\framework/cache/data',
+        'path' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -217,6 +219,116 @@
       ),
     ),
     'prefix' => 'stageaorg_cache',
+  ),
+  'captcha' => 
+  array (
+    'characters' => 
+    array (
+      0 => '2',
+      1 => '3',
+      2 => '4',
+      3 => '6',
+      4 => '7',
+      5 => '8',
+      6 => '9',
+      7 => 'a',
+      8 => 'b',
+      9 => 'c',
+      10 => 'd',
+      11 => 'e',
+      12 => 'f',
+      13 => 'g',
+      14 => 'h',
+      15 => 'j',
+      16 => 'm',
+      17 => 'n',
+      18 => 'p',
+      19 => 'q',
+      20 => 'r',
+      21 => 't',
+      22 => 'u',
+      23 => 'x',
+      24 => 'y',
+      25 => 'z',
+      26 => 'A',
+      27 => 'B',
+      28 => 'C',
+      29 => 'D',
+      30 => 'E',
+      31 => 'F',
+      32 => 'G',
+      33 => 'H',
+      34 => 'J',
+      35 => 'M',
+      36 => 'N',
+      37 => 'P',
+      38 => 'Q',
+      39 => 'R',
+      40 => 'T',
+      41 => 'U',
+      42 => 'X',
+      43 => 'Y',
+      44 => 'Z',
+    ),
+    'default' => 
+    array (
+      'length' => 6,
+      'width' => 120,
+      'height' => 36,
+      'quality' => 100,
+      'math' => false,
+      'expire' => 60,
+      'encrypt' => false,
+    ),
+    'math' => 
+    array (
+      'length' => 9,
+      'width' => 120,
+      'height' => 36,
+      'quality' => 90,
+      'math' => false,
+    ),
+    'flat' => 
+    array (
+      'length' => 6,
+      'width' => 160,
+      'height' => 46,
+      'quality' => 90,
+      'lines' => 6,
+      'bgImage' => false,
+      'bgColor' => '#ecf2f4',
+      'fontColors' => 
+      array (
+        0 => '#2c3e50',
+        1 => '#c0392b',
+        2 => '#16a085',
+        3 => '#c0392b',
+        4 => '#8e44ad',
+        5 => '#303f9f',
+        6 => '#f57c00',
+        7 => '#795548',
+      ),
+      'contrast' => -5,
+    ),
+    'mini' => 
+    array (
+      'length' => 3,
+      'width' => 60,
+      'height' => 32,
+    ),
+    'inverse' => 
+    array (
+      'length' => 5,
+      'width' => 120,
+      'height' => 36,
+      'quality' => 90,
+      'sensitive' => true,
+      'angle' => 12,
+      'sharpen' => 10,
+      'blur' => 2,
+      'invert' => true,
+      'contrast' => -5,
+    ),
   ),
   'cors' => 
   array (
@@ -262,7 +374,7 @@
       array (
         'driver' => 'mysql',
         'url' => NULL,
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => '3306',
         'database' => 'vfair',
         'username' => 'root',
@@ -282,7 +394,7 @@
       array (
         'driver' => 'pgsql',
         'url' => NULL,
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => '3306',
         'database' => 'vfair',
         'username' => 'root',
@@ -297,7 +409,7 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'port' => '3306',
         'database' => 'vfair',
         'username' => 'root',
@@ -343,13 +455,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\app',
+        'root' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\app/public',
-        'url' => 'http://localhost:801/laravel7/vfairs/public//storage',
+        'root' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\app/public',
+        'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -365,7 +477,7 @@
     ),
     'links' => 
     array (
-      'C:\\xamppy\\htdocs\\laravel7\\vfairs\\public\\storage' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\app/public',
+      'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\public\\storage' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -399,13 +511,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\logs/laravel.log',
+        'path' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\logs/laravel.log',
+        'path' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -455,7 +567,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\logs/laravel.log',
+        'path' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -511,7 +623,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\resources\\views/vendor/mail',
+        0 => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -590,7 +702,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\framework/sessions',
+    'files' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -610,9 +722,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\resources\\views',
+      0 => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\resources\\views',
     ),
-    'compiled' => 'C:\\xamppy\\htdocs\\laravel7\\vfairs\\storage\\framework\\views',
+    'compiled' => 'D:\\xampp\\htdocs\\laravel\\InnoSYS\\git\\fairs\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -643,6 +755,10 @@
     'remote_sites_path' => '',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
+  ),
+  'image' => 
+  array (
+    'driver' => 'gd',
   ),
   'trustedproxy' => 
   array (
