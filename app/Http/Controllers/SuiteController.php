@@ -141,6 +141,7 @@ class SuiteController extends Controller
      */
     public function update(Request $request, Suite $suite)
     {
+
         //
         $request->validate([
             'userName' => ['required', 'string', 'max:255'],

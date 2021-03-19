@@ -191,10 +191,10 @@
 <div class="row mx-2 ">
     <div class="col-lg-3 col-12 p-1">
         @if(!empty($advertises_silver))
-        <div class="card" >
-          <div class="card-body">
+        <div class="card"  >
+          <div class="card-body p-0">
             <div id="carousel-silver" class="carousel slide" data-ride="carousel" data-interval="5000">
-              <div class="carousel-inner h-50" role="listbox" style="max-height:100px !important">
+              <div class="carousel-inner" role="listbox" style="max-height:80px !important">
                 @foreach ($advertises_silver as $silver)
                 <div class="carousel-item @if($loop->first) active @endif" style="text-align:center;">
                     <a href="{{route('suite.show',$silver->suite_id)}}">
@@ -209,10 +209,10 @@
     </div>
     <div class="col-lg-7 col-12 p-1">
         @if(!empty($advertises_gold))
-        <div class="card" >
-          <div class="card-body">
+        <div class="card"  >
+          <div class="card-body p-0">
             <div id="carousel-gold" class="carousel slide" data-ride="carousel" data-interval="7500">
-                <div class="carousel-inner h-50" role="listbox" style="max-height:100px !important">
+                <div class="carousel-inner" role="listbox" style="max-height:80px !important">
                     @foreach ($advertises_gold as $gold)
                     <div class="carousel-item @if ($loop->first) active @endif" style="text-align:center;">
                         <a href="{{route('suite.show',$gold->suite_id)}}">
@@ -229,9 +229,9 @@
       <div class="col-lg-2 col-12 p-1">
         @if(!empty($advertises_bronze))
         <div class="card" >
-          <div class="card-body">
+          <div class="card-body p-0" >
             <div id="carousel-bronze" class="carousel slide" data-ride="carousel" data-interval="3500">
-                <div class="carousel-inner h-50" role="listbox" style="max-height:100px !important">
+                <div class="carousel-inner" role="listbox" style="max-height:80px !important">
                     @foreach ($advertises_bronze as $bronze)
                     <div class="carousel-item @if ($loop->first) active @endif" style="text-align:center;">
                         <a href="{{route('suite.show',$bronze->suite_id)}}">

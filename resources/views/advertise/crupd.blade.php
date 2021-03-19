@@ -47,8 +47,8 @@
                             <label for="active">{{ __('Active') }}:</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="checkbox" class="form-check my-2" name="active" value="1" @if
-                                (!empty($advertise) && old('active', $advertise->active)) checked @endif>
+                            <input type="checkbox" class="form-check my-2" name="active"
+                            value="1" @if(!empty($advertise) && old('active', $advertise->active)) checked @endif>
                         </div>
                     </div>
 
@@ -64,8 +64,8 @@
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="end_date">{{ __('End Date') }}:</label>
                         </div>
-                        <div class="col-4"><input class="form-control" type="date" name="end_date" value=@if
-                                (!empty($advertise) && old('end_date', $advertise->end_date))
+                        <div class="col-4"><input class="form-control" type="date" name="end_date"
+                            value=@if(!empty($advertise) && old('end_date', $advertise->end_date))
                             {{ $advertise->end_date }}@else{{old('end_date')}} @endif>
                         </div>
                     </div>

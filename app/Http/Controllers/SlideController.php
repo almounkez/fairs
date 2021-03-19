@@ -7,6 +7,7 @@ use App\Slide;
 use App\Suite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SlideController extends Controller
 {
@@ -166,9 +167,8 @@ class SlideController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($slide->imgfile != null) {
-                         if (Storage::exists($imagefilepath . $slide->imgfile)){
+                if (Storage::exists($imagefilepath . $slide->imgfile)){
                 File::delete($imagefilepath . $slide->imgfile);}
-
             }}
 
         $slide->update($request->all());
@@ -181,6 +181,7 @@ class SlideController extends Controller
         }
 
         $slide->save();
+
 
         if ($slide->suite_id != null) {
             return redirect(route('suite.slides', $slide->suite_id));

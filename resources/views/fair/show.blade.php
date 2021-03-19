@@ -30,7 +30,7 @@
                         @endfor
                 </ul>
                 <!-- wrapper for slides -->
-                <div class="carousel-inner h-50" role="listbox" style="max-height:300px !important">
+                <div class="carousel-inner h-50" role="listbox" style="max-height:550px !important">
                     @foreach ($slides as $key => $slide)
                     <div class="carousel-item @if ($key==0) active @endif">
                         <img src="{{ asset('/storage/slides/' . $slide->imgfile) }}" class="img-fluid carousel-inner ">
