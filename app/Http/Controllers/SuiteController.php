@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Storage;
 class SuiteController extends Controller
 {
     /**
@@ -141,7 +141,6 @@ class SuiteController extends Controller
      */
     public function update(Request $request, Suite $suite)
     {
-
         //
         $request->validate([
             'userName' => ['required', 'string', 'max:255'],
