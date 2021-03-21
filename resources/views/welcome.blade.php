@@ -24,14 +24,17 @@
                 <figcaption class="figure-caption">
                     @if (app()->getLocale() == 'ar')
                     {{ $fair->name_ar }}
-                     @else
-                      {{ $fair->name_en }}
-                        @endif
+                    @else
+                    {{ $fair->name_en }}
+                    @endif
                 </figcaption>
             </figure>
         </a>
     </div>
     @endforeach
+    <div class="col-md-8">
+        @include('mailList.crupd')
+    </div>
 </div>
-@include('mailList.crupd')
+
 @endsection
