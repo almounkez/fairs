@@ -147,7 +147,7 @@
 </div>
 @endsection
 @section('footer.subscribe')
-<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-2 p-2 border-left border-right border-dark">
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb-md-0 mb-3 border-left border-right border-dark">
     <!-- Links -->
     <h5 class="text-uppercase">{{__('subscribe')}}</h5>
     @include('mailList.crupd',['source_type'=>'suite','source_id'=>$suiteId])
