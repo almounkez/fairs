@@ -14,98 +14,106 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">{{__('User Name')}}</th>
-                            <th scope="col">{{ __('Arabic Name') }}</th>
-                            <th scope="col">{{ __('English Name') }}</th>
-                            <th scope="col">{{ __('Start Date') }}</th>
-                            <th scope="col">{{ __('End Date') }}</th>
-                            <th scope="col">{{ __('active') }}</th>
-                            <th scope="col">{{ __('Arabic Logo') }}</th>
-                            <th scope="col">{{ __('English Logo') }}</th>
-                            <th scope="col">{{ __('hits') }}</th>
-                            <th scope="col" width="20%">{{ __('Control') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($suites as $suite)
-                        <tr>
-                            <th scope="row"></th>
-                            <td>@if(!empty($suite->user)){{$suite->user->name}}@endif</td>
-                            <td>@if (!empty($suite->name_ar)){{ $suite->name_ar }}@endif </td>
-                            <td>@if (!empty($suite->name_en)){{ $suite->name_en }}@endif</td>
-                            <td>@if (!empty($suite->start_date)) {!! $suite->start_date !!} @endif</td>
-                            <td> @if (!empty($suite->end_date)) {!! $suite->end_date !!} @endif</td>
-                            <td>{{ $suite->active }} </td>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">{{__('User Name')}}</th>
+                                <th scope="col">{{ __('Arabic Name') }}</th>
+                                <th scope="col">{{ __('English Name') }}</th>
+                                <th scope="col">{{ __('Start Date') }}</th>
+                                <th scope="col">{{ __('End Date') }}</th>
+                                <th scope="col">{{ __('active') }}</th>
+                                <th scope="col">{{ __('Arabic Logo') }}</th>
+                                <th scope="col">{{ __('English Logo') }}</th>
+                                <th scope="col">{{ __('hits') }}</th>
+                                <th scope="col" width="20%">{{ __('Control') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($suites as $suite)
+                            <tr>
+                                <th scope="row"></th>
+                                <td>@if(!empty($suite->user)){{$suite->user->name}}@endif</td>
+                                <td>@if (!empty($suite->name_ar)){{ $suite->name_ar }}@endif </td>
+                                <td>@if (!empty($suite->name_en)){{ $suite->name_en }}@endif</td>
+                                <td>@if (!empty($suite->start_date)) {!! $suite->start_date !!} @endif</td>
+                                <td> @if (!empty($suite->end_date)) {!! $suite->end_date !!} @endif</td>
+                                <td>{{ $suite->active }} </td>
 
-                            <td style="width:15% ; max-width:20%;">
-                                @if(!empty($suite->logo_en))
-                                <img src="{{ asset('storage/suites/'.$suite->logo_en) }}"
-                                    class="img-fluid img-thumbnail">
-                                @endif
-                            </td>
-                            <td style="width:15% ; max-width:20%;">
-                                @if(!empty($suite->logo_en))
-                                <img src="{{ asset('storage/suites/'.$suite->logo_ar) }}"
-                                    class="img-fluid img-thumbnail">
-                                @endif
-                            </td>
-                            <td>{{ $suite->hits }}</td>
-                            <td>
-                                <div class="btn-group-justified mb-2">
-                                    <div class="btn-group">
-                                        <a class="btn btn-outline-secondary" href="{{route('suite.articles',$suite->id)}}">
-                                            @lang('Artecles')
-                                        </a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a class="btn btn-outline-info" href="{{route('suite.slides',$suite->id)}}">
-                                            @lang('Slides')
-                                        </a>
-                                    </div>
-                                    {{-- <div class="btn-group">
+                                <td style="width:15% ; max-width:20%;">
+                                    @if(!empty($suite->logo_en))
+                                    <img src="{{ asset('storage/suites/'.$suite->logo_en) }}"
+                                        class="img-fluid img-thumbnail">
+                                    @endif
+                                </td>
+                                <td style="width:15% ; max-width:20%;">
+                                    @if(!empty($suite->logo_en))
+                                    <img src="{{ asset('storage/suites/'.$suite->logo_ar) }}"
+                                        class="img-fluid img-thumbnail">
+                                    @endif
+                                </td>
+                                <td>{{ $suite->hits }}</td>
+                                <td>
+                                    <div class="btn-group-justified mb-2">
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-secondary"
+                                                href="{{route('suite.articles',$suite->id)}}">
+                                                @lang('Artecles')
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-outline-info" href="{{route('suite.slides',$suite->id)}}">
+                                                @lang('Slides')
+                                            </a>
+                                        </div>
+                                        {{-- <div class="btn-group">
                                         <a class="btn btn-outline-success" href="{{route('suite.categories',$suite->id)}}">
 
-                                            @lang('Categories')
+                                        @lang('Categories')
                                         </a>
                                     </div> --}}
                                     <div class="btn-group">
-                                        <a class="btn btn-outline-warning" href="{{route('suite.products',$suite->id)}}">
+                                        <a class="btn btn-outline-warning"
+                                            href="{{route('suite.products',$suite->id)}}">
                                             @lang('Products')
                                         </a>
                                     </div>
                                     <div class="btn-group">
-                                        <a class="btn btn-outline-success" href="{{route('suite.marquees',$suite->id)}}">
+                                        <a class="btn btn-outline-success"
+                                            href="{{route('suite.marquees',$suite->id)}}">
                                             {{-- <i class="zmdi zmdi-settings"></i> --}}
                                             @lang('Marquee')
                                         </a>
                                     </div>
-                                </div>
-                                <div class="btn-group-justified">
                                     <div class="btn-group">
-                                        <a class="btn btn-outline-warning rounded-circle"
-                                            href="{{route('suite.edit',$suite->id)}}">
-                                            <i class="zmdi zmdi-settings"></i>
+                                        <a class="btn btn-outline-success" href="{{route('suite.mailLists',$suite->id)}}">
+                                            {{-- <i class="zmdi zmdi-settings"></i> --}}
+                                            @lang('MailLists')
                                         </a>
                                     </div>
-                                    <div class="btn-group">
-                                        <form action="{{ route('suite.destroy', $suite->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button Type="submit" class="btn rounded-circle btn-outline-danger"><i
-                                                    class="zmdi zmdi-delete"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
+                </div>
+                <div class="btn-group-justified">
+                    <div class="btn-group">
+                        <a class="btn btn-outline-warning rounded-circle" href="{{route('suite.edit',$suite->id)}}">
+                            <i class="zmdi zmdi-settings"></i>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <form action="{{ route('suite.destroy', $suite->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button Type="submit" class="btn rounded-circle btn-outline-danger"><i
+                                    class="zmdi zmdi-delete"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                </td>
+                </tr>
+                @endforeach
 
-                    </tbody>
+                </tbody>
                 </table>
 
             </div>

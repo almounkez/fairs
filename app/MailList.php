@@ -2,6 +2,8 @@
 
 namespace App;
 use App\Suite;
+use App\Fair;
+
 use Illuminate\Database\Eloquent\Model;
 
 class MailList extends Model
@@ -16,7 +18,10 @@ class MailList extends Model
     public function source()
     {
         if( $this->source_type=='suite')
-            return Suite::where('suites.id',$this->source_id)->get();
+                return $this->belongsTo('App\Suite', 'source_id');
+        else if($this->source_type=='fair')
+        return $this->belongsTo('App\Fair', 'source_id');
+        else return null;
     }
 }
 

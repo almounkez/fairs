@@ -62,5 +62,15 @@ class Fair extends Model
     {
         return $this->hasMany('App\Marquee','fair_id');
     }
+
+    /**
+     * Get all of the mailLists for the Fair
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mailLists()
+    {
+        return $this->hasMany('App\MailList', 'source_id')->where('source_type','fair');
+    }
 }
 

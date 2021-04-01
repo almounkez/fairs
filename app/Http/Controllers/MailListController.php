@@ -20,6 +20,8 @@ class MailListController extends Controller
     public function index()
     {
         //
+        $mailLists=MailList::all();
+        return view('mailList.index',['mailLists'=>$mailLists]);
     }
 
     /**

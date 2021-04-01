@@ -49,7 +49,9 @@ Route::get('fair/{fair}/slides','FairController@slides')->name('fair.slides');
 Route::get('fair/{fair}/categories', 'FairController@categories')->name('fair.categories');
 Route::get('fair/{fair}/subcategories', 'FairController@subcategories')->name('fair.subcategories');
 Route::get('fair/{fair}/advertises','FairController@advertises')->name('fair.advertises');
-Route::get('suite/{fair}/marquees', 'FairController@marquees')->name('fair.marquees');
+Route::get('fair/{fair}/marquees', 'FairController@marquees')->name('fair.marquees');
+Route::get('fair/{fair}/mailLists', 'FairController@mailLists')->name('fair.mailLists');
+
 
 
 Route::resource('suite', 'SuiteController')->except(['create']);
@@ -59,6 +61,7 @@ Route::get('suite/{suite}/products','SuiteController@products')->name('suite.pro
 Route::get('suite/{suite}/slides','SuiteController@slides')->name('suite.slides');
 Route::get('suite/{suite}/articles', 'SuiteController@articles')->name('suite.articles');
 Route::get('suite/{suite}/marquees', 'SuiteController@marquees')->name('suite.marquees');
+Route::get('suite/{suite}/mailLists', 'SuiteController@mailLists')->name('suite.mailLists');
 
 
 // Route::get('suite/{suiteId}/addSlide','SuiteController@addSlide')->name('suite.addSlide');
@@ -96,11 +99,11 @@ Route::get('search/products/{suite}/cat/{category}', 'SearchController@productsB
 Route::get('search/products/{suite}/cat/{category}/subcat/{subcategory}', 'SearchController@productsBySubCat')->name('search.products.subcat');
 
 
-Route::get('mail/create','MailListController@create')->name('mailList.create');
-Route::get('mail/{fairId}/createForFair','MailListController@createForFair')->name('mailList.createForFair');
-Route::get('mail/{suiteId}/createForSuite', 'MailListController@createForSuite')->name('mailList.createForSuite');
+Route::get('mailList/create','MailListController@create')->name('mailList.create');
+Route::get('mailList/{fairId}/createForFair','MailListController@createForFair')->name('mailList.createForFair');
+Route::get('mailList/{suiteId}/createForSuite', 'MailListController@createForSuite')->name('mailList.createForSuite');
 
 // Route::post('mail/store','MailListController@store')->name('mailList.store');
 Route::get('mailList/reload-captcha', 'MailListController@reloadCaptcha')->name('mailList.recap');
 
-Route::resource('mailList','MailListController')->only(['store','destroy']);
+Route::resource('mailList','MailListController')->only(['index','store','destroy']);

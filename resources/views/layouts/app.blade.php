@@ -97,6 +97,9 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List')
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('mailList.index') }}"> @lang('Mail List')
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair')
                                     </a>
                                     @if(!empty($fairId))
@@ -284,8 +287,7 @@
                     <!-- Grid row -->
                     <div class="row">
                         <!-- Grid column -->
-                        <div
-                            class="col mt-md-0 mt-3 border-left border-right border-dark">
+                        <div class="col mt-md-0 mt-3 border-left border-right border-dark">
                             <!-- Content -->
                             <h5 class="text-uppercase">{{__('About Us')}}</h5>
                             @yield('footer.About')

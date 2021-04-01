@@ -257,4 +257,11 @@ class FairController extends Controller
         return view('advertise.index', compact('advertises', 'fairId'));
     }
 
+    public function mailLists(Fair $fair)
+    {
+        $mailLists = $fair->mailLists;
+        $fairId = $fair->id;
+        // dd($mailLists);
+        return view('mailList.index', compact('mailLists', 'fairId'));
+    }
 }

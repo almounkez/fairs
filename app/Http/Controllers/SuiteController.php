@@ -239,5 +239,12 @@ class SuiteController extends Controller
     {
         return view('article.index', ['articles' => $suite->articles, 'suiteId' => $suite->id,'fairId'=>$suite->fair_id]);
     }
+        public function mailLists(Suite $suite)
+    {
+        $mailLists = $suite->mailLists;
+        $suiteId = $suite->id;
+        // dd($mailLists);
+        return view('mailList.index', compact('mailLists', 'suiteId'));
+    }
 
 }
