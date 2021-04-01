@@ -1,63 +1,63 @@
-<div class="card">
-    {{-- <div class="card-header">{{ __('MailList') }}</div> --}}
-<div class="card-body">
-    <form action="{!! route('mailList.store') !!}" method="Post">
-        @csrf
-        @if(!empty($source_type))
-        <input type="hidden" name="source_type" value="{{$source_type}}">
-        @endif
-        @if(!empty($suiteId))
-        <input type="hidden" name="source_id" value={{$suiteId}}>
-        @elseif(!empty($fairId))
-        <input type="hidden" name="source_id" value={{$fairId}}>
-        @endif
+<form action="{!! route('mailList.store') !!}" method="Post">
+    @csrf
+    @if(!empty($source_type))
+    <input type="hidden" name="source_type" value="{{$source_type}}">
+    @endif
+    @if(!empty($suiteId))
+    <input type="hidden" name="source_id" value={{$suiteId}}>
+    @elseif(!empty($fairId))
+    <input type="hidden" name="source_id" value={{$fairId}}>
+    @endif
 
-        <div class="form-group row">
-            <div class="col ">
-                <input type="text" class="form-control form-control-sm" name="full_name" placeholder="Full Name">
-            </div>
-            <div class="col ">
-                <input type="email" class="form-control form-control-sm" name="email" placeholder="Email">
+    <div class="form-group row m-0">
+        <div class="col p-1">
+            <input type="text" class="form-control form-control-sm" name="full_name" placeholder="Full Name" required>
+        </div>
+        <div class="col p-1">
+            <input type="email" class="form-control form-control-sm" name="email" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group row m-0">
+        <div class="col-6 p-1">
+            <input type="text" class="form-control form-control-sm " name="country" placeholder="country" required>
+        </div>
+        <div class="col-6 p-1">
+            <input type="text" class="form-control form-control-sm " name="city" placeholder="city" required>
+        </div>
+    </div>
+    <div class="form-group row m-0">
+        <label class="col-3 p-1">{{__('Mobile')}}</label>
+        <div class="col-3 p-1">
+            <input type="text" class="form-control form-control-sm " name="code" placeholder="+963">
+        </div>
+        <div class="col p-1">
+            <input type="text" class="form-control form-control-sm " name="mobile" placeholder="989808770">
+        </div>
+    </div>
+    <div class="form-group row m-0">
+        <label class="col-3 p-1">{{__('Capatcha')}}</label>
+        <div class="col-7 p-1">
+            <div class="captcha">
+                <span>{!! captcha_img() !!}</span>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col ">
-                {{-- <label class="col-md-2  col-sm-3 col-form-label col-form-label-sm" for="country">{{__('Country')}}</label>
-                --}}
-                <input type="text" class="form-control form-control-sm " name="country" placeholder="country">
-            </div>
-            <div class="col ">
-                {{-- <label class="col   col-form-label col-form-label-sm" for="city">{{__('City')}}</label>
-                --}}
-                <input type="text" class="form-control form-control-sm " name="city" placeholder="city">
-            </div>
+        {{-- <div class="col-2 p-1"> --}}
+        <button type="button" class="col-2 p-1 my-1 btn btn-outline-light" id="reload">
+            &#x21bb;
+        </button>
+        {{-- </div> --}}
+        <div class="col-3 p-1"></div>
+        <div class="col-6 p-1">
+            <input id="captcha" type="text" class="form-control form-control-sm" placeholder="Enter Captcha"
+                name="captcha" required>
         </div>
-        <div class="form-group row">
-            <label class="col-2 col-form-label col-form-label-sm">{{__('Mobile')}}</label>
-            <div class="col-4">
-                <input type="text" class="form-control form-control-sm " name="mobile" placeholder="+963 989808770">
-            </div>
-        {{-- </div>
-        <div class="form-group row"> --}}
+        {{-- <div class="col-3 p-1"> --}}
+            <button type="submit" class="btn btn-outline-light btn-sm col-3 p-1 my-1">{{__('subscribe')}}</button>
+        {{-- </div> --}}
+    </div>
+</form>
 
-            <div class="col">
-                <div class="captcha">
-                    <span>{!! captcha_img() !!}</span>
-                    <button type="button" class="btn btn-danger" id="reload">
-                        &#x21bb;
-                    </button>
-                </div>
-            {{-- </div>
 
-            <div class="col"> --}}
-                <input id="captcha" type="text" class="form-control my-1" placeholder="Enter Captcha"
-                    name="captcha">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-    </form>
-</div>
-</div>
 
 
 @section('script')

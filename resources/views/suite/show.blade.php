@@ -71,11 +71,11 @@
             <a href="{{route('search.products.cat',['suite' => $suiteId,'category'=>$category])}}"
                 class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark @endif">
                 {{-- <h5 class="d-flex align-items-center justify-content-center"> --}}
-                    @if (config('app.locale') == 'ar')
-                    {{ $category->name_ar }}
-                    @else
-                    {{ $category->name_en }}
-                    @endif
+                @if (config('app.locale') == 'ar')
+                {{ $category->name_ar }}
+                @else
+                {{ $category->name_en }}
+                @endif
                 {{-- </h5> --}}
             </a>
             @endforeach
@@ -131,5 +131,25 @@
             @endforeach
         </div>
     </div>
+</div>
+@endsection
+
+@section('footer.connectList')
+<div class="col mb-md-0 mb-3 border-left border-right border-dark">
+
+    <!-- Links -->
+    <h5 class="text-uppercase">{{__('Connect Us')}}</h5>
+
+    <ul class="list-unstyled p-0">
+        <li></li>
+    </ul>
+
+</div>
+@endsection
+@section('footer.subscribe')
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-2 p-2 border-left border-right border-dark">
+    <!-- Links -->
+    <h5 class="text-uppercase">{{__('subscribe')}}</h5>
+    @include('mailList.crupd',['source_type'=>'suite','source_id'=>$suiteId])
 </div>
 @endsection

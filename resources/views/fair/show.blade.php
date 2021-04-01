@@ -127,3 +127,11 @@
     </div>
 </div>
 @endsection
+
+@section('footer.subscribe')
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 m-3 border-left border-right border-dark">
+    <!-- Links -->
+    <h5 class="text-uppercase">{{__('subscribe')}}</h5>
+    @include('mailList.crupd',['source_type'=>'fair','source_id'=>$fairId])
+</div>
+@endsection

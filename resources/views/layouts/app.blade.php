@@ -1,6 +1,6 @@
 <!doctype html>
 <html dir="{{ str_replace('_', '-', app()->getLocale()) == 'ar' ? 'rtl' : 'ltr' }}"
-    lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    lang="{{ str_replace('_', '-', app()->getLocale()) }}" style='height: 100%;'>
 
     <head>
         <meta charset="utf-8">
@@ -11,32 +11,32 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-        </ <!-- Styles -->
+        <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/zmdi.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/sticky-footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/material-design-iconic-font.min.css') }}">
-        <script src="{{ asset('js/iconify.min.js') }}"></script>
+
+
     </head>
 
     <body>
         <div id="app">
             {{-- top navbar --}}
 
-
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
-                      @if (app()->getLocale() == 'ar')
-                            <a class="btn btn-secondary" href="{{ url('locale/en') }}">E</a>
-                      @else
-                      <a class="btn btn-primary" href="{{ url('locale/ar') }}">ع</a>
-                        @endif
+                    @if (app()->getLocale() == 'ar')
+                    <a class="btn btn-secondary" href="{{ url('locale/en') }}">E</a>
+                    @else
+                    <a class="btn btn-primary" href="{{ url('locale/ar') }}">ع</a>
+                    @endif
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
@@ -95,10 +95,13 @@
                                     v-pre>@lang('Manage Fair')<span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List') </a>
-                                    <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair') </a>
+                                    <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair')
+                                    </a>
                                     @if(!empty($fairId))
-                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}"> @lang('current
+                                    <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}">
+                                        @lang('current
                                         fair slides')</a>
                                     <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
                                         @lang('current fair categories') </a>
@@ -164,6 +167,8 @@
                 </div>
             </nav>
             {{-- end top navebar --}}
+
+            {{-- Marquee --}}
             @if(!empty($marquees))
             <div>
                 <marquee class="bg-primary text-white" behavior="scroll" direction=@if (app()->getLocale()
@@ -179,6 +184,8 @@
                 </marquee>
             </div>
             @endif
+            {{-- End Marquee --}}
+
             {{-- validation error message --}}
             @if ($errors->any())
             <div class="alert alert-danger" role="alert">
@@ -187,180 +194,139 @@
                 @endforeach
             </div>
             @endif
-            {{-- end validation meesage --}}
-<div class="row mx-2 ">
-    <div class="col-lg-3 col-12 p-1">
-        @if(!empty($advertises_silver))
-        <div class="card"  >
-          <div class="card-body p-0">
-            <div id="carousel-silver" class="carousel slide" data-ride="carousel" data-interval="5000">
-              <div class="carousel-inner" role="listbox" style="max-height:80px !important">
-                @foreach ($advertises_silver as $silver)
-                <div class="carousel-item @if($loop->first) active @endif" style="text-align:center;">
-                    <a href="{{route('suite.show',$silver->suite_id)}}">
-                        <img src="{{ asset('storage/advertises/'.$silver->imgfile)}}" class="img-fluid carousel-inner"/>
-                    </a>
-                </div>
-                @endforeach
-            </div>
-            </div>
-        </div></div>
-        @endif
-    </div>
-    <div class="col-lg-7 col-12 p-1">
-        @if(!empty($advertises_gold))
-        <div class="card"  >
-          <div class="card-body p-0">
-            <div id="carousel-gold" class="carousel slide" data-ride="carousel" data-interval="7500">
-                <div class="carousel-inner" role="listbox" style="max-height:80px !important">
-                    @foreach ($advertises_gold as $gold)
-                    <div class="carousel-item @if ($loop->first) active @endif" style="text-align:center;">
-                        <a href="{{route('suite.show',$gold->suite_id)}}">
-                        <img src="{{ asset('/storage/advertises/' . $gold->imgfile) }}" class="img-fluid carousel-inner ">
-                        </a>
-                    </div>
+            {{-- End validation meesage --}}
 
-                    @endforeach
-        </div>
-                </div>
-            </div></div>
-        @endif
-    </div>
-      <div class="col-lg-2 col-12 p-1">
-        @if(!empty($advertises_bronze))
-        <div class="card" >
-          <div class="card-body p-0" >
-            <div id="carousel-bronze" class="carousel slide" data-ride="carousel" data-interval="3500">
-                <div class="carousel-inner" role="listbox" style="max-height:80px !important">
-                    @foreach ($advertises_bronze as $bronze)
-                    <div class="carousel-item @if ($loop->first) active @endif" style="text-align:center;">
-                        <a href="{{route('suite.show',$bronze->suite_id)}}">
-                        <img src="{{ asset('/storage/advertises/' . $bronze->imgfile) }}" class="img-fluid carousel-inner ">
-                        </a>
+            {{-- advertises --}}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-12 p-1">
+                        @if(!empty($advertises_silver))
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div id="carousel-silver" class="carousel slide" data-ride="carousel"
+                                    data-interval="5000">
+                                    <div class="carousel-inner" role="listbox" style="max-height:80px !important">
+                                        @foreach ($advertises_silver as $silver)
+                                        <div class="carousel-item @if($loop->first) active @endif"
+                                            style="text-align:center;">
+                                            <a href="{{route('suite.show',$silver->suite_id)}}">
+                                                <img src="{{ asset('storage/advertises/'.$silver->imgfile)}}"
+                                                    class="img-fluid carousel-inner" />
+                                            </a>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
+                    <div class="col-lg-7 col-12 p-1">
+                        @if(!empty($advertises_gold))
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div id="carousel-gold" class="carousel slide" data-ride="carousel"
+                                    data-interval="7500">
+                                    <div class="carousel-inner" role="listbox" style="max-height:80px !important">
+                                        @foreach ($advertises_gold as $gold)
+                                        <div class="carousel-item @if ($loop->first) active @endif"
+                                            style="text-align:center;">
+                                            <a href="{{route('suite.show',$gold->suite_id)}}">
+                                                <img src="{{ asset('/storage/advertises/' . $gold->imgfile) }}"
+                                                    class="img-fluid carousel-inner ">
+                                            </a>
+                                        </div>
 
-                    @endforeach
-        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                    <div class="col-lg-2 col-12 p-1">
+                        @if(!empty($advertises_bronze))
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div id="carousel-bronze" class="carousel slide" data-ride="carousel"
+                                    data-interval="3500">
+                                    <div class="carousel-inner" role="listbox" style="max-height:80px !important">
+                                        @foreach ($advertises_bronze as $bronze)
+                                        <div class="carousel-item @if ($loop->first) active @endif"
+                                            style="text-align:center;">
+                                            <a href="{{route('suite.show',$bronze->suite_id)}}">
+                                                <img src="{{ asset('/storage/advertises/' . $bronze->imgfile) }}"
+                                                    class="img-fluid carousel-inner ">
+                                            </a>
+                                        </div>
+
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
                 </div>
-            </div></div>
-        @endif
-    </div>
-</div>
+            </div>
+            {{-- End advertises --}}
+
             {{-- main content --}}
-            <main class="p-1 m-1">
+            <main class="container-fluid" style="margin-bottom: 100px">
                 @yield('content')
             </main>
             {{-- end main content --}}
-{{-- <footer class="bg-light text-center text-lg-start">
-    <div class="container p-4">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h6 class="text-uppercase">
-                    Footer title 1
-                </h6>
-                <p>
-                            Footer text
-                </p>
-            </div>
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h6 class="text-uppercase">
-                    Footer title 1
-                </h6>
-                <p>
-                            Footer text
-                </p>
-            </div>
+            {{-- start footer --}}
+            <footer class="font-small purple pt-4 mt-2 bg-secondary text-white">
+                {{-- <footer class="footer font-small pt-4 bg-secondary text-white"> --}}
+                <!-- Footer Links -->
+                <div class="container-fluid text-justify">
+                    <!-- Grid row -->
+                    <div class="row">
+                        <!-- Grid column -->
+                        <div
+                            class="col mt-md-0 mt-3 border-left border-right border-dark">
+                            <!-- Content -->
+                            <h5 class="text-uppercase">{{__('About Us')}}</h5>
+                            @yield('footer.About')
+                            {{-- <p>Here you can use rows and columns to organize your footer content.</p> --}}
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        @yield('footer.connectList')
+
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        @yield('footer.subscribe')
+                        {{-- </div> --}}
+                        <!-- Grid column -->
+
+                    </div>
+                    <!-- Grid row -->
+
+                </div>
+                <!-- Footer Links -->
+
+                <!-- Copyright -->
+                <div class="footer-copyright text-center py-2 mt-2 bg-dark">
+                    © 2021 Copyright:
+                    <a class="text-warning" href="https://www.almounkez.com" target="_blank">Innovative Systems</a>
+                    {{-- © 2018 Copyright:
+                    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a> --}}
+                </div>
+                <!-- Copyright -->
+
+            </footer>
+            {{-- End footer --}}
         </div>
-    </div>
-    <div class="text-center p-3" style="background-color:rgb(0,0,0,0.2)">
-        @2021 copyright <a class="text-dark" href="https://www.almounkez.com" target="_blank">innovative systems</a>
+        {{-- End app div --}}
 
-    </div>
-</footer> --}}
-
-<footer class="page-footer font-small purple navbar fixed-bottom navbar-light  fixed-bottom navbar-dark bg-dark">
-
-    <!-- Footer Links -->
-    <div class="container-fluid text-center text-md-left">
-
-        <!-- Grid row -->
-        <div class="row">
-
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3">
-
-                <!-- Content -->
-                <h5 class="text-uppercase">Footer Content</h5>
-                <p>Here you can use rows and columns to organize your footer content.</p>
-
-            </div>
-            <!-- Grid column -->
-
-            <hr class="clearfix w-100 d-md-none pb-3">
-
-            <!-- Grid column -->
-            <div class="col-md-3 mb-md-0 mb-3">
-
-                <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
-
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
-
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-3 mb-md-0 mb-3">
-
-                <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
-
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
-
-            </div>
-            <!-- Grid column -->
-
-        </div>
-        <!-- Grid row -->
-
-    </div>
-    <!-- Footer Links -->
-
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
-        <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-
-</footer>
-        </div>
+        {{-- Scripts  --}}
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        {{-- <script src="{{ asset('js/iconify.min.js') }}"></script> --}}
         @yield('script')
+        {{-- End Scripts --}}
     </body>
 
 </html>
