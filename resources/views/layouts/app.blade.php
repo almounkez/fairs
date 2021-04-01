@@ -113,6 +113,9 @@
                                     <a class="dropdown-item"
                                         href="{{ route('fair.advertises',$fairId) }}">@lang('current fair
                                         advertises')</a>
+                                    <a class="dropdown-item"
+                                        href="{{ route('fair.mailLists',$fairId) }}">@lang('current fair
+                                        maiList')</a>
                                     @endif
                                 </div>
 
@@ -141,7 +144,10 @@
                                         @lang('Article')
                                     </a>
                                     <a class="dropdown-item" href="{{ route('suite.marquees',Auth::user()->suite) }}">
-                                        @lang('marquees')
+                                        @lang('Marquees')
+                                    </a><a class="dropdown-item"
+                                        href="{{ route('suite.mailLists',Auth::user()->suite) }}">
+                                        @lang('MailList')
                                     </a>
                                 </div>
                             </li>
