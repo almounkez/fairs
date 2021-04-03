@@ -107,3 +107,7 @@ Route::get('mailList/{suiteId}/createForSuite', 'MailListController@createForSui
 Route::get('mailList/reload-captcha', 'MailListController@reloadCaptcha')->name('mailList.recap');
 
 Route::resource('mailList','MailListController')->only(['index','store','destroy']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
