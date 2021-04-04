@@ -134,9 +134,9 @@
                         @endguest
                         <li class="nav-item pt-2">
                             @if (app()->getLocale() == 'ar')
-                            <a class="btn btn-sm btn-secondary" href="{{ url('locale/en') }}">E</a>
+                            <a class="btn btn-sm btn-secondary" role="link" href="{{ url('locale/en') }}">E</a>
                             @else
-                            <a class="btn btn-sm btn-primary" href="{{ url('locale/ar') }}">ع</a>
+                            <a class="btn btn-sm btn-primary"role="link" href="{{ url('locale/ar') }}">ع</a>
                             @endif
                         </li>
                     </ul>
@@ -158,10 +158,11 @@
                         @endif
                     </ul>
                     @if(!empty($fairId))
-                    <form class="form-inline" action='{{route("search.global",$fairId)}}' method="POST">
-                        @csrf
+                    <form class="form-inline" action='{{route("search.global",$fairId)}}' method="get">
+                        {{-- @method('POST')
+                        @csrf --}}
                         <input class="form-control @if(app()->getLocale() == 'ar') ml-sm-2 @else mr-sm-2 @endif"
-                            type="search" name='search' placeholder="Search" aria-label="Search">
+                            type="search" name='search' placeholder="Search" aria-label="Search" required>
                         <button class="btn btn-primary my-2 my-sm-0" type="submit">{{__('Search')}}</button>
                     </form>
                     @endif
