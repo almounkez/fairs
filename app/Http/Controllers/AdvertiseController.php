@@ -60,7 +60,7 @@ class AdvertiseController extends Controller
         }
         $advertise->save();
 
-        return redirect(route('advertise.index'));
+        return redirect(route('fair.advertises',$advertise->fair_id));
 
     }
 
@@ -121,7 +121,7 @@ class AdvertiseController extends Controller
         }
         $advertise->save();
 
-        return redirect(route('advertise.index'));
+        return redirect(route('fair.advertises', $advertise->fair_id));
 
     }
 

@@ -92,17 +92,17 @@ class FairController extends Controller
         $fair->hits += 1;
         $fair->save();
         return view('fair.show', [
-           'fairId' => $fair->id,
+            'fairId' => $fair->id,
             'slides' => $fair->slides()->doesntHave('category')->where('active', '1')->orderByRaw("RAND()")->get(),
             'suites' => $fair->suites()->where('active', '1')->orderByRaw("RAND()")->get(),
             'categories' => $fair->categories,
             'marquees' => $fair->marquees,
+            'g_advertises'=>[
             'advertises_gold' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
             'advertises_silver' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
-            'advertises_bronze' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()
-]);
+            'advertises_bronze' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get()],
+        ]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -141,8 +141,8 @@ class FairController extends Controller
         if (request()->hasfile('logo_ar')) {
             $logo_arfilepath = public_path('storage/fairs/');
             if ($fair->logo_ar != null) {
-                if (Storage::exists($logo_arfilepath . $logo_arname)){
-                File::delete($logo_arfilepath . $logo_arname);
+                if (Storage::exists($logo_arfilepath . $logo_arname)) {
+                    File::delete($logo_arfilepath . $logo_arname);
                 }
             }
             $logo_arfile = request()->file('logo_ar');
@@ -153,8 +153,8 @@ class FairController extends Controller
         if (request()->hasfile('logo_en')) {
             $logo_enfilepath = public_path('storage/fairs/');
             if ($fair->logo_en != null) {
-                if (Storage::exists($logo_enfilepath . $logo_enname)){
-                File::delete($logo_enfilepath . $logo_enname);}
+                if (Storage::exists($logo_enfilepath . $logo_enname)) {
+                    File::delete($logo_enfilepath . $logo_enname);}
             }
             $logo_enfile = request()->file('logo_en');
             $logo_enname = time() . "." . $request->logo_en->extension();
@@ -185,15 +185,15 @@ class FairController extends Controller
 
         if ($fair->logo_ar != null) {
             $logo_arfilepath = public_path('/storage/fairs/');
-                if (Storage::exists($logo_arfilepath . $fair->logo_ar)){
-            File::delete($logo_arfilepath . $fair->logo_ar);}
+            if (Storage::exists($logo_arfilepath . $fair->logo_ar)) {
+                File::delete($logo_arfilepath . $fair->logo_ar);}
         }
 
         if ($fair->logo_en != null) {
             $logo_enfilepath = public_path('/storage/fairs/');
-                if (Storage::exists($logo_enfilepath . $fair->logo_en)){
-            File::delete($logo_enfilepath . $fair->logo_en);
-                }
+            if (Storage::exists($logo_enfilepath . $fair->logo_en)) {
+                File::delete($logo_enfilepath . $fair->logo_en);
+            }
         }
 
         $fair->delete();

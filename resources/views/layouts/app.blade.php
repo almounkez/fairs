@@ -41,7 +41,6 @@
                 <a class="navbar-brand" href="{{route('home')}}">{{ config('app.name', 'Laravel') }}</a>
                 <div class="navbar-collapse collapse show" id="navbarColor01" style="">
                     <ul class="navbar-nav @if(app()->getLocale() == 'ar') ml-auto text-right @else mr-auto @endif">
-
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -57,7 +56,6 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -90,12 +88,14 @@
                                     @lang('Current Fair Slides')</a>
                                 <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
                                     @lang('Current Fair Categories') </a>
-                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair Marquees')</a>
-                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current Fair Advertises')</a>
-                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current Fair MaiList')</a>
+                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair
+                                    Marquees')</a>
+                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current
+                                    Fair Advertises')</a>
+                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current
+                                    Fair MaiList')</a>
                                 @endif
                             </div>
-
                         </li>
                         @endif
                         @if(Auth::user()->suite!=null)
@@ -129,7 +129,6 @@
                             </div>
                         </li>
                         @endif
-
                         @endguest
                         <li class="nav-item pt-2">
                             @if (app()->getLocale() == 'ar')
@@ -164,7 +163,7 @@
 
                 </div>
             </nav>
-
+            {{-- end top navebar --}}
 
 
             {{-- Marquee --}}
@@ -195,23 +194,30 @@
             @endif
             {{-- End validation meesage --}}
 
+            @if(!empty($g_advertises))
+
+            @if(Auth::user()->role=='admin'&&!empty($fairId))
             {{-- advertises --}}
+            <a class="btn btn-sm btn-outline-primary" href="{{ route('advertise.create',$fairId) }}">
+                <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+            </a>
+            @endif
             <div class="container-fluid">
-                <div class="row">
+                <div class="row mx-2">
                     <div class="col-lg-3 col-12 p-1">
-                        @if(!empty($advertises_silver))
+                        @if(!empty($g_advertises['advertises_silver']))
                         <div class="card">
                             <div class="card-body p-0">
                                 <div id="carousel-silver" class="carousel slide" data-ride="carousel"
                                     data-interval="5000">
                                     <div class="carousel-inner" role="listbox" style="max-height:80px !important">
-                                        @foreach ($advertises_silver as $silver)
+                                        @foreach ($g_advertises['advertises_silver'] as $silver)
                                         <div class="carousel-item @if($loop->first) active @endif"
                                             style="text-align:center;">
-                                            <a href="{{route('suite.show',$silver->suite_id)}}">
-                                                <img src="{{ asset('storage/advertises/'.$silver->imgfile)}}"
-                                                    class="img-fluid carousel-inner" />
-                                            </a>
+                                            {{-- <a href="{{route('suite.show',$silver->suite_id)}}"> --}}
+                                            <img src="{{ asset('storage/advertises/'.$silver->imgfile)}}"
+                                                class="img-fluid carousel-inner" style="max-height:160px !important">
+                                            {{-- </a> --}}
                                         </div>
                                         @endforeach
                                     </div>
@@ -221,21 +227,20 @@
                         @endif
                     </div>
                     <div class="col-lg-7 col-12 p-1">
-                        @if(!empty($advertises_gold))
+                        @if(!empty($g_advertises['advertises_gold']))
                         <div class="card">
                             <div class="card-body p-0">
                                 <div id="carousel-gold" class="carousel slide" data-ride="carousel"
                                     data-interval="7500">
                                     <div class="carousel-inner" role="listbox" style="max-height:80px !important">
-                                        @foreach ($advertises_gold as $gold)
+                                        @foreach ($g_advertises['advertises_gold'] as $gold)
                                         <div class="carousel-item @if ($loop->first) active @endif"
                                             style="text-align:center;">
-                                            <a href="{{route('suite.show',$gold->suite_id)}}">
-                                                <img src="{{ asset('/storage/advertises/' . $gold->imgfile) }}"
-                                                    class="img-fluid carousel-inner ">
-                                            </a>
+                                            {{-- <a href="{{route('suite.show',$gold->suite_id)}}"> --}}
+                                            <img src="{{ asset('/storage/advertises/' . $gold->imgfile) }}"
+                                                class="img-fluid carousel-inner"style="max-height:200px !important">
+                                            {{-- </a> --}}
                                         </div>
-
                                         @endforeach
                                     </div>
                                 </div>
@@ -244,21 +249,20 @@
                         @endif
                     </div>
                     <div class="col-lg-2 col-12 p-1">
-                        @if(!empty($advertises_bronze))
+                        @if(!empty($g_advertises['advertises_bronze']))
                         <div class="card">
                             <div class="card-body p-0">
                                 <div id="carousel-bronze" class="carousel slide" data-ride="carousel"
                                     data-interval="3500">
                                     <div class="carousel-inner" role="listbox" style="max-height:80px !important">
-                                        @foreach ($advertises_bronze as $bronze)
+                                        @foreach ($g_advertises['advertises_bronze'] as $bronze)
                                         <div class="carousel-item @if ($loop->first) active @endif"
                                             style="text-align:center;">
-                                            <a href="{{route('suite.show',$bronze->suite_id)}}">
-                                                <img src="{{ asset('/storage/advertises/' . $bronze->imgfile) }}"
-                                                    class="img-fluid carousel-inner ">
-                                            </a>
+                                            {{-- <a href="{{route('suite.show',$bronze->suite_id)}}"> --}}
+                                            <img src="{{ asset('/storage/advertises/' . $bronze->imgfile) }}"
+                                                class="img-fluid carousel-inner" style="max-height:160px !important">
+                                            {{-- </a> --}}
                                         </div>
-
                                         @endforeach
                                     </div>
                                 </div>
@@ -269,7 +273,7 @@
                 </div>
             </div>
             {{-- End advertises --}}
-
+            @endif
             {{-- main content --}}
             <main class="container-fluid" style="margin-bottom: 100px">
                 @yield('content')

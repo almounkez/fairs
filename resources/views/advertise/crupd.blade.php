@@ -28,18 +28,19 @@
                     @elseif(!empty($fairId))
                     <input name="fair_id" value="{{$fairId}}" hidden>
                     @endif
-
-
-
-
-
                     <div class="row">
                         <div class="col-md-4  col-form-label " style="text-align:start">
                             <label for="location">{{ __('location') }}:</label>
                         </div>
-                        <div class="col-8"><input class="form-control" type="text" name="location"
-                                value=@if(!empty($advertise) && old('location', $advertise->location))
-                            {{ $advertise->location }}@else{{old('location')}} @endif>
+                        <div class="col-8">
+                            <select class="form-control" name="location" id="location">
+                                @if(!empty($advertise) && old('location', $advertise->location))
+                                <option value="{{ $advertise->location }}" selected> {{ $advertise->location }}</option>
+                                @endif>
+                                <option value="gold">gold</option>
+                                <option value="silver">silver</option>
+                                <option value="bronze">bronze</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
@@ -47,8 +48,7 @@
                             <label for="active">{{ __('Active') }}:</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="checkbox" class="form-check my-2" name="active"
-                            value="1" @if(!empty($advertise) && old('active', $advertise->active)) checked @endif>
+                            <input type="checkbox" class="form-check my-2" name="active" value="1"  @if(empty($advertise)||(!empty($advertise) && old('active', $advertise->active))) checked @endif>
                         </div>
                     </div>
 
@@ -59,14 +59,13 @@
                         <div class="col-4">
                             <input class="form-control" type="date" name="start_date" value=@if (!empty($advertise) &&
                                 old('start_date', $advertise->start_date))
-                            {{ $advertise->start_date }}@else{{old('start_date')}} @endif>
+                            {{ $advertise->start_date }}@else{{old('start_date')}} @endif required>
                         </div>
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="end_date">{{ __('End Date') }}:</label>
                         </div>
-                        <div class="col-4"><input class="form-control" type="date" name="end_date"
-                            value=@if(!empty($advertise) && old('end_date', $advertise->end_date))
-                            {{ $advertise->end_date }}@else{{old('end_date')}} @endif>
+                        <div class="col-4"><input class="form-control" type="date" name="end_date" value=@if(!empty($advertise) && old('end_date', $advertise->end_date))
+                            {{ $advertise->end_date }}@else{{old('end_date')}} @endif required>
                         </div>
                     </div>
 
@@ -83,9 +82,7 @@
                         @endif
 
                         <div class="col-8 ">
-                            <input class="form-control" type="file" name="imgfile" @if (empty($advertise)) required
-                                @endif>
-
+                            <input class="form-control" type="file" name="imgfile" @if (empty($advertise)) required @endif>
                         </div>
                     </div>
                     <div class="row">
@@ -93,10 +90,7 @@
                             <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                         </div>
                         <div class="col-8 text-md-center">
-                            <a href="{{ route('advertise.index') }}" type="button"
-                                class="btn btn-secondary">{{ __('Cancel') }}</a>
-
-
+                            <a href="@if(!empty($advertise)) {{route('fair.advertises',$advertise->fair_id)}} @else {{route('fair.advertises',$fairId)}} @endif" type="button"   class="btn btn-secondary">{{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>
