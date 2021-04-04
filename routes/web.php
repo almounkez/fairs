@@ -111,3 +111,5 @@ Route::resource('mailList','MailListController')->only(['index','store','destroy
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('global/{fair}/searsh','SearchController@gloabalSearch')->name('search.global');

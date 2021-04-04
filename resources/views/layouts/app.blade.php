@@ -37,7 +37,7 @@
         <div id="app">
             {{-- top navbar --}}
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
                 <a class="navbar-brand" href="{{route('home')}}">{{ config('app.name', 'Laravel') }}</a>
                 <div class="navbar-collapse collapse show" id="navbarColor01" style="">
                     <ul class="navbar-nav @if(app()->getLocale() == 'ar') ml-auto text-right @else mr-auto @endif">
@@ -88,10 +88,14 @@
                                     @lang('Current Fair Slides')</a>
                                 <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
                                     @lang('Current Fair Categories') </a>
-                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair Marquees')</a>
-                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current Fair Advertises')</a>
-                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current Fair MaiList')</a>
-                                <a class="dropdown-item" href="{{ route('fair.suites',$fairId) }}">@lang('Current Fair Suites')</a>
+                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair
+                                    Marquees')</a>
+                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current
+                                    Fair Advertises')</a>
+                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current
+                                    Fair MaiList')</a>
+                                <a class="dropdown-item" href="{{ route('fair.suites',$fairId) }}">@lang('Current Fair
+                                    Suites')</a>
                                 @endif
                             </div>
                         </li>
@@ -130,9 +134,9 @@
                         @endguest
                         <li class="nav-item pt-2">
                             @if (app()->getLocale() == 'ar')
-                            <a class="btn btn-light" href="{{ url('locale/en') }}">E</a>
+                            <a class="btn btn-sm btn-secondary" href="{{ url('locale/en') }}">E</a>
                             @else
-                            <a class="btn btn-info" href="{{ url('locale/ar') }}">ع</a>
+                            <a class="btn btn-sm btn-primary" href="{{ url('locale/ar') }}">ع</a>
                             @endif
                         </li>
                     </ul>
@@ -153,12 +157,14 @@
                         </li>
                         @endif
                     </ul>
-                    <form class="form-inline">
+                    @if(!empty($fairId))
+                    <form class="form-inline" action='{{route("search.global",$fairId)}}' method="POST">
+                        @csrf
                         <input class="form-control @if(app()->getLocale() == 'ar') ml-sm-2 @else mr-sm-2 @endif"
-                            type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">{{__('Search')}}</button>
+                            type="search" name='search' placeholder="Search" aria-label="Search">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">{{__('Search')}}</button>
                     </form>
-
+                    @endif
                 </div>
             </nav>
             {{-- end top navebar --}}
@@ -201,7 +207,7 @@
             </a>
             @endif
             <div class="container-fluid">
-                <div class="row mx-2">
+                <div class="row">
                     <div class="col-lg-3 col-12 p-1">
                         @if(!empty($g_advertises['advertises_silver']))
                         <div class="card">
@@ -236,7 +242,7 @@
                                             style="text-align:center;">
                                             {{-- <a href="{{route('suite.show',$gold->suite_id)}}"> --}}
                                             <img src="{{ asset('/storage/advertises/' . $gold->imgfile) }}"
-                                                class="img-fluid carousel-inner"style="max-height:200px !important">
+                                                class="img-fluid carousel-inner" style="max-height:200px !important">
                                             {{-- </a> --}}
                                         </div>
                                         @endforeach

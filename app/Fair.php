@@ -72,5 +72,32 @@ class Fair extends Model
     {
         return $this->hasMany('App\MailList', 'source_id')->where('source_type','fair');
     }
+
+    /**
+     * Get all of the products for the Fair
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, Suite::class ,'fair_id','suite_id','id','id');
+    }
+
+
+//     class Project extends Model
+// {
+//     public function deployments()
+//     {
+//         return $this->hasManyThrough(
+//             Deployment::class,
+//             Environment::class,
+//             'project_id', // Foreign key on the environments table...
+//             'environment_id', // Foreign key on the deployments table...
+//             'id', // Local key on the projects table...
+//             'id' // Local key on the environments table...
+//         );
+//     }
+// }
+
 }
 
