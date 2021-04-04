@@ -22,54 +22,25 @@
         <link rel="stylesheet" href="{{ asset('css/zmdi.css') }}">
         <link rel="stylesheet" href="{{ asset('css/sticky-footer.css') }}">
         <link rel="stylesheet" href="{{ asset('css/material-design-iconic-font.min.css') }}">
+        @if(app()->getLocale() == 'ar')
+        <style>
+            .dropdown-item {
+                text-align: right;
+            }
 
-
+        </style>
+        @endif
     </head>
 
     <body>
+
         <div id="app">
             {{-- top navbar --}}
 
-
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{route('home')}}">{{ config('app.name', 'Laravel') }}</a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#ns1" aria-controls="ns1" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="ns1">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav @if(app()->getLocale() == 'ar') ml-auto @else mr-auto @endif">
-
-                        <?php $fid= $fairId?? $fair->id??$suite->fair_id??null ?>
-                        @if(!empty($fid))
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('fair.show',$fid) }}">@lang('Current Fair') <span
-                                    class="sr-only">(current)</span></a>
-                        </li>
-                        @endif
-
-                        <?php $sid= $suiteId?? $suite->id ?? $product->suite_id ??null ?>
-                        @if(!empty($sid))
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ route('suite.show',$sid) }}">@lang('Current Suite')</a>
-                        </li>
-                        @endif
-                        <li class="nav-item">
-                            @if (app()->getLocale() == 'ar')
-                            <a class="btn btn-secondary" href="{{ url('locale/en') }}">E</a>
-                            @else
-                            <a class="btn btn-primary" href="{{ url('locale/ar') }}">ع</a>
-                            @endif
-                        </li>
-                    </ul>
-
-                    <!-- Authentication Links -->
-                    <ul class="navbar-nav @if(app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
-
+                <div class="navbar-collapse collapse show" id="navbarColor01" style="">
+                    <ul class="navbar-nav @if(app()->getLocale() == 'ar') ml-auto text-right @else mr-auto @endif">
 
                         @guest
                         <li class="nav-item">
@@ -89,8 +60,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                                                                                         document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
@@ -102,36 +72,27 @@
                         </li>
                         @if(Auth::user()->role=='admin')
                         <li class="nav-item dropdown">
-                            {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> --}}
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @lang('Manage Fair')
-                                {{-- <span class="caret"></span> --}}
+                                <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('fair.index') }}"> @lang('Fairs List')
                                 </a>
                                 <a class="dropdown-item" href="{{ route('mailList.index') }}"> @lang('Mail List')
                                 </a>
-
                                 <a class="dropdown-item" href="{{ route('fair.create') }}">@lang('New Fair')
                                 </a>
-                                <div class="dropdown-divider"></div>
                                 @if(!empty($fairId))
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('fair.slides',$fairId) }}">
-                                    @lang('current
-                                    fair slides')</a>
+                                    @lang('Current Fair Slides')</a>
                                 <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
-                                    @lang('current fair categories') </a>
-                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('current
-                                    fair marquees')</a>
-                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('current
-                                    fair
-                                    advertises')</a>
-                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('current
-                                    fair
-                                    maiList')</a>
+                                    @lang('Current Fair Categories') </a>
+                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair Marquees')</a>
+                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current Fair Advertises')</a>
+                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current Fair MaiList')</a>
                                 @endif
                             </div>
 
@@ -170,14 +131,40 @@
                         @endif
 
                         @endguest
+                        <li class="nav-item pt-2">
+                            @if (app()->getLocale() == 'ar')
+                            <a class="btn btn-light" href="{{ url('locale/en') }}">E</a>
+                            @else
+                            <a class="btn btn-info" href="{{ url('locale/ar') }}">ع</a>
+                            @endif
+                        </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
+                    <ul class="navbar-nav @if(app()->getLocale() == 'ar') mr-auto text-right @else ml-auto @endif">
 
+                        <?php $fid= $fairId?? $fair->id??$suite->fair_id??null ?>
+                        @if(!empty($fid))
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ route('fair.show',$fid) }}">@lang('Current Fair') <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        @endif
+
+                        <?php $sid= $suiteId?? $suite->id ?? $product->suite_id ??null ?>
+                        @if(!empty($sid))
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ route('suite.show',$sid) }}">@lang('Current Suite')</a>
+                        </li>
+                        @endif
+                    </ul>
+                    <form class="form-inline">
+                        <input class="form-control @if(app()->getLocale() == 'ar') ml-sm-2 @else mr-sm-2 @endif"
+                            type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">{{__('Search')}}</button>
+                    </form>
+
+                </div>
             </nav>
+
 
 
             {{-- Marquee --}}

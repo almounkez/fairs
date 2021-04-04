@@ -6,9 +6,8 @@
         <div class="card">
             <div class="card-header">{{ __('advertise') }}
                 @if(!empty($fairId))
-                <a href="{{ route('advertise.create',$fairId) }}">
-                    <span class="iconify" data-icon="gridicons-add" data-inline="false" height="36" width="36">
-                    </span>
+                <a class="btn btn-sm btn-outline-primary" href="{{ route('advertise.create',$fairId) }}">
+                    <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
                 </a>
                 @endif
             </div>
@@ -35,8 +34,8 @@
                             <tr>
                                 <th scope="row">
                                     <a href="{{ route('advertise.edit', $advertise->id) }}"><span class="iconify"
-                                        data-icon="feather:edit" data-inline="false" height="36" width="36">
-                                   {{ $advertise->id }}</span></a>
+                                            data-icon="feather:edit" data-inline="false" height="36" width="36">
+                                            {{ $advertise->id }}</span></a>
                                 </th>
                                 <td>{{ $advertise->fair_id }}</td>
                                 <td>{{ $advertise->location }}</td>
@@ -44,27 +43,26 @@
                                 <td>{{ $advertise->start_date }}</td>
                                 <td>{{ $advertise->end_date }}</td>
                                 <td>{{ $advertise->hits }}</td>
-                                <td style="width:20% ; max-width:24%;"><img src="{{ asset('storage/advertises/' . $advertise->imgfile) }}"
+                                <td style="width:20% ; max-width:24%;"><img
+                                        src="{{ asset('storage/advertises/' . $advertise->imgfile) }}"
                                         class="img-fluid img-thumbnail"></td>
                                 <td>
                                     <div class="btn-group-justified">
-                                        {{-- <div class="btn-group">
+                                        <div class="btn-group">
                                             <a class="btn btn-outline-warning rounded-circle"
                                                 href="{{route('advertise.edit',$advertise->id)}}">
-                                                <i class="zmdi zmdi-settings"></i>
-                                            </a>
-                                        </div> --}}
-                                        <div class="btn-group">
-                                            <form action="{{ route('advertise.destroy', $advertise->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button Type="submit" class="btn rounded-circle btn-outline-danger"><i
-                                                        class="zmdi zmdi-delete"></i>
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <i class="zmdi zmdi-edit"></i>
+                                        </a>
                                     </div>
-
+                                    <div class="btn-group">
+                                        <form action="{{ route('advertise.destroy', $advertise->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button Type="submit" class="btn rounded-circle btn-outline-danger"><i
+                                                    class="zmdi zmdi-delete"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
