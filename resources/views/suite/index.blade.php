@@ -19,6 +19,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">{{__('User Name')}}</th>
+                                <th scope="col">{{__('Contact Name')}}</th>
                                 <th scope="col">{{ __('Arabic Name') }}</th>
                                 <th scope="col">{{ __('English Name') }}</th>
                                 <th scope="col">{{ __('Start Date') }}</th>
@@ -35,6 +36,7 @@
                             <tr>
                                 <th scope="row"></th>
                                 <td>@if(!empty($suite->user)){{$suite->user->name}}@endif</td>
+                                <td>@if(!empty($suite->user)){{$suite->contact_name}}@endif</td>
                                 <td>@if (!empty($suite->name_ar)){{ $suite->name_ar }}@endif </td>
                                 <td>@if (!empty($suite->name_en)){{ $suite->name_en }}@endif</td>
                                 <td>@if (!empty($suite->start_date)) {!! $suite->start_date !!} @endif</td>
@@ -87,7 +89,8 @@
                                         </a>
                                     </div>
                                     <div class="btn-group">
-                                        <a class="btn btn-outline-success" href="{{route('suite.mailLists',$suite->id)}}">
+                                        <a class="btn btn-outline-success"
+                                            href="{{route('suite.mailLists',$suite->id)}}">
                                             {{-- <i class="zmdi zmdi-settings"></i> --}}
                                             @lang('MailLists')
                                         </a>

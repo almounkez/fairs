@@ -88,12 +88,10 @@
                                     @lang('Current Fair Slides')</a>
                                 <a class="dropdown-item" href="{{ route('fair.categories',$fairId) }}">
                                     @lang('Current Fair Categories') </a>
-                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair
-                                    Marquees')</a>
-                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current
-                                    Fair Advertises')</a>
-                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current
-                                    Fair MaiList')</a>
+                                <a class="dropdown-item" href="{{ route('fair.marquees',$fairId) }}">@lang('Current Fair Marquees')</a>
+                                <a class="dropdown-item" href="{{ route('fair.advertises',$fairId) }}">@lang('Current Fair Advertises')</a>
+                                <a class="dropdown-item" href="{{ route('fair.mailLists',$fairId) }}">@lang('Current Fair MaiList')</a>
+                                <a class="dropdown-item" href="{{ route('fair.suites',$fairId) }}">@lang('Current Fair Suites')</a>
                                 @endif
                             </div>
                         </li>
@@ -258,10 +256,8 @@
                                         @foreach ($g_advertises['advertises_bronze'] as $bronze)
                                         <div class="carousel-item @if ($loop->first) active @endif"
                                             style="text-align:center;">
-                                            {{-- <a href="{{route('suite.show',$bronze->suite_id)}}"> --}}
                                             <img src="{{ asset('/storage/advertises/' . $bronze->imgfile) }}"
                                                 class="img-fluid carousel-inner" style="max-height:160px !important">
-                                            {{-- </a> --}}
                                         </div>
                                         @endforeach
                                     </div>
@@ -288,16 +284,13 @@
                     <div class="row">
                         <!-- Grid column -->
                         <div class="col mt-md-0 mt-3 border-left border-right border-dark">
-                            <!-- Content -->
                             <h5 class="text-uppercase">{{__('About Us')}}</h5>
                             @yield('footer.About')
-                            {{-- <p>Here you can use rows and columns to organize your footer content.</p> --}}
                         </div>
                         <!-- Grid column -->
 
                         <!-- Grid column -->
                         @yield('footer.connectList')
-
                         <!-- Grid column -->
                         <!-- Grid column -->
                         @yield('footer.subscribe')
@@ -314,8 +307,6 @@
                 <div class="footer-copyright text-center py-2 mt-2 bg-dark">
                     © 2021 Copyright:
                     <a class="text-warning" href="https://www.almounkez.com" target="_blank">Innovative Systems</a>
-                    {{-- © 2018 Copyright:
-                    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a> --}}
                 </div>
                 <!-- Copyright -->
 

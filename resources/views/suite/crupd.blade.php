@@ -88,7 +88,7 @@
                         <div class="col-md-2 col-form-label text-md-left">
                             <label for="name_ar">{{ __('English Name') }}:</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <input class="form-control" type="text" name="name_en" @if(!empty($suite) && old('name_en',
                                 $suite->name_en))
                             value="{{ $suite->name_en }}"@else value="{{old('name_en')}}"
@@ -96,12 +96,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-form-label " style="text-align:start">
+                        <div class="col-md-4 col-sm-4 col-form-label " style="text-align:start">
                             <label for="active">{{ __('Active') }}:</label>
                         </div>
-                        <div class="col-8">
-                            <input type="checkbox" class="form-check" name="active" value="1" @if(!empty($suite) &&
-                                old('active', $suite->active)) checked @else{{old('active')}} @endif> </div>
+                        <div class="col-md-2 col-sm-2">
+                            <input type="checkbox"  class="form-cheek" name="active"
+                                value="1" @if(!empty($suite) && old('active', $suite->active)) checked
+                            @else{{old('active')}} @endif>
+                        </div>
+                        <div class="col-md-2 col-form-label " style="text-align:start">
+                            <label for="contact_name">{{ __('Contact Name') }}:</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="contact_name" @if(!empty($suite) &&
+                                old('contact_name', $suite->contact_name))
+                            value="{{ $suite->contact_name }}"@else value="{{old('contact_name')}}" @endif>
+                        </div>
                     </div>
                     <div class="row">
                         <div class=" @if (!empty($suite)) col-md-2 @else col-md-4 @endif col-form-label "

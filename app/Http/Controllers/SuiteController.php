@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Fair;
 use App\Suite;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +62,7 @@ class SuiteController extends Controller
         ]);
 
         $user = User::create(['name' => 'user0', 'password' => '0', 'role' => 'suite']);
+
         $input = $request->except(['userName', 'password', 'name_ar', 'name_en', 'logo_ar', 'logo_en', 'fairId']);
         $input = array_merge($input, ["user_id" => $user->id, 'fair_id' => $request->fairId]);
 
@@ -143,7 +145,7 @@ class SuiteController extends Controller
     {
         //
         $request->validate([
-            'userName' => ['required', 'string', 'max:255'],
+            'userName' => ['required', 'string', 'max:255','unique:users,name,'. $suite->user_id.',id'],
             'password' => ['confirmed'],
             'name_ar' => ['required', 'string'],
             'name_en' => ['required', 'string'],
@@ -189,7 +191,10 @@ class SuiteController extends Controller
         }
         $suite->save();
 
-        return redirect(route('suite.show', $suite));
+        if(Auth::user()->role=='admin')
+            return redirect(route('fair.suites', $suite->fair_id));
+        else
+            return redirect(route('suite.show', $suite));
 
     }
 
