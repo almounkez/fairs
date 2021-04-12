@@ -117,8 +117,10 @@ class SearchController extends Controller
     {
         # code...
         $input = $request->search;
-        $suites = $fair->suites()->where('name_ar', 'like', "%" . $input . "%")->orWhere('name_en', 'like', "%" . $input . "%")->orWhere('contact_name', 'like', "%" . $input . "%")->get();
-        $products = $fair->products()->where('products.name_ar', 'like', "%" . $input . "%")->orWhere('products.name_en', 'like', "%" . $input . "%")->get();
+        $suites1 = $fair->suites()->where('active', '1');
+        $suites=$suites1->where('name_ar', 'like', "%" . $input . "%")->orWhere('name_en', 'like', "%" . $input . "%")->orWhere('contact_name', 'like', "%" . $input . "%")->get();
+        $products1 = $fair->products()->where('suites.active', '1')->where('products.active', '1');
+        $products= $products1->where('products.name_ar', 'like', "%" . $input . "%")->orWhere('products.name_en', 'like', "%" . $input . "%")->get();
         $categories = $fair->categories()->where('name_ar', 'like', "%" . $input . "%")->orWhere('name_en', 'like', "%" . $input . "%")->get();
         $subcategories = $fair->subcategories()->where('name_ar', 'like', "%" . $input . "%")->orWhere('name_en', 'like', "%" . $input . "%")->get();
 

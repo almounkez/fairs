@@ -120,13 +120,33 @@
         <div class="row">
             @foreach ($products as $product)
             <div class="col-md-3">
-                <a href="#" {{-- "{{route('product.show',$product->id)}}" --}}>
-                    <figure class="figure">
+                <div class="thumbnail">
+                    <a href="{{asset('storage/products/'.$product->imgfile)}}">
                         <img src="{{asset('storage/products/'.$product->imgfile)}}" class="figure-img img-fluid rounded"
                             alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                    </figure>
-                </a>
+                        <div class="row mx-2 caption">
+
+                            @if (config('app.locale') == 'ar')
+                            <div class="col-4">
+                                <span class="mx-1 badge badge-secondary">{{$product->name_ar}}</span>
+                            </div>
+                            <div class="col">
+                            <span class="mx-1 badge badge-secondary">{{$product->suite->name_ar}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->category->name_ar}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_ar}}</span>
+                            </div>
+                            @else
+                            <div class="col-4">
+                            <span class="mx-1 badge badge-secondary">{{$product->name_en}}</span>
+                            </div><div class="col">
+                            <span class="mx-1 badge badge-secondary">{{$product->suite->name_en}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->category->name_en}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_en}}</span></div>
+                            @endif
+
+                        </div>
+                    </a>
+                </div>
             </div>
             @endforeach
         </div>
