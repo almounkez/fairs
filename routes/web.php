@@ -97,6 +97,8 @@ Route::get('search/suites/{fair}/cat/{category}', 'SearchController@suitesByCat'
 Route::get('search/suites/{fair}/cat/{category}/subcat/{subcategory}', 'SearchController@suitesBySubCat')->name('search.suites.subcat');
 Route::get('search/products/{suite}/cat/{category}', 'SearchController@productsByCat')->name('search.products.cat');
 Route::get('search/products/{suite}/cat/{category}/subcat/{subcategory}', 'SearchController@productsBySubCat')->name('search.products.subcat');
+Route::get('search/products/subcat/{subcategory}', 'SearchController@globalProductsBySubCat')->name('search.global.products.subcat');
+
 
 
 Route::get('mailList/create','MailListController@create')->name('mailList.create');

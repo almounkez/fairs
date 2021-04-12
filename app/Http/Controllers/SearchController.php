@@ -138,4 +138,23 @@ class SearchController extends Controller
                 'advertises_bronze' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get(),
             ]]);
     }
+    public function globalProductsBySubCat(subcategory $subcategory)
+    {
+
+        $results = [
+            'products' => $subcategory->products,
+            'categories' => $subcategory->categories,
+            'subcategories' => [$subcategory],
+        ];
+        $fair=$subcategory->fair;
+        return view('search.global', ['results' => $results,
+            'fairId' => $subcategory->fair_id,
+            'marquees' => $fair->marquees,
+            'g_advertises' => [
+                'advertises_gold' => $fair->advertises()->where('active', '1')->where('location', 'gold')->orderByRaw("RAND()")->get(),
+                'advertises_silver' => $fair->advertises()->where('active', '1')->where('location', 'silver')->orderByRaw("RAND()")->get(),
+                'advertises_bronze' => $fair->advertises()->where('active', '1')->where('location', 'bronze')->orderByRaw("RAND()")->get(),
+            ]]);
+
+    }
 }

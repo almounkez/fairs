@@ -158,7 +158,7 @@
                         @endif
                     </ul>
                     @if(!empty($fairId))
-                    <form class="form-inline" action='{{route("search.global",$fairId)}}' method="get">
+                    <form class="form-inline" action='{{route("search.global",$fairId)}}' method="GET">
                         {{-- @method('POST')
                         @csrf --}}
                         <input class="form-control @if(app()->getLocale() == 'ar') ml-sm-2 @else mr-sm-2 @endif"
@@ -174,8 +174,7 @@
             {{-- Marquee --}}
             @if(!empty($marquees))
             <div>
-                <marquee class="bg-primary text-white" behavior="scroll" direction=@if (app()->getLocale()
-                    =='ar')"right" @else "left" @endif>
+                <marquee class="bg-primary text-white" behavior="scroll" direction=@if (app()->getLocale() =='ar')"right" @else "left" @endif>
                     @foreach ($marquees as $marquee)
                     <span> :: </span>
                     @if (app()->getLocale() == 'ar')
@@ -201,7 +200,7 @@
 
             @if(!empty($g_advertises))
 
-            @if(Auth::user()->role=='admin'&&!empty($fairId))
+            @if(Auth::check()&&Auth::user()->role=='admin'&&!empty($fairId))
             {{-- advertises --}}
             <a class="btn btn-sm btn-outline-primary" href="{{ route('advertise.create',$fairId) }}">
                 <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
