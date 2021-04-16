@@ -23,11 +23,11 @@
     <div class="col-md-3 px-1 mb-2">
         <ul class="list-group h5 text-center">
             <i class="list-group-item list-group-item-action active">
-                @lang('Categories')
+                {{__('Categories')}}
             </i>
             @foreach($results['categories'] as $category)
             <a href="{{route('search.suites.cat',['fair'=>$fairId,'category'=>$category])}}"
-               class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark @endif">
+                class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark @endif">
                 @if (config('app.locale') == 'ar')
                 {{ $category->name_ar }}
                 @else
@@ -41,7 +41,7 @@
 
 
 
-    <div class="col-md-9">
+    <div class="col">
         @if(!empty($results['suites'])&& count($results['suites'])!=0)
         <div class="row">
             <div class="col-12">
@@ -77,34 +77,42 @@
 
         @if(!empty($results['products'])&& count($results['products'])!=0)
         <div class="row">
-            <div class="col-12">
-                <div class="card-header text-white bg-primary">
-                    {{__('products')}}
+            <div class="col-12 mb-2">
+                <div class="card-header text-white bg-primary" >
+                    <a>{{__('Products')}}</a>
                 </div>
             </div>
             <div class="col-12">
-                <div class="row mx-1">
+                {{-- <div class="row mx-1"> --}}
+                <div class="card-columns">
                     @foreach($results['products'] as $product)
                     {{-- {{dd($product)}} --}}
-                    <div class="col-md-4 px-2 my-2">
-                        <div class="card h-100">
-                            <img class="card-img-top" src="{{asset('storage/products/'.$product->imgfile)}}" alt="">
-                            <div class="card-body pb-2">
-                                @if (config('app.locale') == 'ar')
-                                <h5 class="card-title">{{$product->name_ar}}</h5>
-                                <h6><a href="{{route('suite.show',$product->suite)}}">{{$product->suite->name_ar}}</a> __ <a href="#">{{$product->category->name_ar}}</a>
-                                </h6>
-                                <p class="card-text">{{$product->descp_ar}}</p>
-                                @else
-                                <h5 class="card-title">{{$product->name_en}}</h5>
-                                <h6><a href="{{route('suite.show',$product->suite)}}">{{$product->suite->name_en}}</a> __ <a href="#">{{$product->category->name_en}}</a>
-                                </h6>
-                                <p class="card-text">{{$product->descp_en}}</p>
-                                @endif
-                            </div>
+                    {{-- <div class="col-md-4 my-1"> --}}
+                    <div class="card h-100">
+                        <a href="{{route('product.show',$product)}}" target="_blank">
+                            <img src="{{asset('storage/products/'.$product->imgfile)}}" class="card-img-top"
+                                @if(config('app.locale')=='ar' ) alt="{{$product->descp_ar}}" @else
+                                alt="{{$product->descp_en}}" @endif>
+                        </a>
+                        <div class="card-body">
+                            @if (config('app.locale') == 'ar')
+                            <h5 class="card-title">{{$product->name_ar}}</h5>
+                            <p class="card-text">{{$product->descp_ar}}</p>
+                            <span class="mx-1 badge badge-primary">{{$product->suite->name_ar}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->category->name_ar}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_ar}}</span>
+                            @else
+                            <h5 class="card-title">{{$product->name_en}}</h5>
+                            <p class="card-text">{{$product->descp_en}}</p>
+                            <span class="mx-1 badge badge-primary">{{$product->suite->name_en}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->category->name_en}}</span>
+                            <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_en}}</span>
                         </div>
+                        @endif
                     </div>
-                    @endforeach</div>
+                    {{-- </div> --}}
+                    @endforeach
+                </div>
             </div>
         </div>
         @endif

@@ -119,33 +119,28 @@
         @endauth
         <div class="row">
             @foreach ($products as $product)
-            <div class="col-md-3">
-                <div class="thumbnail">
-                    <a href="{{asset('storage/products/'.$product->imgfile)}}">
-                        <img src="{{asset('storage/products/'.$product->imgfile)}}" class="figure-img img-fluid rounded"
-                            alt="A generic square placeholder image with rounded corners in a figure.">
-                        <div class="row mx-2 caption">
-
-                            @if (config('app.locale') == 'ar')
-                            <div class="col-4">
-                                <span class="mx-1 badge badge-secondary">{{$product->name_ar}}</span>
-                            </div>
-                            <div class="col">
-                            <span class="mx-1 badge badge-secondary">{{$product->suite->name_ar}}</span>
-                            <span class="mx-1 badge badge-secondary">{{$product->category->name_ar}}</span>
-                            <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_ar}}</span>
-                            </div>
-                            @else
-                            <div class="col-4">
-                            <span class="mx-1 badge badge-secondary">{{$product->name_en}}</span>
-                            </div><div class="col">
-                            <span class="mx-1 badge badge-secondary">{{$product->suite->name_en}}</span>
-                            <span class="mx-1 badge badge-secondary">{{$product->category->name_en}}</span>
-                            <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_en}}</span></div>
-                            @endif
-
-                        </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a href="{{route('product.show',$product)}}" target="_blank">
+                        <img src="{{asset('storage/products/'.$product->imgfile)}}" class="card-img-top"
+                            @if(config('app.locale')=='ar' ) alt="{{$product->descp_ar}}" @else
+                            alt="{{$product->descp_en}}" @endif>
                     </a>
+                    <div class="card-body">
+                        @if (config('app.locale') == 'ar')
+                        <h5 class="card-title">{{$product->name_ar}}</h5>
+                        <p class="card-text">{{$product->descp_ar}}</p>
+                        <span class="mx-1 badge badge-primary">{{$product->suite->name_ar}}</span>
+                        <span class="mx-1 badge badge-secondary">{{$product->category->name_ar}}</span>
+                        <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_ar}}</span>
+                        @else
+                        <h5 class="card-title">{{$product->name_en}}</h5>
+                        <p class="card-text">{{$product->descp_en}}</p>
+                        <span class="mx-1 badge badge-primary">{{$product->suite->name_en}}</span>
+                        <span class="mx-1 badge badge-secondary">{{$product->category->name_en}}</span>
+                        <span class="mx-1 badge badge-secondary">{{$product->subcategory->name_en}}</span>
+                        @endif
+                    </div>
                 </div>
             </div>
             @endforeach

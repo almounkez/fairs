@@ -78,7 +78,10 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
-        return view('product.show', compact('product'));
+        // return view('product.show', compact('product'));
+        $product->hits+=1;
+        $product->save();
+        return redirect(asset('storage/products/'.$product->imgfile));
 
     }
 
