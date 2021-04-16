@@ -26,13 +26,13 @@
                                 <label for="name_ar">{{ __('Arabic Name') }}:</label>
                             </div>
                             <div class="col-4"><input class="form-control" type="text" name="name_ar"
-                                value=@if (!empty($fair) && old('name_ar', $fair->name_ar)) {{ $fair->name_ar }}@else{{old('name_ar')}} @endif>
+                                value="@if(!empty($fair)) {{ $fair->name_ar }}@else{{old('name_ar')}} @endif" required>
                             </div>
                             <div class="col-md-2 col-form-label text-md-left">
-                                <label for="name_ar">{{ __('English Name') }}:</label>
+                                <label for="name_en">{{ __('English Name') }}:</label>
                             </div>
                             <div class="col-4"><input class="form-control" type="text" name="name_en"
-                                value=@if (!empty($fair) && old('name_en', $fair->name_en)) {{ $fair->name_en }}@else{{old('name_en')}} @endif>
+                                value="@if (!empty($fair)){{ $fair->name_en }}@else{{old('name_en')}} @endif" required>
                             </div>
                         </div>
                         <div class="row">
@@ -41,13 +41,13 @@
                             </div>
                             <div class="col-4">
                                 <input class="form-control" type="date" name="start_date"
-                                value=@if (!empty($fair) && old('start_date', $fair->start_date)) {{ $fair->start_date }}@else{{old('start_date')}} @endif>
+                                value="@if(!empty($fair)) {{ $fair->start_date }}@else{{old('start_date')}} @endif">
                             </div>
                             <div class="col-md-2 col-form-label text-md-left">
                                 <label for="end_date">{{ __('End Date') }}:</label>
                             </div>
                             <div class="col-4"><input class="form-control" type="date" name="end_date"
-                                value=@if (!empty($fair) && old('end_date', $fair->end_date)) {{ $fair->end_date }}@else{{old('end_date')}} @endif>
+                                value="@if(!empty($fair)) {{ $fair->end_date }}@else{{old('end_date')}} @endif">
                             </div>
                         </div>
                         <div class="row">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-8">
                                 <input type="checkbox" class="form-check" name="active"
-                                value="1" @if (!empty($fair) && old('active', $fair->active)) checked @else{{old('active')}} @endif>
+                                value="1" @if (!empty($fair) && $fair->active) checked @else{{old('active')}} @endif>
                             </div>
                         </div>
                         <div class="row">
