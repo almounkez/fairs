@@ -27,7 +27,9 @@
             .dropdown-item {
                 text-align: right;
             }
-
+            h4,h5,p,a,label{
+                text-align: right;
+            }
         </style>
         @endif
         @yield('style')
@@ -38,7 +40,7 @@
         <div id="app">
             {{-- top navbar --}}
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-2">
                 <a class="navbar-brand" href="{{route('home')}}">{{ config('app.name', 'Laravel') }}</a>
                 <div class="navbar-collapse collapse show" id="navbarColor01" style="">
                     <ul class="navbar-nav @if(app()->getLocale() == 'ar') ml-auto text-right @else mr-auto @endif">

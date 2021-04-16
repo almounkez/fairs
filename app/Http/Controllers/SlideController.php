@@ -140,7 +140,13 @@ class SlideController extends Controller
     {
         //
         // dd($slide);
-        $categories = $slide->fair->categories??$slide->suite->fair->categories;
+
+        $categories = $slide->fair->categories ?? $slide->suite->fair->categories;
+        if ($slide->suite_id != null) {
+            return view('slide.crupd', ['slide' => $slide,'categories'=>  $categories, 'suiteId' => $slide->suite_id]);
+        } else if ($slide->fair_id != null) {
+            return view('slide.crupd', ['slide' => $slide,'categories'=>  $categories, 'fairId' => $slide->fair_id]);
+        }
         return view('slide.crupd', compact('slide', 'categories'));
 
     }
@@ -167,8 +173,8 @@ class SlideController extends Controller
             $imagefile->move($imagefilepath, $imagename);
 
             if ($slide->imgfile != null) {
-                if (Storage::exists($imagefilepath . $slide->imgfile)){
-                File::delete($imagefilepath . $slide->imgfile);}
+                if (Storage::exists($imagefilepath . $slide->imgfile)) {
+                    File::delete($imagefilepath . $slide->imgfile);}
             }}
 
         $slide->update($request->all());
@@ -181,7 +187,6 @@ class SlideController extends Controller
         }
 
         $slide->save();
-
 
         if ($slide->suite_id != null) {
             return redirect(route('suite.slides', $slide->suite_id));
@@ -205,8 +210,8 @@ class SlideController extends Controller
 
         $imagefilepath = public_path('storage/slides/');
         if ($slide->imgfile != null) {
-                     if (Storage::exists($imagefilepath . $slide->imgfile)){
-            File::delete($imagefilepath . $slide->imgfile);}
+            if (Storage::exists($imagefilepath . $slide->imgfile)) {
+                File::delete($imagefilepath . $slide->imgfile);}
         }
         $slide->delete();
 

@@ -89,6 +89,8 @@ class FairController extends Controller
     public function show(Fair $fair)
     {
         //
+        if(!$fair->active)
+            return redirect(route('home'));
         $fair->hits += 1;
         $fair->save();
         return view('fair.show', [

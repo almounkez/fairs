@@ -109,7 +109,14 @@ class MarqueeController extends Controller
     public function edit(Marquee $marquee)
     {
         //
-        return view('marquee.crupd', compact('marquee'));
+
+        if ($marquee->suite_id != null) {
+            return view('marquee.crupd', ['marquee' => $marquee, 'suiteId' => $marquee->suite_id]);
+        }
+        else if($marquee->fair_id != null) {
+            return view('marquee.crupd', ['marquee' => $marquee, 'fairId' => $marquee->fair_id]);
+        }
+        return view('marquee.crupd', ['marquee' => $marquee]);
     }
 
     /**

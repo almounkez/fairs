@@ -23,8 +23,7 @@
                     @endif
                     @endauth
                     {{-- @endAdmin --}}
-                    @for ($i = 0; $i < count($slides); $i++)
-                    <li data-target="#masterSlides" data-slide-to="{{ $i }}"
+                    @for ($i = 0; $i < count($slides); $i++) <li data-target="#masterSlides" data-slide-to="{{ $i }}"
                         @if ($i==0) class="active" @endif>
                         </li>
                         @endfor
@@ -67,11 +66,11 @@
 
             <a href="{{route('search.suites.cat',['fair' => $fairId,'category'=>$category])}}"
                 class="list-group-item list-group-item-action @if(!empty($catId) && $catId==$category->id)list-group-item-dark  @endif">
-                    @if (config('app.locale') == 'ar')
-                    {{ $category->name_ar }}
-                    @else
-                    {{ $category->name_en }}
-                    @endif
+                @if (config('app.locale') == 'ar')
+                {{ $category->name_ar }}
+                @else
+                {{ $category->name_en }}
+                @endif
             </a>
             @endforeach
         </ul>
@@ -81,22 +80,23 @@
         <div class="row mb-2">
             @foreach ($subcategories as $subcategory)
             {{-- <div class="col mb-2"> --}}
-                <a class="btn btn-sm m-1 @if(!empty($subId) && $subId==$subcategory->id)btn-primary @else btn-secondary @endif"
-                    href="{{route('search.suites.subcat',['fair' => $fairId,'category'=>$catId,'subcategory'=>$subcategory])}}">
-                    @if (config('app.locale') == 'ar')
-                    {{ $subcategory->name_ar }}
-                    @else
-                    {{ $subcategory->name_en }}
-                    @endif
-                </a>
+            <a class="btn btn-sm m-1 @if(!empty($subId) && $subId==$subcategory->id)btn-primary @else btn-secondary @endif"
+                href="{{route('search.suites.subcat',['fair' => $fairId,'category'=>$catId,'subcategory'=>$subcategory])}}">
+                @if (config('app.locale') == 'ar')
+                {{ $subcategory->name_ar }}
+                @else
+                {{ $subcategory->name_en }}
+                @endif
+            </a>
             {{-- </div> --}}
             @endforeach
             @auth
             @if(auth()->user()->role=='admin')
 
-                <a class="btn btn-sm btn-outline-secondary rounded-circle m-1" href="{{route('subcategory.create',$fairId)}}">
-                    <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
-                </a>
+            <a class="btn btn-sm btn-outline-secondary rounded-circle m-1"
+                href="{{route('subcategory.create',$fairId)}}">
+                <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+            </a>
 
             @endif
             @endauth
@@ -112,15 +112,23 @@
         @endif
         @endauth
         <div class="row">
-            @foreach ($suites as $suite)
-            <div class="col-md-4">
-                <a href="{{route('suite.show',$suite->id)}}">
-                    <figure class="figure">
-                        <img src="{{asset('storage/suites/'.$suite->logo_en)}}" class="figure-img img-fluid rounded"
-                            alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
-                    </figure>
-                </a>
+            @foreach($suites as $suite)
+            <div class="col-md-4 px-2 my-2">
+                <div class="card h-100">
+                    @if (config('app.locale') == 'ar')
+                    <img class="card-img-top" src="{{asset('storage/suites/'.$suite->logo_ar)}}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0"><a href="{{route('suite.show',$suite)}}">{{$suite->name_ar}}</a>
+                        </h5>
+                    </div>
+                    @else
+                    <img class="card-img-top" src="{{asset('storage/suites/'.$suite->logo_en)}}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0"><a href="{{route('suite.show',$suite)}}">{{$suite->name_en}}</a>
+                        </h5>
+                    </div>
+                    @endif
+                </div>
             </div>
             @endforeach
         </div>

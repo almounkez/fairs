@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $fairs = Fair::where('active', 1)->get();
+        $fairs = Fair::all();
         return view('welcome', compact('fairs'));
     }
 
