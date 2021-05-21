@@ -212,13 +212,13 @@ class SuiteController extends Controller
         if ($suite->logo_ar != null) {
             $logo_arfilepath = public_path('/storage/suites/');
             if (Storage::exists($logo_arfilepath . $suite->logo_ar)){
-            File::delete($logo_arfilepath . $fair->logo_ar);}
+            File::delete($logo_arfilepath . $suite->logo_ar);}
         }
 
         if ($suite->logo_en != null) {
             $logo_enfilepath = public_path('/storage/suites/');
                 if (Storage::exists($logo_enfilepath . $suite->logo_en)){
-            File::delete($logo_enfilepath . $fair->logo_en);}
+            File::delete($logo_enfilepath . $suite->logo_en);}
         }
 
         $suite->delete();
