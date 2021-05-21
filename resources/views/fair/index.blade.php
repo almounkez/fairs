@@ -12,7 +12,7 @@
 
             </div>
             <div class="card-body">
-                <div class="table table-responsive">
+                <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -25,7 +25,7 @@
                                 <th scope="col">{{ __('Arabic Logo') }}</th>
                                 <th scope="col">{{ __('English Logo') }}</th>
                                 <th scope="col">{{ __('hits') }}</th>
-                                <th scope="col" width="150">{{ __('Control') }}</th>
+                                <th scope="col" width="20%">{{ __('Control') }}</th>
                             </tr>
                         </thead>
 
